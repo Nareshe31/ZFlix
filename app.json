@@ -2,13 +2,13 @@
   "expo": {
     "name": "ZFlix",
     "slug": "ZFlix",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/custom-splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0A0608"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,17 +17,19 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "requireFullScreen": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.nareshe31.ZFlix"
+      "package": "com.naresh.ZFlix"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Watch movies online for free and browse torrents for movies and series"
   }
 }

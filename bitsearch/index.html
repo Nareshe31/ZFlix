@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Search Results for tenet | BitSearch</title>
+
+    <meta name="description" content="Bitsearch is #1 Torrent Index ever."/>
+    <noscript id="deferred-styles">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    </noscript>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <link rel="preload" as="image" href="/icons/category-movies.svg">
+    <link rel="preload" as="image" href="/icons/category-video.svg">
+    <link rel="preload" as="image" href="/icons/category-software.svg">
+    <link rel="preload" as="image" href="/icons/category-music.svg">
+    <link rel="preload" as="image" href="/icons/category-ebook.svg">
+    <link rel="preload" as="image" href="/icons/category-games.svg">
+    <link rel="preload" as="image" href="/icons/download-torrent.svg">
+    <link rel="preload" as="image" href="/icons/download-magnet.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <!-- Start: Header -->
+    <header>
+        <div class="container r row">
+
+            <!-- Logo -->
+            <div class="col header-links nexp-on-mobile nexp-on-tablet">
+                <a href="/">
+                    <img class="logo-1 show-on-large" src="/bitsearch-logo-navbar.svg" alt="BitSearch" />
+                    <img class="logo-1 hide-on-large" src="/bitsearch-logo-round.svg" alt="BitSearch" />
+                </a>
+            </div>
+
+            <!-- Search form -->
+            <div class="col center-flex nexp-on-desktop nexp-on-mobile">
+                <form action="/search" class="search-form mx-auto autocomplete" id="autocomplete">
+                    <img src="/icons/search.svg" alt="">
+                    <input name="q" class="autocomplete-input" type="text"
+                        placeholder="Search Your Desired Item here..." value="tenet">
+                    <ul class="autocomplete-result-list"></ul>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+
+            <!-- Right links -->
+            <div class="col header-links w3-right-align show-on-large nexp-on-mobile nexp-on-tablet">
+                <a href="#">Categories</a>
+                <a href="#">Sign Up</a>
+                <a href="#" class="login-button">Login</a>
+            </div>
+            <div class="col header-links w3-right-align hide-on-large nexp-on-mobile nexp-on-tablet">
+                <a href="#" class="sidebar-trigger"><img src="/icons/menu.svg" alt="Menu"></a>
+            </div>
+
+        </div>
+    </header>
+    <!-- End: Header -->
+    <div class="sidebar-overlay overlay">
+        <div class="w3-sidebar">
+
+            <br><br><br>
+
+            <div class="collection">
+                <div class="collection-item"><a href="#">Trending</a></div>
+                <div class="collection-item"><a href="#">Latest</a></div>
+                <div class="collection-item"><a href="#">Login</a></div>
+                <div class="collection-item"><a href="#">Sign Up</a></div>
+                <div class="collection-item"><a>Collection Item 05</a></div>
+                <div class="collection-item"><a>Collection Item 06</a></div>
+            </div>
+
+            <div class="w3-bar-item w3-button">
+                <div class="w3-col">
+                    <div class="w3-col s6"></div>
+                    <div class="w3-col s6"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main>
+    <div class="mt-2"></div>
+    <div class="container mt-2">
+        <div class="w3-row">
+
+            <!-- Search results statistics-->
+            <div class="w3-col s12">
+                <div class="w3-bar search-stats">
+
+                    <!-- Left -->
+                    <span class="w3-bar-item">Found <b>945</b> results in 6ms for
+                        <b>tenet</b></span>
+                    <!-- Right -->
+
+                    <div class="w3-bar-item w3-right" style="overflow: auto; max-width: calc(100vw - 60px);">
+                        <div style="display: inline-flex;">
+                            <div><a class="link-1 selected" href="?q&#x3D;tenet&amp;category&#x3D;">All Categories</a></div>
+                            <div><a class="link-1 " href="?q&#x3D;tenet&amp;category&#x3D;1&amp;subcat&#x3D;2">Videos</a></div>
+                            <div><a class="link-1 " href="?q&#x3D;tenet&amp;category&#x3D;Program">Software</a></div>
+                            <div><a class="link-1 " href="?q&#x3D;tenet&amp;category&#x3D;Audio">Music</a></div>
+                            <div><a class="link-1 " href="?q&#x3D;tenet&amp;category&#x3D;Android">Android App</a></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Start: Sort by control -->
+            <div class="w3-col s12 mt-4">
+                <div class="r wrap search-control">
+                    <div class="col">
+                        <h5 class="fw-500">Search Results</h5>
+                    </div>
+                    <div class="col w3-right-align">
+                        <div class="fw-500 inline my-05">
+                            Sort By
+                        </div>
+                        <div class="w3-dropdown-click w3-left-align hover-transparent">
+                            <div class="link-1 primary-bg" style="text-transform: capitalize"> Relevance <img src="icons/arrow-right.svg" alt="" style="margin-left: 4px; transform: rotateZ(90deg) translateX(-2px)"></div>
+                            <div class="w3-dropdown-content w3-bar-block border">
+                                <a href="?q&#x3D;tenet&amp;sort&#x3D;seeders" class="w3-bar-item w3-button">Seeders</a>
+                                <a href="?q&#x3D;tenet&amp;sort&#x3D;leechers" class="w3-bar-item w3-button">Leecher</a>
+                                <a href="?q&#x3D;tenet&amp;sort&#x3D;date" class="w3-bar-item w3-button">Date</a>
+                                <a href="?q&#x3D;tenet&amp;sort&#x3D;size" class="w3-bar-item w3-button">File Size</a>
+                                <div class="divider"></div>
+                                <label for="safety" class="w3-bar-item"><input type="checkbox" id="safety" name="safety" value="2" style="pointer-events: none;" checked> Filter Unsafe</label>
+                            </div>
+                        </div>
+                        <a class="link-1 primary-bg order-by-control" href="?q&#x3D;tenet&amp;order&#x3D;asc"><img src="icons/sort-desc.svg" alt="Order"></a>
+                    </div>
+                </div>
+                <!-- End: Sort by control -->
+
+                <!-- Start: Search results container -->
+                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-1080p-bluray-5-1-yts-mx-af8fc/5fe7bf99af6844174278365a" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI1ZmU3YmY5OWFmNjg0NDE3NDI3ODM2NWEiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.X7kWFlGjCYdlHnBa2_g464UmH3s1Yd1mt2xHgOuTO9c">Tenet (2020) [1080p] [BluRay] [5.1] [YTS.MX]</a></h5>
+                            <div>
+                                <a class="category">Other/Image</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">150.4K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">2.97 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">2K</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">198</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Dec 26, 2020</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-720p-hdrip-900mb-x264-galaxyrg-tgx-e79e8/5fd90895c4f4881c4b512038" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI1ZmQ5MDg5NWM0ZjQ4ODFjNGI1MTIwMzgiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.LCuHhorrgIDdXJ7-uM54zWYB1Hx8eyDbtv20dbi2dSc">Tenet.2020.720p.HDRip.900MB.x264-GalaxyRG[TGx]</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">194K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">942 MB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">848</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">47</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Dec 15, 2020</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-1080p-hdrip-x264-ac3-evo-7b58f/602f4954e055b0b684d877f8" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI2MDJmNDk1NGUwNTViMGI2ODRkODc3ZjgiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.yLSue34401CjSxcw3y6ie_Bx-7KQpaNQnQWhPxnFG7c">Tenet.2020.1080p.HDRip.X264.AC3-EVO</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">70.1K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">4.47 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">529</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">15</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Feb 19, 2021</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/oxtorrent-cc-tenet-2020-imax-truefrench-bdrip-xvid-8a165/600ceeabad77a86fc44fe032" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI2MDBjZWVhYmFkNzdhODZmYzQ0ZmUwMzIiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.ul4_e3xJ_GS0nSLknmxQZDT06kk0BfsZkerJByXXu-Y">[ OxTorrent.cc ] Tenet.2020.IMAX.TRUEFRENCH.BDRip.XviD-EXTREME.avi</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">61.2K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">1.46 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">518</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">11</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Jan 24, 2021</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-v2-hdcam-850mb-c1nem4-x264-sunscreen-tg-51602/5f5155ab87cba1109d9e0c0a" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI1ZjUxNTVhYjg3Y2JhMTEwOWQ5ZTBjMGEiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.B27bgpw5OUB4IW9gZyDsSo3eVBfjpbqJzS_PjEKLzSE">Tenet.2020.V2.HDCAM.850MB.c1nem4.x264-SUNSCREEN[TGx]</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">18.9K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">890 MB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">408</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">100</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Sep 3, 2020</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-2160p-4k-bluray-5-1-yts-mx-5e218/6021e645243a657230175317" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI2MDIxZTY0NTI0M2E2NTcyMzAxNzUzMTciLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.25_4Mahr8CfQkOuXi-thOsJoiDZmIQlXGzkCwgE_lxY">Tenet (2020) [2160p] [4K] [BluRay] [5.1] [YTS.MX]</a></h5>
+                            <div>
+                                <a class="category">Other/Image</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">16.8K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">7.88 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">352</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">76</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Feb 9, 2021</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-bdrip-720p-selezen-mkv-ed186/601e7d08c5b4443d7e03c639" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI2MDFlN2QwOGM1YjQ0NDNkN2UwM2M2MzkiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.UWSw5PluWPirH9r96B4JboNqDaeKie7E1zAIQ3lilJg">Tenet.2020.BDRip.720p.seleZen.mkv</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">2.2K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">9.26 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">265</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">6</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Feb 6, 2021</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-webrip-x264-720p-rus-ukr-mkv-77dc9/5fc61be919b6094386f02012" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI1ZmM2MWJlOTE5YjYwOTQzODZmMDIwMTIiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.vXbEY9YT-cX0Ge8CnRqqIuZH6Z6Szz4TSvQj1Cp2i3g">Tenet.2020.WEBRip.x264.720p.Rus.Ukr.mkv</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">2.4K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">4.24 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">212</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">47</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Dec 1, 2020</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-ts-castellano-www-elitetorrent-se-d9461/5f5f70e387cba1109dadfd00" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI1ZjVmNzBlMzg3Y2JhMTEwOWRhZGZkMDAiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.T_NeguJi06RaHFR9se4IAeEht__eKmOdQW6iI3gqUAE">Tenet [TS][Castellano][wWw.EliteTorrent.SE]</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">6.5K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">1.98 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">250</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">3</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Sep 14, 2020</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-bdrip-1080p-selezen-mkv-b30c2/602fc7b0d1cdfce8f879fbe9" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI2MDJmYzdiMGQxY2RmY2U4Zjg3OWZiZTkiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.uVt6Woz1-9dZ8sKtI2ddMu4HhrgkHuhO5aNLiRnmnDM">Tenet.2020.BDRip.1080p.seleZen.mkv</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">5.1K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">21.3 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">218</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">8</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Feb 19, 2021</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/comando-to-tenet-2020-720p-dual-21ebf/5fea2a4d4c79926653b81e51" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI1ZmVhMmE0ZDRjNzk5MjY2NTNiODFlNTEiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.g19qOQcvUojR16i72K5ay9EG_Kw7RiL0E_llLzkX604">COMANDO.TO - Tenet 2020 [720p] DUAL</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">1.8K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">1.49 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">164</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">53</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Dec 28, 2020</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-hdrip-xvid-ac3-evo-tgx-e80ac/60032326e520ae0da5a3ca0e" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI2MDAzMjMyNmU1MjBhZTBkYTVhM2NhMGUiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.njF-0PPPIt-UcknW1FtuYlVyT8JLoNwZwFw_MBxYonc">Tenet.2020.HDRip.XviD.AC3-EVO[TGx]</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">21.2K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">1.9 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">211</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">4</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Jan 16, 2021</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-1080p-dual-lat-cinecalidad-is-mp4-2967c/60097b946ecb4b21faa94b83" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI2MDA5N2I5NDZlY2I0YjIxZmFhOTRiODMiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.qT7ZPR9GDi45iuy97uaGQHQu3uqK8KsmuVCxBkYEruo">Tenet.2020.1080p-dual-lat-cinecalidad.is.mp4</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">1.2K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">2.58 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">211</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">3</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Jan 21, 2021</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-bdrip-x264-cz-mkv-7dc78/5fded12cdffb38523f579b2e" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI1ZmRlZDEyY2RmZmIzODUyM2Y1NzliMmUiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.D915WW7MJCUGlz1xN6tzEtkO9MoL5AohoU6yOP9zH14">Tenet.2020.BDRip.x264.CZ.mkv</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">192</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">2.03 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">202</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">1</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Dec 20, 2020</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/comando-to-tenet-2020-1080p-dual-93517/5fe0568eeae47063b864039b" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI1ZmUwNTY4ZWVhZTQ3MDYzYjg2NDAzOWIiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.32261IybAffDgCRKW9odcBIdUOQje_IHeBgoqbBEvVU">COMANDO.TO - Tenet 2020 [1080p] DUAL</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">1.9K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">5.55 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">149</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">50</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Dec 21, 2020</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-1080p-hdrip-dd5-1-x-264-evo-tgx-ba648/5fd335a4a2f3e41a0ecc074f" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI1ZmQzMzVhNGEyZjNlNDFhMGVjYzA3NGYiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.KZ5h1-XBg-kOnWpL33S1Zyoj3fH6GY2-JWP1A_AQF9A">Tenet.2020.1080p.HDRip.DD5.1.X.264-EVO[TGx]</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">66K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">2.9 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">184</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">10</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Dec 11, 2020</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-hc-hdcam-xvid-b4nd1t69-68596/5f5818b187cba1109da5639b" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI1ZjU4MThiMTg3Y2JhMTEwOWRhNTYzOWIiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.C1LTwkt4gjosLvjcWgfi7zkHueUoznsS9RmUy2549Kw">Tenet.2020.HC.HDCam.XviD.B4ND1T69</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">56.4K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">1.87 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">154</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">25</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Sep 9, 2020</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-d-web-dlrip-14oomb-avi-81bb2/602ea3281fa3285ec5947eb4" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI2MDJlYTMyODFmYTMyODVlYzU5NDdlYjQiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.MN-26dSC2urdnFHubIidXABUoZGkNlTGCG2GPeEvMUs">Tenet.2020.D.WEB-DLRip.14OOMB.avi</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">850</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">1.48 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">176</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">3</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Feb 18, 2021</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-imax-edition-2020-bdrip-1080p-h-265-rus_ukr_-0a09f/602a8794dbe73009aa0e9b56" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI2MDJhODc5NGRiZTczMDA5YWEwZTliNTYiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.ZWkuXbU9wXI_9Ql1NfLaFPsKcvh6NSjKlbN7ct9dGQg">Tenet [IMAX Edition] (2020) BDRip 1080p H.265 [RUS_UKR_ENG].mkv</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">2.9K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">9.76 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">155</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">8</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">Feb 15, 2021</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->                    <!-- Start: Search Result Element -->
+                    <div class="search-result view-box">
+                        <div class="info">
+                            <h5 class="title w-100 truncate"><a href="/torrents/tenet-2020-1080p-kor-fhdrip-h264-aac-jtc-749e9/6094f67dbd6ae7311a5c66ef" data-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJ2aWV3IiwiaGFzaCI6ImU4YWNjNTAzM2U2OGZkYWJiNzVkNTUwYTM5NTI1ODg2IiwiaWQiOiI2MDk0ZjY3ZGJkNmFlNzMxMWE1YzY2ZWYiLCJpYXQiOjE2Mjg1ODA5MjcsImV4cCI6MTYyODY2NzMyN30.tyF0HJ-uifWlAb1ZUrbRalrir87vMvsIzTAFObjcEFM">테넷 (정식자막) TENET.2020.1080p.KOR.FHDRip.H264.AAC-JTC</a></h5>
+                            <div>
+                                <a class="category">Other/Video</a>
+                                <div class="stats">
+                                    <div><img src="/icons/download.svg" alt="Download" style="transform: translateY(-2px)">2.1K</div>
+                                    <div><img src="/icons/size.svg" alt="Size" style="transform: translateY(-2px)">3.92 GB</div>
+                                    <div><img src="/icons/seeder.svg" alt="Seeder" style="transform: translateY(-2px)"><font color="#0AB49A">133</font></div>
+                                    <div><img src="/icons/leacher.svg" alt="Leecher" style="transform: translateY(-2px)"><font color="#C35257">22</font></div>
+                                    <div><img src="/icons/calendar.svg" alt="Date" style="transform: translateY(-2px)">May 7, 2021</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Download links -->
+                    
+                    </div>
+                    <!-- End: Search Result Element -->            </div>
+            <!-- End: Search results container -->
+
+            <div class="w3-col s12">
+                <!-- Start: Pagination -->
+                <div class="pagination text-right">
+                    <a href="/search?q&#x3D;tenet&amp;page&#x3D;1" class="w3-bar-item disabled dual-image-switch-on-hover"><img src="/icons/arrow-left.svg" alt="prev"><img src="/icons/arrow-left-white.svg" alt="prev"></a>
+                    <a href="/search?q&#x3D;tenet&amp;page&#x3D;1" class="w3-bar-item disabled active">1</a>
+                    <a href="/search?q&#x3D;tenet&amp;page&#x3D;2" class="w3-bar-item">2</a>
+                    <a href="/search?q&#x3D;tenet&amp;page&#x3D;3" class="w3-bar-item">3</a>
+                    <a href="/search?q&#x3D;tenet&amp;page&#x3D;4" class="w3-bar-item">4</a>
+                    <a href="/search?q&#x3D;tenet&amp;page&#x3D;5" class="w3-bar-item">5</a>
+                    <a href="/search?q&#x3D;tenet&amp;page&#x3D;2" class="w3-bar-item dual-image-switch-on-hover"><img src="/icons/arrow-right.svg" alt="next"><img src="/icons/arrow-right-white.svg" alt="next"></a>
+                </div>
+                <!-- End: Pagination -->
+            </div>
+            <input type="hidden" name="pingtoken" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoidG9ycmVudHMiLCJhY3Rpb24iOiJpbXByZXNzaW9ucyIsImhhc2giOiI1MjQwYzAwZjEyYmU4ZWZmZGU5Mjk3Zjc3ZjFhOTYyYiIsImlkcyI6WyI1ZmU3YmY5OWFmNjg0NDE3NDI3ODM2NWEiLCI1ZmQ5MDg5NWM0ZjQ4ODFjNGI1MTIwMzgiLCI2MDJmNDk1NGUwNTViMGI2ODRkODc3ZjgiLCI2MDBjZWVhYmFkNzdhODZmYzQ0ZmUwMzIiLCI1ZjUxNTVhYjg3Y2JhMTEwOWQ5ZTBjMGEiLCI2MDIxZTY0NTI0M2E2NTcyMzAxNzUzMTciLCI2MDFlN2QwOGM1YjQ0NDNkN2UwM2M2MzkiLCI1ZmM2MWJlOTE5YjYwOTQzODZmMDIwMTIiLCI1ZjVmNzBlMzg3Y2JhMTEwOWRhZGZkMDAiLCI2MDJmYzdiMGQxY2RmY2U4Zjg3OWZiZTkiLCI1ZmVhMmE0ZDRjNzk5MjY2NTNiODFlNTEiLCI2MDAzMjMyNmU1MjBhZTBkYTVhM2NhMGUiLCI2MDA5N2I5NDZlY2I0YjIxZmFhOTRiODMiLCI1ZmRlZDEyY2RmZmIzODUyM2Y1NzliMmUiLCI1ZmUwNTY4ZWVhZTQ3MDYzYjg2NDAzOWIiLCI1ZmQzMzVhNGEyZjNlNDFhMGVjYzA3NGYiLCI1ZjU4MThiMTg3Y2JhMTEwOWRhNTYzOWIiLCI2MDJlYTMyODFmYTMyODVlYzU5NDdlYjQiLCI2MDJhODc5NGRiZTczMDA5YWEwZTliNTYiLCI2MDk0ZjY3ZGJkNmFlNzMxMWE1YzY2ZWYiXSwiaWF0IjoxNjI4NTgwOTI3LCJleHAiOjE2Mjg2NjczMjd9.CZ5YTAoxxYXii45aQE8cUX-FWGT6gzmp5mndQsUutzA">
+
+        </div>
+    </div>
+</main>
+    <footer>
+        <div class="container w3-row">
+            <div class="w3-col s12 m6 footer-links">
+                <a href="/about">About</a>
+                <a href="/donate">Donate</a>
+                <a href="/dmca">DMCA</a>
+                <a href="/privacy-policy">Privacy Policy</a>
+            </div>
+            <div class="w3-col s12 m6 copyright">BitSearch © 2021 | All Rights Reserved</div>
+        </div>
+    </footer>
+    <script src="/scripts/autocomplete.min.js"></script>
+    <script src="/scripts/script.js"></script>
+</body>
+<script async defer data-domain="bitsearch.to" src="https://stats.bitsearch.to/js/stats.js"></script>
+</html>
