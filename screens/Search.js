@@ -63,7 +63,7 @@ export default function Search({navigation}) {
     }
     const handleEnter=()=>{
         if(searchQuery===''){
-            Alert.alert('Oops...','Search query is empty',[{text:'Ok'}])
+            // Alert.alert('Oops...','Search query is empty',[{text:'Ok'}])
         }
         else{
             search()

@@ -3,7 +3,6 @@ import {Linking, Modal,StyleSheet, Text, View,StatusBar,SafeAreaView, ScrollView
 import { Link, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator,DrawerItem,DrawerContentScrollView,DrawerItemList } from '@react-navigation/drawer';
 import Popular from './screens/Popular'
 import Movie from './screens/Movie'
 import TvShow from './screens/TvShow'
@@ -52,7 +51,7 @@ const PersonScreen=(props)=>{
     </PersonModalStack.Navigator>
   )
 }
-const Drawer=createDrawerNavigator()
+
 const Tab = createBottomTabNavigator();
 
 const BottomTabScreen=()=>(

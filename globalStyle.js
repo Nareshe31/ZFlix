@@ -99,13 +99,13 @@ export const styles = StyleSheet.create({
   },
   posterTitle:{
       color:colors.lightWhite,
-      fontFamily:'Nunito-Regular',
-      fontSize:20,
+      fontFamily:'Nunito-SemiBold',
+      fontSize:18,
   },
   posterYear:{
       color:colors.lightGray,
       fontFamily:'Nunito-Regular',
-      fontSize:16
+      fontSize:15
   },
   moviePoster:{
       width:(40*windowWidth)/100,
@@ -238,10 +238,16 @@ export const styles = StyleSheet.create({
     marginVertical:10,
     marginHorizontal:15
   },
+  overviewHeader:{
+    fontSize:20,
+    fontFamily:'Nunito-Bold',
+    color:colors.lightWhite,
+    marginBottom:5
+  },
   overviewText:{
     fontFamily:'Nunito-Regular',
     fontSize:18,
-    marginVertical:5,
+    marginBottom:5,
     textAlign:'justify'
   },
   modalPosterContainer:{

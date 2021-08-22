@@ -81,7 +81,8 @@ export default function GenreModal({navigation,route}) {
                     >
                         <Picker.Item color={colors.mainBlackColor} label="Popular" value="popularity.desc" />
                         <Picker.Item color={colors.mainBlackColor} label="Release Date" value="release_date.desc" />
-                        <Picker.Item color={colors.mainBlackColor} label="Rating" value="vote_average.desc" />
+                        <Picker.Item color={colors.mainBlackColor} label="Rating (10-0)" value="vote_average.desc" />
+                        <Picker.Item color={colors.mainBlackColor} label="Rating (0-10)" value="vote_average.asc" />
                         <Picker.Item color={colors.mainBlackColor} label="Revenue" value="revenue.desc" />
                     </Picker>
                 </View>

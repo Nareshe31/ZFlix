@@ -146,13 +146,13 @@ export default function TvShowModal({navigation,route}){
                             </Text>
                         </View>
 
-                        {tvShowData.first_air_date!==''? 
+                        {tvShowData.first_air_date? 
                             <View style={styles.movieTextContainer}>
                                 <Text style={styles.movieText}>First episode date: {months[Number(tvShowData.first_air_date.slice(5,7))-1]} {tvShowData.first_air_date.slice(8,10)}, {tvShowData.first_air_date.slice(0,4)}</Text>
                             </View>
                             :null
                         }
-                        {tvShowData.last_air_date!==''? 
+                        {tvShowData.last_air_date? 
                             <View style={styles.movieTextContainer}>
                                 <Text style={styles.movieText}>Last episode date: {months[Number(tvShowData.last_air_date.slice(5,7))-1]} {tvShowData.last_air_date.slice(8,10)}, {tvShowData.last_air_date.slice(0,4)}</Text>
                             </View>

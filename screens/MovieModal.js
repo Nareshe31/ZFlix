@@ -172,7 +172,7 @@ export default function ModalScreen({navigation,route}){
 
                     {movieData.overview?
                         <View style={styles.movieOverview}>
-                            <Text style={styles.heading_1}>Overview</Text>
+                            <Text style={styles.overviewHeader}>Overview</Text>
                             <Text style={[styles.overviewText,styles.text]}>{movieData.overview}</Text>
                         </View>
                     :null}

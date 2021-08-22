@@ -7,7 +7,7 @@ export default function CustomHeader({navigation}) {
     return(
       <View style={styles.header}>
         <View style={styles.headerTextContainer}>
-          <TouchableWithoutFeedback onPress={()=>navigation.push('AboutModal')}>
+          <TouchableWithoutFeedback >
             <Text style={[styles.headerText]}>ZFlix</Text>
           </TouchableWithoutFeedback>
         </View>
