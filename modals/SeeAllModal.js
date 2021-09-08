@@ -57,12 +57,12 @@ export default function SeeAllModal({ navigation, route }) {
     return (
         <View style={[styles.container, { width: '100%', position: 'relative', backgroundColor: colors.mainBlackColor }]} >
             <View style={[s.movieModalHeader]}>
-                <TouchableOpacity style={{ justifyContent: 'center' }} onPress={() => navigation.goBack()}>
                     <View style={s.genreHeader} >
-                        <MaterialIcons name="arrow-back" size={22} color={colors.lightWhite} />
+                        <TouchableOpacity style={{ justifyContent: 'center',paddingLeft:0}} onPress={() => navigation.goBack()}>
+                            <MaterialIcons name="arrow-back" size={22} color={colors.lightWhite} />
+                        </TouchableOpacity>
                         <Text ellipsizeMode={'tail'} numberOfLines={1} style={s.movieModalHeaderText}>{title}</Text>
                     </View>
-                </TouchableOpacity>
             </View>
 
             {isLoading ?
@@ -98,11 +98,12 @@ export default function SeeAllModal({ navigation, route }) {
                             <View style={[s.movieWholePosterContainer]}>
                                 <TouchableOpacity 
                                     onPress={() => (item.media_type === 'movie' || movieIds.includes(id)) ? 
-                                                    navigation.push('Modal', { screen: 'MovieModal', params: { id: item.id }, key: Math.round(Math.random() * 10000000) }) 
+                                                    navigation.push('Modal', { screen: 'MovieModal', params: { id: item.id ,release_date:item.release_date,title:item.title}, key: Math.round(Math.random() * 10000000) }) 
                                                     : 
                                                     (item.media_type === 'tv' || tvIds.includes(id)?
-                                                        navigation.push('TvShowModal', { screen: 'TvModal', params: { id: item.id }, key: Math.round(Math.random() * 10000000) })
-                                                        :null)
+                                                        navigation.push('TvShowModal', { screen: 'TvModal', params: { id: item.id,name:item.name,first_air_date:item.first_air_date }, key: Math.round(Math.random() * 10000000) })
+                                                        :
+                                                        navigation.push('PersonModal',{screen:'PersonScreen',params:{id:item.id,name:item.name},key: Math.round( Math.random() * 10000000 )}))
                                                 }>
                                     <View style={s.moviePosterContainer}>
                                             {item.profile_path || item.poster_path?
@@ -115,8 +116,8 @@ export default function SeeAllModal({ navigation, route }) {
                                 {
                                     item.media_type === 'movie' || movieIds.includes(id) ?
                                         (<View style={s.posterDetail}>
-                                            <Text ellipsizeMode={'tail'} numberOfLines={1} style={s.posterTitle}>{item.title}</Text>
-                                            {item.release_date ? <Text style={s.posterYear}>{months[Number(item.release_date.slice(5, 7)) - 1]} {item.release_date.slice(8, 10)}, {item.release_date.slice(0, 4)}</Text> : null}
+                                            <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.title}</Text>
+                                            {item.release_date ? <Text style={styles.posterYear}>{months[Number(item.release_date.slice(5, 7)) - 1]} {item.release_date.slice(8, 10)}, {item.release_date.slice(0, 4)}</Text> : null}
                                         </View>)
                                         :
                                         item.media_type === 'tv' || tvIds.includes(id)?
@@ -158,7 +159,7 @@ export default function SeeAllModal({ navigation, route }) {
 const s = StyleSheet.create({
     moviePoster: {
         width: '100%',
-        height: 225,
+        height: (26*windowHeight)/100,
         borderRadius: 10,
     },
     moviePosterContainer: {
@@ -190,10 +191,11 @@ const s = StyleSheet.create({
 
     },
     movieWholePosterContainer: {
-        width: (44 * windowWidth) / 100,
+        width: (42 * windowWidth) / 100,
         position: 'relative',
-        marginVertical: 15,
-        marginHorizontal: (2 * windowWidth) / 100
+        marginBottom: 20,
+        marginTop:8,
+        marginHorizontal: (3 * windowWidth) / 100
     },
     posterDetail: {
         marginVertical: 8,

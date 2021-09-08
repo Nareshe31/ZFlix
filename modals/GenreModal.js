@@ -64,17 +64,16 @@ export default function GenreModal({navigation,route}) {
     return(
         <View style={[styles.container,{width:'100%',position:'relative',backgroundColor:colors.mainBlackColor}]} >
             <View style={[s.movieModalHeader]}>
-                <TouchableOpacity style={{justifyContent:'center'}} onPress={()=>navigation.goBack()}>
-                    <View style={s.genreHeader} >
+                <View style={s.genreHeader} >
+                    <TouchableOpacity onPress={()=>navigation.goBack()}>
                         <MaterialIcons name="arrow-back" size={22} color={colors.lightWhite} /> 
-                        <Text ellipsizeMode={'tail'} numberOfLines={1} style={s.movieModalHeaderText}>{genreName}</Text>
-                    </View>
-                </TouchableOpacity>
-
+                    </TouchableOpacity>
+                    <Text ellipsizeMode={'tail'} numberOfLines={1} style={s.movieModalHeaderText}>{genreName}</Text>
+                </View>
                 <View style={s.genreFilter}>
                     <Picker
                         selectedValue={filterValue}
-                        style={{ height: 50, width: 150,color:colors.lightWhite}}
+                        style={{ height: 50, width: 150,color:colors.lightWhite,fontSize:18}}
                         onValueChange={(itemValue, itemIndex) => setFilterValue(itemValue)}
                         mode='dropdown'
                         dropdownIconColor={colors.lightWhite}
@@ -118,7 +117,9 @@ export default function GenreModal({navigation,route}) {
                         contentContainerStyle={{alignItems:'center'}}
                         renderItem={({item})=>(
                             <View style={[s.movieWholePosterContainer]}>
-                                <TouchableOpacity onPress={()=> type==='movie'?navigation.push('Modal',{screen:'MovieModal',params:{id:item.id},key: Math.round( Math.random() * 10000000 )}):navigation.push('TvShowModal',{screen:'TvModal',params:{id:item.id},key: Math.round( Math.random() * 10000000 )})} >
+                                <TouchableOpacity onPress={()=> type==='movie'?navigation.push('Modal',{screen:'MovieModal',params:{id:item.id,release_date:item.release_date,title:item.title},key: Math.round( Math.random() * 10000000 )})
+                                        :navigation.push('TvShowModal',{screen:'TvModal',params:{id:item.id,name:item.name,first_air_date:item.first_air_date},key: Math.round( Math.random() * 10000000 )})} 
+                                        >
                                     <View style={s.moviePosterContainer}>
                                         {item.poster_path?
                                             <Image style={s.moviePoster} source={{uri:IMAGE_PATH+item.poster_path}} />
@@ -129,8 +130,8 @@ export default function GenreModal({navigation,route}) {
                                 </TouchableOpacity>
                                 {type==='movie'?
                                     (<View style={s.posterDetail}>
-                                        <Text ellipsizeMode={'tail'} numberOfLines={1} style={s.posterTitle}>{item.title}</Text>
-                                        {item.release_date?<Text style={s.posterYear}>{months[Number(item.release_date.slice(5,7))-1]} {item.release_date.slice(8,10)}, {item.release_date.slice(0,4)}</Text> :null}
+                                        <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.title}</Text>
+                                        {item.release_date?<Text style={styles.posterYear}>{months[Number(item.release_date.slice(5,7))-1]} {item.release_date.slice(8,10)}, {item.release_date.slice(0,4)}</Text> :null}
                                     </View>)
                                     :
                                     (<View style={styles.posterDetail}>
@@ -198,7 +199,8 @@ const s=StyleSheet.create({
     movieWholePosterContainer:{
         width:(42*windowWidth)/100,
         position:'relative',
-        marginVertical:15,
+        marginBottom:20,
+        marginTop:8,
         marginHorizontal:(3*windowWidth)/100
     },
     posterDetail:{
@@ -207,7 +209,7 @@ const s=StyleSheet.create({
     posterTitle:{
         color:colors.lightWhite,
         fontFamily:'Nunito-SemiBold',
-        fontSize:18,
+        fontSize:16,
     },
     posterYear:{
         color:colors.lightGray,

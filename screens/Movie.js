@@ -75,7 +75,7 @@ export default function MovieScreen({ navigation }) {
                 'Do you want to exit?',
                 [
                     { text: 'Yes', onPress: () => BackHandler.exitApp() },
-                    { text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                    { text: 'No', onPress: () => null, style: 'cancel' },
                 ],
                 { cancelable: false });
             return true
@@ -124,7 +124,7 @@ export default function MovieScreen({ navigation }) {
             <CustomHeader navigation={navigation} />
             <ScrollView
                 style={[styles.container, s.mainBackground]}
-                contentContainerStyle={{ paddingBottom: 50 }}
+                contentContainerStyle={{ paddingBottom: 40 }}
                 disableScrollViewPanResponder={true}
                 refreshControl={<RefreshControl onRefresh={getAllData} refreshing={refreshing} />}
             >
@@ -148,7 +148,7 @@ export default function MovieScreen({ navigation }) {
                                 keyExtractor={(item) => item.id.toString()}
                                 renderItem={({ item }) => (
                                     <View style={styles.movieWholePosterContainer}>
-                                        <TouchableOpacity onPress={() => navigation.push('Modal', { screen: 'MovieModal', params: { id: item.id }, key: Math.round(Math.random() * 10000000) })}>
+                                        <TouchableOpacity onPress={() => navigation.push('Modal', { screen: 'MovieModal', params: { id: item.id,release_date:item.release_date,title:item.title }, key: Math.round(Math.random() * 10000000) })}>
                                             <View key={item.id} style={styles.moviePosterContainer}>
                                                 <Image resizeMode='cover' style={styles.moviePoster} source={{ uri: IMAGE_PATH + item.poster_path }}></Image>
                                             </View>
@@ -181,7 +181,7 @@ export default function MovieScreen({ navigation }) {
                                 keyExtractor={(item) => item.id.toString()}
                                 renderItem={({ item }) => (
                                     <View style={styles.movieWholePosterContainer}>
-                                        <TouchableOpacity onPress={() => navigation.push('Modal', { screen: 'MovieModal', params: { id: item.id }, key: Math.round(Math.random() * 10000000) })}>
+                                        <TouchableOpacity onPress={() => navigation.push('Modal', { screen: 'MovieModal', params: { id: item.id,release_date:item.release_date,title:item.title }, key: Math.round(Math.random() * 10000000) })}>
                                             <View key={item.id} style={styles.moviePosterContainer}>
                                                 <Image resizeMode='cover' style={styles.moviePoster} source={{ uri: IMAGE_PATH + item.poster_path }}></Image>
                                             </View>
@@ -216,7 +216,7 @@ export default function MovieScreen({ navigation }) {
                                 renderItem={({ item }) =>
                                 (
                                     <View style={styles.movieWholePosterContainer}>
-                                        <TouchableOpacity onPress={() => navigation.push('Modal', { screen: 'MovieModal', params: { id: item.id }, key: Math.round(Math.random() * 10000000) })}>
+                                        <TouchableOpacity onPress={() => navigation.push('Modal', { screen: 'MovieModal', params: { id: item.id,release_date:item.release_date,title:item.title }, key: Math.round(Math.random() * 10000000) })}>
                                             <View key={item.id} style={styles.moviePosterContainer}>
                                                 <Image resizeMode='cover' style={styles.moviePoster} source={{ uri:IMAGE_PATH + item.poster_path }}></Image>
                                             </View>

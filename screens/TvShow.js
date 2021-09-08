@@ -74,7 +74,7 @@ export default function TvShowScreen({ navigation }) {
                 'Do you want to exit?',
                 [
                     { text: 'Yes', onPress: () => BackHandler.exitApp() },
-                    { text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                    { text: 'No', onPress: () => null, style: 'cancel' },
                 ],
                 { cancelable: false });
             return true
@@ -122,7 +122,7 @@ export default function TvShowScreen({ navigation }) {
             <CustomHeader navigation={navigation} />
             <ScrollView
                 style={[styles.container, s.mainBackground]}
-                contentContainerStyle={{ paddingBottom: 50 }}
+                contentContainerStyle={{ paddingBottom: 40 }}
                 refreshControl={<RefreshControl onRefresh={getAllData} refreshing={refreshing} />}
             >
                 <View style={styles.popularContainer}>
@@ -146,7 +146,7 @@ export default function TvShowScreen({ navigation }) {
                                 keyExtractor={(item) => item.id.toString()}
                                 renderItem={({ item }) => (
                                     <View style={styles.movieWholePosterContainer}>
-                                        <TouchableOpacity onPress={() => navigation.push('TvShowModal', { screen: 'TvModal', params: { id: item.id }, key: Math.round(Math.random() * 10000000) })}>
+                                        <TouchableOpacity onPress={() => navigation.push('TvShowModal', { screen: 'TvModal', params: { id: item.id ,name:item.name,first_air_date:item.first_air_date}, key: Math.round(Math.random() * 10000000) })}>
                                             <View key={item.id} style={styles.moviePosterContainer}>
                                                 <Image resizeMode='cover' style={styles.moviePoster} source={{ uri: 'https://image.tmdb.org/t/p/original' + item.poster_path }}></Image>
                                             </View>
@@ -180,7 +180,7 @@ export default function TvShowScreen({ navigation }) {
                                 keyExtractor={(item) => item.id.toString()}
                                 renderItem={({ item }) => (
                                     <View style={styles.movieWholePosterContainer}>
-                                        <TouchableOpacity onPress={() => navigation.push('TvShowModal', { screen: 'TvModal', params: { id: item.id }, key: Math.round(Math.random() * 10000000) })}>
+                                        <TouchableOpacity onPress={() => navigation.push('TvShowModal', { screen: 'TvModal', params: { id: item.id,name:item.name,first_air_date:item.first_air_date }, key: Math.round(Math.random() * 10000000) })}>
                                             <View key={item.id} style={styles.moviePosterContainer}>
                                                 <Image resizeMode='cover' style={styles.moviePoster} source={{ uri: 'https://image.tmdb.org/t/p/original' + item.poster_path }}></Image>
                                             </View>
@@ -215,7 +215,7 @@ export default function TvShowScreen({ navigation }) {
                                 renderItem={({ item }) =>
                                 (
                                     <View style={styles.movieWholePosterContainer}>
-                                        <TouchableOpacity onPress={() => navigation.push('TvShowModal', { screen: 'TvModal', params: { id: item.id }, key: Math.round(Math.random() * 10000000) })}>
+                                        <TouchableOpacity onPress={() => navigation.push('TvShowModal', { screen: 'TvModal', params: { id: item.id ,name:item.name,first_air_date:item.first_air_date}, key: Math.round(Math.random() * 10000000) })}>
                                             <View key={item.id} style={styles.moviePosterContainer}>
                                                 <Image resizeMode='cover' style={styles.moviePoster} source={{ uri: 'https://image.tmdb.org/t/p/original' + item.poster_path }}></Image>
                                             </View>

@@ -27,7 +27,7 @@ export default function Search({navigation}) {
                 'Do you want to exit?',
                 [
                     { text: 'Yes', onPress: () => BackHandler.exitApp() },
-                    { text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                    { text: 'No', onPress: () => null, style: 'cancel' },
                 ],
                 { cancelable: false });
             return true
@@ -71,15 +71,14 @@ export default function Search({navigation}) {
     }
     return(
         <View style={[styles.container,{backgroundColor:colors.mainBlackColor}]}>
-            <CustomHeader navigation={navigation}  />
-            
+            {/* <CustomHeader navigation={navigation}  /> */}
             <ScrollView  
-                contentContainerStyle={{paddingBottom:50}}
+                contentContainerStyle={{paddingBottom:40,paddingTop:10}}
                 style={[styles.container,{backgroundColor:colors.mainBlackColor}]}>
                 <View style={s.searchContainer}>
                     <TextInput 
                         placeholder='Search by title, actor...' 
-                        placeholderTextColor={colors.lightWhite} 
+                        placeholderTextColor={colors.lighterWhite} 
                         style={s.searchInput}
                         onChangeText={setSearchQuery}
                         value={searchQuery}
@@ -91,7 +90,7 @@ export default function Search({navigation}) {
                         handleEnter()
                     }} >
                         <View style={s.searchIcon}>
-                            <MaterialIcons name="search" size={28} color={colors.lightWhite} />
+                            <MaterialIcons name="search" size={28} color={colors.lighterWhite} />
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -165,7 +164,7 @@ const s=StyleSheet.create({
         color:colors.lightWhite,
         fontSize:18,
         fontFamily:'Nunito-Regular',
-        width:'85%'
+        width:'85%',
     },
     genreContainer:{
         marginVertical:15,
@@ -188,10 +187,10 @@ const s=StyleSheet.create({
         justifyContent:'center',
     },
     genreBox:{
-        paddingVertical:10,
-        paddingHorizontal:16,
+        paddingVertical:8,
+        paddingHorizontal:12,
         borderWidth:1,
-        borderColor:colors.lightGray,
+        borderColor:colors.lighterWhite,
         alignSelf:'flex-start',
         marginVertical:'6%',
         marginHorizontal:'3%',
@@ -208,11 +207,12 @@ const s=StyleSheet.create({
         flexDirection:'row',
         marginHorizontal:'5%',
         marginVertical:10,
-        borderWidth:0.5,
+        borderWidth:0,
         borderColor:colors.lightWhite,
         borderRadius:6,
         width:'90%',
-        position:'relative'
+        position:'relative',
+        backgroundColor:'hsla(0,0%,20%,0.6)'
     },
     searchIcon:{
         alignItems:'center',

@@ -1,28 +1,36 @@
 import React,{useState,useEffect} from 'react';
-import {Linking, Modal,StyleSheet, Text, View,StatusBar,SafeAreaView, ScrollView,ActivityIndicator, Pressable} from 'react-native';
-import { Link, NavigationContainer } from '@react-navigation/native';
+import {Linking, Modal,StyleSheet, Text, View,StatusBar,SafeAreaView,Image, ScrollView,ActivityIndicator, Pressable} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Popular from './screens/Popular'
 import Movie from './screens/Movie'
 import TvShow from './screens/TvShow'
-import MovieModal from './screens/MovieModal'
-import TvShowModal from './screens/TvShowModal'
-import SeeAllModal from './screens/SeeAllModal'
+import MovieModal from './modals/MovieModal'
+import TvShowModal from './modals/TvShowModal'
+import SeeAllModal from './modals/SeeAllModal'
 import { styles,colors} from "./globalStyle";
 import * as Font from 'expo-font'
 import AppLoading from 'expo-app-loading';
-import { MaterialIcons,Ionicons } from '@expo/vector-icons';
+import { MaterialIcons,Ionicons,MaterialCommunityIcons } from '@expo/vector-icons';
 import YoutubeScreen from './screens/YoutubeScreen';
 import Search from './screens/Search';
-import GenreModal from './screens/GenreModal';
+import GenreModal from './modals/GenreModal';
 import SearchResult from './screens/SearchResult';
-import TorrentModal from './screens/TorrentModal';
-import PersonModal from './screens/PersonModal';
+import TorrentModal from './modals/TorrentModal';
+import PersonModal from './modals/PersonModal';
 import Constants from "expo-constants"
 import axios from 'axios';
 import { URLs } from './globalUtils';
-import AboutModal from './screens/AboutModal';
+import AboutModal from './modals/AboutModal';
+import Login from './screens/Login'
+import authReducer from './redux/auth'
+import {createStore} from 'redux'
+import { Provider } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
+import * as SecureStore from 'expo-secure-store';
+import Signup from './screens/Signup';
+import ProfileModal from './modals/ProfileModal';
 
 const RootStack=createStackNavigator()
 const MovieModalStack=createStackNavigator()
@@ -58,60 +66,134 @@ const BottomTabScreen=()=>(
     <Tab.Navigator tabBarOptions={{
         showLabel:false,
         style:{
-          borderTopRightRadius:30,
-          borderTopLeftRadius:30,
+          borderTopRightRadius:20,
+          borderTopLeftRadius:20,
           backgroundColor:colors.mainBlackColor,
           position:'absolute',
           bottom: 0,
           left:0,
           marginHorizontal:0,
-          paddingHorizontal:5,
-          paddingBottom:2,
-          height:65,
+          paddingHorizontal:0,
+          paddingBottom:5,
+          height:60,
           borderTopWidth:0,
           }
         }} >
-      <Tab.Screen name="Popular" component={Popular}  options={{tabBarLabel:'Home',tabBarIcon:({focused})=>(
+      <Tab.Screen name="Popular" component={Popular}  options={{tabBarIcon:({focused})=>(
         <View style={s.centerAlign}>
-          <MaterialIcons name="home" size={24} color={focused?colors.mainBlue:colors.lightGray} />
-          <Text style={[styles.navText,{color:focused?colors.mainBlue:colors.lightGray}]}>Home</Text>
+          {focused?<MaterialIcons name="home" size={28} color={colors.mainBlue} />:
+          <MaterialCommunityIcons name="home-outline" size={28} color={colors.lighterWhite} />}
+          {/* {focused?<Text style={[styles.navText,{color:focused?colors.mainBlue:colors.lighterWhite}]}>Home</Text>:null} */}
         </View>
       )}}  />
-       <Tab.Screen name="Search" component={Search} options={{tabBarLabel:'Search',tabBarIcon:({focused})=>(
+       <Tab.Screen name="Search" component={Search} options={{tabBarIcon:({focused})=>(
         <View style={s.centerAlign}>
-          <MaterialIcons name="search" size={24} color={focused?colors.mainBlue:colors.lightGray} />
-          <Text style={[styles.navText,{color:focused?colors.mainBlue:colors.lightGray}]}>Search</Text>
+          {focused?<Ionicons name="search" size={28} color={colors.mainBlue} />:
+          <Ionicons name="search-outline" size={28} color={colors.lighterWhite} />}
+          {/* {focused?<Text style={[styles.navText,{color:focused?colors.mainBlue:colors.lighterWhite}]}>Search</Text>:null} */}
         </View>
       )}}  />
-      <Tab.Screen name="Movie" component={Movie} options={{tabBarLabel:'Movies',tabBarIcon:({focused})=>(
+      <Tab.Screen name="Movie" component={Movie} options={{tabBarIcon:({focused})=>(
         <View style={s.centerAlign}>
-          <MaterialIcons name="movie" size={24} color={focused?colors.mainBlue:colors.lightGray} />
-          <Text style={[styles.navText,{color:focused?colors.mainBlue:colors.lightGray}]}>Movies</Text>
+          {focused?<MaterialCommunityIcons name="movie-open" size={28} color={colors.mainBlue} />:
+          <MaterialCommunityIcons name="movie-open-outline" size={28} color={colors.lighterWhite} />}
+          {/* {focused?<Text style={[styles.navText,{color:focused?colors.mainBlue:colors.lighterWhite}]}>Movies</Text>:null} */}
         </View>
       )}}  />
-      <Tab.Screen name="TvShow" component={TvShow} options={{tabBarLabel:'TV Shows',tabBarIcon:({focused})=>(
+      <Tab.Screen name="TvShow" component={TvShow} options={{tabBarIcon:({focused})=>(
         <View style={s.centerAlign}>
-          <Ionicons name="tv" size={24} color={focused?colors.mainBlue:colors.lightGray} />
-          <Text style={[styles.navText,{color:focused?colors.mainBlue:colors.lightGray}]}>TV Shows</Text>
+          {focused?<Ionicons name="tv" size={28} color={colors.mainBlue} />:
+          <Ionicons name="md-tv-outline" size={28} color={colors.lighterWhite} />}
+          {/* {focused?<Text style={[styles.navText,{color:focused?colors.mainBlue:colors.lighterWhite}]}>TV Shows</Text>:null} */}
         </View>
       )}} />
      
     </Tab.Navigator>
 )
+
+function UserScreen() {
+  return(
+    <NavigationContainer>
+      <RootStack.Navigator mode='card' screenOptions={{headerShown:false}}>
+        <RootStack.Screen name="Main" component={BottomTabScreen} />
+        <RootStack.Screen name="Modal" component={MovieModalScreen} />
+        <RootStack.Screen name="PlayModal" component={YoutubeScreen} />
+        <RootStack.Screen name="GenreModal" component={GenreModal} />
+        <RootStack.Screen name="TvShowModal" component={TvModalScreen} />
+        <RootStack.Screen name="SearchModal" component={SearchResult} />
+        <RootStack.Screen name="TorrentModal" component={TorrentModal} />
+        <RootStack.Screen name="SeeAllModal" component={SeeAllModal} />
+        <RootStack.Screen name="PersonModal" component={PersonScreen} />
+        <RootStack.Screen name="AboutModal" component={AboutModal} />
+        <RootStack.Screen name="ProfileModal" component={ProfileModal} />
+      </RootStack.Navigator>
+    </NavigationContainer>
+  )
+}
+
+function InitialScreen() {
+  return(
+    <NavigationContainer>
+      <RootStack.Navigator screenOptions={{headerShown:false}}>
+        <RootStack.Screen name="Login" component={Login} />
+        <RootStack.Screen name="Signup" component={Signup} />
+        <RootStack.Screen name="About" component={AboutModal} />
+      </RootStack.Navigator>
+    </NavigationContainer>
+  )
+}
+const store=createStore(authReducer)
+
 export default function App() {
+  return(
+    <Provider store={store}>
+      <Index />
+    </Provider>
+  )
+}
+
+function Index() {
+  const [isFontLoading,setIsFontLoading]=useState(true)
   const [isLoading,setIsLoading]=useState(true)
   const [modalVisible, setModalVisible] = useState(false);
+  const user = useSelector(state => state)
   const [update,setUpdate]=useState({})
+  const [loadingWord,setLoadingWord]=useState(0)
+  const words=["Checking for new version","Getting your data","Keep tight"]
+  const dispatch=useDispatch()
+  var token;
+  const getToken=async()=>{
+    token=await SecureStore.getItemAsync('token')
+    if(token){
+        getUserDetails(token)
+    }
+    else{
+        setIsLoading(false)
+    }
+  }
+  
+  const getUserDetails=async(token)=>{
+      try {
+          setLoadingWord(1)
+          let response=await axios.get('http://important-bow-prawn.glitch.me/user-details/'+token)
+          dispatch({type:"LOGIN",payload:response.data.user})
+          setIsLoading(false)
+      } catch (error) {
+          setIsLoading(false)
+      }
+  }
   useEffect(() => {
     fetch(URLs[12]).then(res=>res.json()).then(res=>{
       if(res.version.slice(0,1)>Constants.manifest.version.slice(0,1)){
         setUpdate(res)
         setModalVisible(!modalVisible)
       }
+      getToken()
     })
     fetch(URLs[16]).then(res=>res.json()).then(res=>res)
     fetch(URLs[14]).then(res=>res)
   }, [])
+ 
   const getFonts=async()=>Font.loadAsync({
       'Nunito-Regular': require('./assets/fonts/Nunito-Regular.ttf'),
       'Nunito-Bold': require('./assets/fonts/Nunito-Bold.ttf'),
@@ -119,23 +201,36 @@ export default function App() {
       'Nunito-SemiBoldItalic': require('./assets/fonts/Nunito-SemiBoldItalic.ttf'),
       'Nunito-Italic': require('./assets/fonts/Nunito-Italic.ttf'),
     })
-  if(isLoading){
+  if(isFontLoading){
     return(
       // <SafeAreaView style={styles.pageLoader}>
       //   <StatusBar backgroundColor='hsl(190,80%,50%)' />
       // </SafeAreaView>
       <AppLoading 
         startAsync={getFonts}
-        onFinish={()=>setIsLoading(false)}
+        onFinish={()=>setIsFontLoading(false)}
         onError={console.warn}
       />
     )
     }
   else{
+    if(isLoading){
+      return(
+        <SafeAreaView style={[styles.container,{backgroundColor:colors.mainBlackColor}]}>
+          <StatusBar backgroundColor={colors.mainBlackColor} />
+          <View style={styles.pageLoader}>
+              {/* <ActivityIndicator size='large' color={colors.mainBlue} /> */}
+              <Image source={require('./assets/images/loading-gif.gif')} resizeMode='contain' style={s.loadingGif}  />
+              <Image source={require('./assets/custom-splash.png')} resizeMode='contain' style={s.loadingLogo}  />
+              <Text style={s.loadingText}>{words[loadingWord]}</Text>
+              <Text style={s.versionText}>v{Constants.manifest.version}</Text>
+          </View>
+        </SafeAreaView>
+      )
+    }
     return (
       <SafeAreaView style={[styles.container,{backgroundColor:colors.mainBlackColor}]}>
         <StatusBar backgroundColor={colors.mainBlackColor} />
-
         <Modal animationType='fade' visible={modalVisible} transparent={true} 
           onRequestClose={() => {
             setModalVisible(!modalVisible);
@@ -144,7 +239,7 @@ export default function App() {
             <View style={s.modalView}>
               <View style={s.modalClose}>
                 <Pressable onPress={()=>setModalVisible(!modalVisible)}>
-                  <Ionicons name="md-close-circle-sharp" size={30} color={colors.mainBlackColor} />
+                  <Ionicons name="md-close-circle-sharp" size={30} color={colors.lightWhite} />
                 </Pressable>
               </View>
               <Text style={[s.modalHeader,s.center]}>Update available</Text>
@@ -162,21 +257,11 @@ export default function App() {
             </View>
           </View>
         </Modal>
-
-        <NavigationContainer>
-          <RootStack.Navigator screenOptions={{headerShown:false}}>
-            <RootStack.Screen name="Main" component={BottomTabScreen} />
-            <RootStack.Screen name="Modal" component={MovieModalScreen} />
-            <RootStack.Screen name="PlayModal" component={YoutubeScreen} />
-            <RootStack.Screen name="GenreModal" component={GenreModal} />
-            <RootStack.Screen name="TvShowModal" component={TvModalScreen} />
-            <RootStack.Screen name="SearchModal" component={SearchResult} />
-            <RootStack.Screen name="TorrentModal" component={TorrentModal} />
-            <RootStack.Screen name="SeeAllModal" component={SeeAllModal} />
-            <RootStack.Screen name="PersonModal" component={PersonScreen} />
-            <RootStack.Screen name="AboutModal" component={AboutModal} />
-          </RootStack.Navigator>
-        </NavigationContainer>
+        {user?
+          <UserScreen  />
+          :
+          <InitialScreen  />
+          }
       </SafeAreaView>
     )
   }
@@ -184,8 +269,10 @@ export default function App() {
 
 const s=StyleSheet.create({
   centerAlign:{
+    flexDirection:'row',
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    padding:0
   },
   centeredView: {
     flex: 1,
@@ -248,5 +335,35 @@ const s=StyleSheet.create({
   },
   eachNew:{
     marginLeft:8
+  },
+  loadingText:{
+    fontFamily:'Nunito-SemiBold',
+    fontSize:18,
+    color:colors.lightWhite,
+    position:'absolute',
+    bottom:50,
+    zIndex:10
+  },
+  versionText:{
+    fontFamily:'Nunito-Regular',
+    fontSize:14,
+    color:colors.lighterWhite,
+    position:'absolute',
+    bottom:30,
+    zIndex:10
+  },
+  loadingLogo:{
+    width:'100%',
+    height:'100%',
+    backgroundColor:colors.mainBlackColor,
+    backfaceVisibility:'visible',
+  },
+  loadingGif:{
+    width:200,
+    height:450,
+    zIndex:5,
+    bottom:-140,
+    position:'absolute',
+    backgroundColor:colors.mainBlackColor
   }
 })

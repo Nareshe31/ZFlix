@@ -38,7 +38,9 @@ function ContainerLoading() {
                 renderItem={({ item }) => (
                     <View style={[styles.movieWholePosterContainer]}>
                         <Animated.View key={item.id} style={[styles.moviePosterContainer, { opacity: opacity }]}>
-                            <View style={[styles.moviePoster]} ></View>
+                            <View style={[styles.moviePoster,{justifyContent:'center',alignItems:'center'}]} >
+                                {/* <Image style={{width:120,height:120}} resizeMode='stretch' source={require('../assets/images/load.png')} /> */}
+                            </View>
                         </Animated.View>
                         <View style={styles.posterDetail}>
                             <Animated.View style={{ width: (33 * windowWidth) / 100, backgroundColor: colors.loadingColor, marginVertical: 6, borderRadius: 10, padding: 5, opacity }}></Animated.View>
@@ -62,13 +64,12 @@ export default function PopularScreen({ navigation }) {
 
     useEffect(() => {
         getAllData()
-    }, [filter])
-    useEffect(() => {
         const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick)
         return () => {
             backHandler.remove()
         }
-    }, [])
+    }, [filter])
+    
 
     const handleBackButtonClick = () => {
         if (navigation.isFocused()) {
@@ -77,7 +78,7 @@ export default function PopularScreen({ navigation }) {
                 'Do you want to exit?',
                 [
                     { text: 'Yes', onPress: () => BackHandler.exitApp() },
-                    { text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                    { text: 'No', onPress: () => null, style: 'cancel' },
                 ],
                 { cancelable: false });
             return true
@@ -127,11 +128,11 @@ export default function PopularScreen({ navigation }) {
         setFilter((prev) => prev == 'week' ? 'day' : 'week')
     }
     return (
-        <View style={[styles.container, s.container]}>
+        <View style={[styles.container]}>
             <CustomHeader navigation={navigation} />
             <ScrollView
-                style={[styles.container, s.container]}
-                contentContainerStyle={{ paddingBottom: 50 }}
+                style={[styles.container]}
+                contentContainerStyle={{ paddingBottom: 40 }}
                 refreshControl={<RefreshControl onRefresh={changeFilter} refreshing={refreshing} />}>
 
                 <View style={styles.popularContainer}>
@@ -155,7 +156,7 @@ export default function PopularScreen({ navigation }) {
                                 keyExtractor={(item) => item.id.toString()}
                                 renderItem={({ item }) => (
                                     <View style={styles.movieWholePosterContainer}>
-                                        <TouchableOpacity onPress={() => navigation.push('Modal', { screen: 'MovieModal', params: { id: item.id }, key: Math.round(Math.random() * 10000000) })}>
+                                        <TouchableOpacity onPress={() => navigation.push('Modal', { screen: 'MovieModal', params: { id: item.id ,release_date:item.release_date,title:item.title}, key: Math.round(Math.random() * 10000000) })}>
                                             <View key={item.id} style={styles.moviePosterContainer}>
                                                 {item.poster_path ?
                                                     <Image resizeMode='cover' style={styles.moviePoster} source={{ uri: IMAGE_PATH + item.poster_path }}></Image>
@@ -193,7 +194,7 @@ export default function PopularScreen({ navigation }) {
                                 keyExtractor={(item) => item.id.toString()}
                                 renderItem={({ item }) => (
                                     <View style={styles.movieWholePosterContainer}>
-                                        <TouchableOpacity onPress={() => navigation.push('TvShowModal', { screen: 'TvModal', params: { id: item.id }, key: Math.round(Math.random() * 10000000) })}>
+                                        <TouchableOpacity onPress={() => navigation.push('TvShowModal', { screen: 'TvModal', params: { id: item.id ,name:item.name,first_air_date:item.first_air_date}, key: Math.round(Math.random() * 10000000) })}>
                                             <View key={item.id} style={styles.moviePosterContainer}>
                                                 {item.poster_path ?
                                                     <Image resizeMode='cover' style={styles.moviePoster} source={{ uri: IMAGE_PATH + item.poster_path }}></Image>
@@ -232,16 +233,16 @@ export default function PopularScreen({ navigation }) {
                                 renderItem={({ item }) =>
                                 (
                                     <View style={styles.movieWholePosterContainer}>
-                                        {/* <TouchableOpacity onPress={()=>navigation.push('PersonModal',{screen:'PersonScreen',params:{id:item.id},key: Math.round( Math.random() * 10000000 )})}> */}
-                                        <View key={item.id} style={[styles.moviePosterContainer, styles.movieImages]}>
-                                            {item.profile_path ?
-                                                <Image resizeMode='cover' style={[styles.moviePoster]} source={{ uri: IMAGE_PATH + item.profile_path }}></Image>
-                                                :
-                                                <Image style={[styles.moviePoster, { width: '80%', marginLeft: '10%' }]} resizeMode='contain' source={require('../assets/images/no-image.png')} />
-                                            }
+                                        <TouchableOpacity onPress={()=>navigation.push('PersonModal',{screen:'PersonScreen',params:{id:item.id,name:item.name},key: Math.round( Math.random() * 10000000 )})}>
+                                            <View key={item.id} style={[styles.moviePosterContainer]}>
+                                                {item.profile_path ?
+                                                    <Image resizeMode='cover' style={[styles.moviePoster]} source={{ uri: IMAGE_PATH + item.profile_path }}></Image>
+                                                    :
+                                                    <Image style={[styles.moviePoster, { width: '80%', marginLeft: '10%' }]} resizeMode='contain' source={require('../assets/images/no-image.png')} />
+                                                }
 
-                                        </View>
-                                        {/* </TouchableOpacity> */}
+                                            </View>
+                                        </TouchableOpacity>
                                         <View style={styles.posterDetail}>
                                             <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
                                             {item.known_for_department ? <Text style={styles.posterYear}>{item.known_for_department}</Text> : null}
@@ -259,10 +260,3 @@ export default function PopularScreen({ navigation }) {
         </View>
     )
 }
-
-const s = StyleSheet.create({
-
-    container: {
-        backgroundColor: colors.mainBlackColor
-    },
-})

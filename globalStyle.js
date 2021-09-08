@@ -3,6 +3,24 @@ import { StyleSheet,Dimensions } from 'react-native'
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+export const fontSizes={
+  appHeader:26,
+  posterHeader:20,
+  movieName:17,
+  movieDate:15,
+  modalHeader:20,
+  modalName:22,
+  modalYear:20,
+  normalText:18,
+  overview:18,
+  videoName:16,
+}
+
+export const dimensions={
+  posterWidth:(38*windowWidth)/100,
+  posterHeight:(24*windowHeight)/100
+}
+
 export const mainColor='hsl(190,80%,50%)';
 export const backgroundBlackColor='hsl(0,10%,100%)';
 export const colors={ 
@@ -13,12 +31,14 @@ export const colors={
   // mainBlue:'hsl(220, 85%, 75%)' bluepurple,
   mainBlue:'#b52522',
   mainDarkBlue:'#DA0037',
-  mainLightBlue:'	hsl(1, 68%, 52%)',
+  mainLightBlue:'	hsl(1, 68%, 62%)',
   // #314665
   // '#9d291f' red
   // mainBlue:'	hsl(216, 35%, 50%)',
   // lightWhite:'#BEC6D4'
   lightWhite:'hsl(0,0%,85%)',
+  lighterWhite:'hsl(0,0%,55%)',
+  inputWhite:'hsla(0,0%,95%,0.85)',
   lightBlack:'hsl(0,0%,10%)',
   loadingColor:'hsl(0,0%,75%)'
 }
@@ -31,24 +51,40 @@ export const styles = StyleSheet.create({
     },
     header:{
       flexDirection:'row',
-      backgroundColor:colors.mainBlackColor,
-      alignItems:'center',
-      paddingHorizontal:20,
-      paddingVertical:12
-    },
-    headerLeftContainer:{
-      flex:0.3
+      // backgroundColor:colors.mainBlackColor,
+      backgroundColor:'hsla(0,0%,10%,0.8)',
+      paddingVertical:10,
+      borderRadius:12,
+      marginHorizontal:5,
+      marginTop:12,
+      marginBottom:5
     },
     headerTextContainer:{
-      flex:1.8,
-      textAlign:'center',
-      justifyContent:'center',
-      alignItems:'center'
+      flex:1,
+      flexDirection:'row',
+      paddingLeft:30,
+      paddingRight:14,
+      justifyContent:'space-between'
     },
     headerText:{
-      fontSize:28,
+      fontSize:fontSizes.appHeader,
       fontFamily:'Nunito-Bold',
-      color:colors.mainDarkBlue
+      color:colors.mainBlue
+    },
+    headerLogoImage:{
+      width:40,
+      height:40,
+      opacity:0.9
+    },
+    profileImage:{
+      width:34,
+      height:34,
+      borderWidth:1,
+      borderColor:colors.lighterWhite,
+      borderRadius:17,
+      // position:'absolute',
+      // right:10,
+      // top:-5
     },
     text:{
       color:colors.lightWhite,
@@ -83,7 +119,7 @@ export const styles = StyleSheet.create({
       marginBottom:15,
   },
   popularHeaderText:{
-      fontSize:20,
+      fontSize:fontSizes.posterHeader,
       marginVertical:5,
       marginHorizontal:15,
       fontWeight:'600',
@@ -91,7 +127,7 @@ export const styles = StyleSheet.create({
       color:colors.lightWhite
   },
   movieWholePosterContainer:{
-      width:(40*windowWidth)/100,
+      width:dimensions.posterWidth,
       marginHorizontal:8,
   },
   posterDetail:{
@@ -100,16 +136,16 @@ export const styles = StyleSheet.create({
   posterTitle:{
       color:colors.lightWhite,
       fontFamily:'Nunito-SemiBold',
-      fontSize:18,
+      fontSize:fontSizes.movieName,
   },
   posterYear:{
       color:colors.lightGray,
       fontFamily:'Nunito-Regular',
-      fontSize:15
+      fontSize:fontSizes.movieDate
   },
   moviePoster:{
-      width:(40*windowWidth)/100,
-      height:(26*windowHeight)/100,
+      width:dimensions.posterWidth,
+      height:dimensions.posterHeight,
       borderRadius:10,
   },
   moviePosterContainer:{
@@ -132,7 +168,7 @@ export const styles = StyleSheet.create({
       marginVertical:0
   },
   heading_1:{
-      fontSize:20,
+      fontSize:fontSizes.posterHeader,
       fontFamily:'Nunito-Bold',
       color:colors.lightWhite,
       marginBottom:10
@@ -185,9 +221,10 @@ export const styles = StyleSheet.create({
       borderRadius:3,
   },
   torrentSearchContainer:{
-    maxWidth:'70%',
     marginVertical:12,
-    alignSelf:'center'
+    flexDirection:'row',
+    justifyContent:'space-evenly',
+    alignItems:'center'
   },
   torrentSearchButton:{
     paddingVertical:10,
@@ -199,9 +236,35 @@ export const styles = StyleSheet.create({
     backgroundColor:colors.mainBlue,
     textAlign:'center'
   },
+  addWatchlistButton:{
+    paddingVertical:7,
+    paddingHorizontal:18,
+    flexDirection:'row',
+    borderRadius:3,
+    alignItems:'center',
+    justifyContent:'center',
+    backgroundColor:'hsla(0,0%,30%,0.8)',
+    textAlign:'center'
+  },
+  watchlistText:{
+    fontSize:16,
+    color:colors.lightWhite,
+    fontFamily:'Nunito-SemiBold',
+  },
+  addedWatchlistButton:{
+    paddingVertical:10,
+    color:colors.lightWhite,
+    paddingHorizontal:24,
+    borderRadius:3,
+    fontSize:16,
+    fontFamily:'Nunito-SemiBold',
+    backgroundColor:'hsla(0,0%,30%,0.8)',
+    textAlign:'center'
+  },
   navText:{
     fontFamily:'Nunito-SemiBold',
-    fontSize:14
+    fontSize:18,
+    marginHorizontal:8
   },
   movieModalHeader:{
     backgroundColor:'hsla(0,0%,10%,0.3)',
@@ -215,19 +278,19 @@ export const styles = StyleSheet.create({
     zIndex:10
   },
   movieModalHeaderText:{
-    fontSize:18,
+    fontSize:fontSizes.modalHeader,
     color:colors.lightWhite,
     marginLeft:8,
     flex:1,
     flexWrap:'wrap'
   },
   movieYear:{
-    fontSize:18,
+    fontSize:fontSizes.modalYear,
     fontWeight:'300',
     fontFamily:'Nunito-Regular'
   },
   movieName:{
-    fontSize:22,
+    fontSize:fontSizes.modalName,
     fontFamily:'Nunito-Bold',
     textAlign:'center',
     marginVertical:2,
@@ -239,22 +302,22 @@ export const styles = StyleSheet.create({
     marginHorizontal:15
   },
   overviewHeader:{
-    fontSize:20,
+    fontSize:fontSizes.posterHeader,
     fontFamily:'Nunito-Bold',
     color:colors.lightWhite,
     marginBottom:5
   },
   overviewText:{
     fontFamily:'Nunito-Regular',
-    fontSize:18,
+    fontSize:fontSizes.overview,
     marginBottom:5,
     textAlign:'justify'
   },
   modalPosterContainer:{
-    margin:0,
+    marginHorizontal:10,
     position:'relative',
     backgroundColor:colors.mainBlackColor,
-    height:450,
+    height:400,
   },
   modalPoster:{
     width:150,
@@ -266,7 +329,7 @@ export const styles = StyleSheet.create({
   },
   modalBackdropPoster:{
       width:'100%',
-      height:450,
+      height:400,
       backgroundColor:colors.mainBlackColor,
   },
   taglineText:{
@@ -283,7 +346,7 @@ export const styles = StyleSheet.create({
     marginVertical:4
   },
   movieText:{
-    fontSize:18,
+    fontSize:fontSizes.normalText,
     color:colors.lightWhite,
     fontFamily:'Nunito-Regular'
   },
@@ -293,21 +356,21 @@ export const styles = StyleSheet.create({
     marginVertical:10
   },
   ytContainer:{
-    width:(45*windowWidth)/100,
+    width:(50*windowWidth)/100,
     backgroundColor:colors.mainBlackColor,
     marginHorizontal:18,
     marginTop:-30,
     position:'relative'
   },
   videoThumbnail:{
-    width:(48*windowWidth)/100,
+    width:(50*windowWidth)/100,
     height:(25*windowHeight)/100,
     borderRadius:10,
   },
   ytTitle:{
     color:colors.lightWhite,
     fontFamily:'Nunito-SemiBold',
-    fontSize:16,
+    fontSize:fontSizes.videoName,
     marginTop:-15
   },
   videoPlayButton:{

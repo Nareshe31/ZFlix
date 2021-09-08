@@ -1,13 +1,19 @@
-import axios from 'axios'
-import React,{useEffect,useState} from 'react'
-import { View,Text,ScrollView,ActivityIndicator,Image,StyleSheet,Linking,Alert,Pressable, FlatList, TouchableOpacity, TouchableHighlight} from 'react-native'
-import { styles, colors } from "../globalStyle";
+import React,{useState,useEffect} from 'react';
+import { View,Text,TouchableOpacity,Animated, ScrollView,StyleSheet,Image,ActivityIndicator,Pressable, FlatList,TouchableHighlight} from 'react-native';
+import { styles,colors } from "../globalStyle";
 import ProgressCircle from 'react-native-progress-circle'
 import { MaterialIcons,Ionicons } from '@expo/vector-icons';
 import ImageView from "react-native-image-viewing";
 import { IMAGE_PATH,months,getHour,getMinute,convertMoney, URLs,API_KEY } from '../globalUtils';
+import axios from 'axios'
 
-export default function ModalScreen({navigation,route}){
+const data=[{id:0},{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8},{id:9},{id:10},{id:11},{id:12},{id:13},{id:14}]
+const HEADER_MAX_HEIGHT = 450;
+const HEADER_MIN_HEIGHT = 40;
+const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
+
+export default function AboutModal({navigation,route}) {
+    const scrollY=new Animated.Value(0)
     const [isLoading,setIsLoading]=useState(true)
     const [movieData,setMovieData]=useState({})
     const [visible, setIsVisible] = useState(false);
@@ -15,13 +21,13 @@ export default function ModalScreen({navigation,route}){
     const [imageIndex,setImageIndex]=useState(0)
 
     useEffect(() => {
-        
         getMovieInfo()
     }, [route])
+
     const getMovieInfo=async()=>{
         try {
             setIsLoading(true)
-            let response=await axios.get(`${URLs[24]}movie/${route.params.id}?api_key=${API_KEY}${URLs[25]}`)
+            let response=await axios.get(`${URLs[24]}movie/666243?api_key=${API_KEY}${URLs[25]}`)
             var images=[]
             setMovieData(response.data)
             response.data.images.backdrops.map(item=>{
@@ -30,9 +36,19 @@ export default function ModalScreen({navigation,route}){
             setImages(images)
             setIsLoading(false)
         } catch (error) {
+            console.log(
+                error
+            );
             // Alert.alert('Oops...','Something went wrong',[{text:"Go back",onPress:()=>navigation.goBack()}])
         }
     }
+
+    const headerHeight = scrollY.interpolate({
+        inputRange: [0, HEADER_SCROLL_DISTANCE],
+        outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+        extrapolate: 'clamp',
+    })
+
     if(isLoading){
         return(
             <View style={[styles.pageLoader,{backgroundColor:colors.mainBlackColor}]}>
@@ -40,39 +56,16 @@ export default function ModalScreen({navigation,route}){
             </View>
         )
     }
-    return(
-        <View style={[styles.container,{position:'relative',backgroundColor:colors.mainBlackColor}]}>
-            <View style={[styles.movieModalHeader]}>
-                <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}} onPress={()=>navigation.goBack()}>
-                    <MaterialIcons name="arrow-back" size={22} color={colors.lightWhite} /> 
-                    <Text ellipsizeMode={'middle'} numberOfLines={1} style={styles.movieModalHeaderText}>{movieData.title} {movieData.release_date.length>0?<Text style={[styles.movieYear]}>({movieData.release_date.slice(0,4)})</Text>:null}</Text>
-                </TouchableOpacity>
-            </View>
-            
-            <ScrollView style={[styles.container,{backgroundColor:'hsl(0,5%,8%)'}]}>
-                <View style={styles.modalPosterContainer}>
-                    {movieData.backdrop_path?
-                        <Image style={styles.modalBackdropPoster} opacity={0.75} source={{uri:IMAGE_PATH+movieData.backdrop_path}} />
-                        :
-                        <Image style={[styles.modalBackdropPoster,{width:'100%',marginLeft:'0%',backgroundColor:'#999',zIndex:-10}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
-                    }
-                    {/* <Image
-                        opacity={0.75}
-                        style={styles.modalBackdropPoster}
-                        resizeMode={'cover'}
-                        source={{uri:IMAGE_PATH+movieData.backdrop_path}}
-                    /> */}
-                    {movieData.poster_path?
-                        <Image style={styles.modalPoster} source={{uri:IMAGE_PATH+movieData.poster_path}} />
-                        :
-                        null
-                    }
-                    {/* <Image 
-                        resizeMode={'cover'}
-                        source={{uri:IMAGE_PATH+movieData.poster_path}}
-                        style={styles.modalPoster}
-                    /> */}
-                </View>
+    return (
+        <View style={[s.fill]}>
+            <ScrollView 
+                style={[s.scrollViewContent]}
+                showsVerticalScrollIndicator={false}
+                onScroll={Animated.event(
+                    [{nativeEvent: {contentOffset: {y: scrollY}}}],{useNativeDriver:false}
+                  )}
+                scrollEventThrottle={16}
+                >
                 <View style={s.movieDetailContainer}>
                     <Pressable onPress={()=>{
                         movieData.homepage?Linking.openURL(movieData.homepage):null
@@ -321,54 +314,81 @@ export default function ModalScreen({navigation,route}){
                         />
                 </View>
             </ScrollView>
-
-      </View>
-    )
-  }
+            <Animated.View style={[s.header,{height:headerHeight}]}>
+                <View style={[styles.movieModalHeader]}>
+                    <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}} onPress={()=>navigation.goBack()}>
+                        <MaterialIcons name="arrow-back" size={22} color={colors.lightWhite} /> 
+                        <Text ellipsizeMode={'middle'} numberOfLines={1} style={styles.movieModalHeaderText}>{movieData.title} {movieData.release_date.length>0?<Text style={[styles.movieYear]}>({movieData.release_date.slice(0,4)})</Text>:null}</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.modalPosterContainer}>
+                    {movieData.backdrop_path?
+                        <Image style={styles.modalBackdropPoster} opacity={0.75} source={{uri:IMAGE_PATH+movieData.backdrop_path}} />
+                        :
+                        <Image style={[styles.modalBackdropPoster,{width:'100%',marginLeft:'0%',backgroundColor:'#999',zIndex:-10}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
+                    }
+                    {/* <Image
+                        opacity={0.75}
+                        style={styles.modalBackdropPoster}
+                        resizeMode={'cover'}
+                        source={{uri:IMAGE_PATH+movieData.backdrop_path}}
+                    /> */}
+                    {movieData.poster_path?
+                        <Image style={styles.modalPoster} source={{uri:IMAGE_PATH+movieData.poster_path}} />
+                        :
+                        null
+                    }
+                    {/* <Image 
+                        resizeMode={'cover'}
+                        source={{uri:IMAGE_PATH+movieData.poster_path}}
+                        style={styles.modalPoster}
+                    /> */}
+                </View>
+            </Animated.View>
+        </View>
+      );
+}
 
 const s=StyleSheet.create({
-    
     movieDetailContainer:{
         flex:1,
         backgroundColor:colors.mainBlackColor,
-        paddingVertical:12,
+        paddingTop:18,
+        paddingBottom:12,
         paddingHorizontal:0,
     },
-    movieScore:{
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center',
-        marginVertical:5,
-        marginHorizontal:'6%',
-        paddingVertical:12,
-        width:'90%',
-        position:'relative',
+    fill:{
+        flex:1,
+        backgroundColor:colors.mainBlackColor
     },
-    movieScoreLeft:{
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center',
-        width:'50%',
+    scrollViewContent:{
+        flex:1,
+        paddingTop:HEADER_MAX_HEIGHT,
     },
-    movieScoreRight:{
-        justifyContent:'center',
-        alignItems:'center',
-        width:'40%',
-        paddingHorizontal:5,
+    row: {
+        height: 50,
+        margin: 16,
+        backgroundColor: '#D3D3D3',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    watchNowButton:{
-        paddingVertical:10,
-        color:colors.lightWhite,
-        paddingHorizontal:18,
-        borderRadius:3,
-        fontSize:14,
-        fontFamily:'Nunito-SemiBold',
-        backgroundColor:colors.mainLightBlue
+    header: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: '#03A9F4',
+        overflow: 'hidden',
+        zIndex:10
     },
-    imagesContainer:{
-        marginVertical:18,
-        marginHorizontal:10
+      bar: {
+        height: 32,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-
+      title: {
+        backgroundColor: 'transparent',
+        color: 'white',
+        fontSize: 18,
+    },
 })
-  

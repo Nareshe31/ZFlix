@@ -33,10 +33,10 @@ export default function TorrentModal({navigation,route}) {
     return(
         <View style={[styles.container,{backgroundColor:colors.mainBlackColor}]}>
             <View style={[s.movieModalHeader]}>
-                <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}} onPress={()=>navigation.goBack()}>
+                <TouchableOpacity onPress={()=>navigation.goBack()}>
                     <MaterialIcons name="arrow-back" size={22} color={colors.lightWhite} /> 
-                    <Text ellipsizeMode={'middle'} numberOfLines={1} style={s.movieModalHeaderText}>Torrents for "{route.params.query}" </Text>
                 </TouchableOpacity>
+                <Text ellipsizeMode={'middle'} numberOfLines={1} style={s.movieModalHeaderText}>Torrents for "{route.params.query}" </Text>
             </View>
             {isLoading?
                 <View style={[styles.pageLoader,{backgroundColor:colors.mainBlackColor}]}>

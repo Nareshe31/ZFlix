@@ -13,7 +13,7 @@ const loadingImages=[{id:0},{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id
 function Movie({navigation,item}) {
     return(
     <View style={s.movieWholePosterContainer}>
-        <TouchableOpacity onPress={()=> navigation.push('Modal',{screen:'MovieModal',params:{id:item.id},key: Math.round( Math.random() * 10000000 )})} >
+        <TouchableOpacity onPress={()=> navigation.push('Modal',{screen:'MovieModal',params:{id:item.id,release_date:item.release_date,title:item.title},key: Math.round( Math.random() * 10000000 )})} >
             <View style={s.moviePosterContainer}>
                 {item.poster_path?
                     <Image style={s.moviePoster}  source={{uri:IMAGE_PATH+item.poster_path}} />
@@ -24,7 +24,10 @@ function Movie({navigation,item}) {
         </TouchableOpacity>
         <View style={styles.posterDetail}>
             <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.title}</Text>
-            {item.release_date?<Text style={styles.posterYear}>{months[Number(item.release_date.slice(5,7))-1]} {item.release_date.slice(8,10)}, {item.release_date.slice(0,4)} </Text>:null}
+            <View style={styles.tv}>
+                {item.release_date?<Text style={styles.posterYear}>{months[Number(item.release_date.slice(5,7))-1]} {item.release_date.slice(8,10)}, {item.release_date.slice(0,4)} </Text>:null}
+                <Text style={styles.tvBox}>Movie</Text>
+            </View>
         </View>
     </View>
     )
@@ -33,7 +36,7 @@ function Movie({navigation,item}) {
 function TvShow({navigation,item}) {
     return(
     <View style={s.movieWholePosterContainer}>
-        <TouchableOpacity onPress={()=> navigation.push('TvShowModal',{screen:'TvModal',params:{id:item.id},key: Math.round( Math.random() * 10000000 )})} >
+        <TouchableOpacity onPress={()=> navigation.push('TvShowModal',{screen:'TvModal',params:{id:item.id,name:item.name,first_air_date:item.first_air_date},key: Math.round( Math.random() * 10000000 )})} >
             <View style={s.moviePosterContainer}>
                 {item.poster_path?
                     <Image style={s.moviePoster}  source={{uri:IMAGE_PATH+item.poster_path}} />
@@ -56,14 +59,16 @@ function TvShow({navigation,item}) {
 function Person({navigation,item}) {
     return(
         <View style={s.movieWholePosterContainer}> 
-            <View key={item.id} style={[s.moviePosterContainer]}>
-                {item.profile_path?
-                    <Image resizeMode='cover' style={[s.moviePoster]} source={{uri:IMAGE_PATH+item.profile_path}}></Image>
-                    :
-                    <Image style={[s.moviePoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
-                }
-                
-            </View>
+            <TouchableOpacity onPress={()=>navigation.push('PersonModal',{screen:'PersonScreen',params:{id:item.id,name:item.name},key: Math.round( Math.random() * 10000000 )})}>
+                <View key={item.id} style={[s.moviePosterContainer]}>
+                    {item.profile_path?
+                        <Image resizeMode='cover' style={[s.moviePoster]} source={{uri:IMAGE_PATH+item.profile_path}}></Image>
+                        :
+                        <Image style={[s.moviePoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
+                    }
+                    
+                </View>
+            </TouchableOpacity>
             <View style={styles.posterDetail}>
                 <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
                 {item.known_for_department?<Text style={styles.posterYear}>{item.known_for_department}</Text>:null}
@@ -115,10 +120,10 @@ export default function SearchResult({navigation,route}) {
     return(
         <View style={[styles.container,{width:'100%',position:'relative',backgroundColor:colors.mainBlackColor}]}>
             <View style={[s.movieModalHeader]}>
-                <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}} onPress={()=>navigation.goBack()}>
+                <TouchableOpacity onPress={()=>navigation.goBack()}>
                     <MaterialIcons name="arrow-back" size={22} color={colors.lightWhite} /> 
-                    <Text ellipsizeMode={'tail'} numberOfLines={1} style={[s.movieModalHeaderText]}>Search results for "{route.params.searchQuery}"</Text>
                 </TouchableOpacity>
+                <Text ellipsizeMode={'tail'} numberOfLines={1} style={[s.movieModalHeaderText]}>Search results for "{route.params.searchQuery}"</Text>
             </View>
             {isSearchLoading?
                 <View style={[styles.pageLoader,{backgroundColor:colors.mainBlackColor}]}>
@@ -191,18 +196,19 @@ const s=StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         paddingHorizontal:10,
-        paddingVertical:15
+        paddingVertical:15,
     },
     movieModalHeaderText:{
         fontSize:20,
         color:colors.lightWhite,
         marginLeft:8,
-        fontFamily:'Nunito-SemiBold'
+        fontFamily:'Nunito-SemiBold',
     },
     movieWholePosterContainer:{
         width:(42*windowWidth)/100,
         position:'relative',
-        marginVertical:10,
+        marginBottom:20,
+        marginTop:8,
         marginHorizontal:(3*windowWidth)/100
     },
     moviePoster:{
@@ -215,13 +221,5 @@ const s=StyleSheet.create({
         position:'relative',
         borderRadius:10,
         backgroundColor:colors.loadingColor
-    },
-    movieModalHeader:{
-        backgroundColor:colors.mainBlackColor,
-        flexDirection:'row',
-        paddingHorizontal:10,
-        paddingVertical:5,
-        width:'100%',
-        justifyContent:'space-between'
     },
 })
