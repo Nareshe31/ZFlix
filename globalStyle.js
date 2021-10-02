@@ -7,37 +7,39 @@ export const fontSizes={
   appHeader:26,
   posterHeader:20,
   movieName:17,
-  movieDate:15,
-  modalHeader:20,
+  movieDate:14,
+  modalHeader:18,
   modalName:22,
-  modalYear:20,
-  normalText:18,
-  overview:18,
+  modalYear:18,
+  normalText:17,
+  overview:17,
   videoName:16,
 }
 
 export const dimensions={
-  posterWidth:(38*windowWidth)/100,
-  posterHeight:(24*windowHeight)/100
+  posterWidth:(34*windowWidth)/100,
+  posterHeight:(21*windowHeight)/100
 }
 
 export const mainColor='hsl(190,80%,50%)';
 export const backgroundBlackColor='hsl(0,10%,100%)';
 export const colors={ 
   // mainBlackColor:'#191820',
-  mainBlackColor:'#0a0608',
+  // mainBlackColor:'#0a0608',
+  mainBlackColor:'#010101',
   // lightGray:'#9EA2A2',
   lightGray:'hsl(0,0%,78%)',
   // mainBlue:'hsl(220, 85%, 75%)' bluepurple,
   mainBlue:'#b52522',
   mainDarkBlue:'#DA0037',
-  mainLightBlue:'	hsl(1, 68%, 62%)',
+  mainLightBlue:'	hsl(1, 80%, 62%)',
   // #314665
   // '#9d291f' red
   // mainBlue:'	hsl(216, 35%, 50%)',
   // lightWhite:'#BEC6D4'
   lightWhite:'hsl(0,0%,85%)',
   lighterWhite:'hsl(0,0%,55%)',
+  lightestWhite:'hsl(0,0%,70%)',
   inputWhite:'hsla(0,0%,95%,0.85)',
   lightBlack:'hsl(0,0%,10%)',
   loadingColor:'hsl(0,0%,75%)'
@@ -51,20 +53,26 @@ export const styles = StyleSheet.create({
     },
     header:{
       flexDirection:'row',
-      // backgroundColor:colors.mainBlackColor,
-      backgroundColor:'hsla(0,0%,10%,0.8)',
+      backgroundColor:colors.mainBlackColor,
+      // backgroundColor:'hsla(0,0%,10%,0.8)',
       paddingVertical:10,
-      borderRadius:12,
-      marginHorizontal:5,
-      marginTop:12,
-      marginBottom:5
+      paddingHorizontal:12,
+      borderRadius:0,
+      marginBottom:0,
+      marginHorizontal:0,
+      justifyContent:'space-between',
+      alignItems:'center',
+      position:'absolute',
+      left:0,
+      top:0,
+      right:0,
+      zIndex:1000,
+      // elevation:5
     },
     headerTextContainer:{
       flex:1,
-      flexDirection:'row',
       paddingLeft:30,
       paddingRight:14,
-      justifyContent:'space-between'
     },
     headerText:{
       fontSize:fontSizes.appHeader,
@@ -77,11 +85,11 @@ export const styles = StyleSheet.create({
       opacity:0.9
     },
     profileImage:{
-      width:34,
-      height:34,
+      width:36,
+      height:36,
       borderWidth:1,
       borderColor:colors.lighterWhite,
-      borderRadius:17,
+      borderRadius:18,
       // position:'absolute',
       // right:10,
       // top:-5
@@ -116,7 +124,7 @@ export const styles = StyleSheet.create({
     },
     popularContainer:{
       width:'100%',
-      marginBottom:15,
+      marginBottom:10,
   },
   popularHeaderText:{
       fontSize:fontSizes.posterHeader,
@@ -125,10 +133,6 @@ export const styles = StyleSheet.create({
       fontWeight:'600',
       fontFamily:'Nunito-Bold',
       color:colors.lightWhite
-  },
-  movieWholePosterContainer:{
-      width:dimensions.posterWidth,
-      marginHorizontal:8,
   },
   posterDetail:{
       marginVertical:8,
@@ -143,13 +147,45 @@ export const styles = StyleSheet.create({
       fontFamily:'Nunito-Regular',
       fontSize:fontSizes.movieDate
   },
+  movieWholePosterContainer:{
+      width:dimensions.posterWidth,
+      marginHorizontal:8,
+      position:'relative',
+      minWidth:120,
+      maxWidth:180,
+      // backgroundColor:'hsla(0,0%,10%,0.8)',
+      // borderRadius:10,
+  },
   moviePoster:{
+      borderRadius:10,
+      minWidth:100,
+      maxWidth:200,
+      minHeight:150,
+      maxHeight:180,
       width:dimensions.posterWidth,
       height:dimensions.posterHeight,
-      borderRadius:10,
   },
   moviePosterContainer:{
       borderRadius:10,
+      minWidth:120,
+      maxWidth:180,
+      minHeight:150,
+      maxHeight:180,
+      backgroundColor:colors.loadingColor
+  },
+  castWholePosterContainer:{
+    width:dimensions.posterWidth-20,
+    marginHorizontal:12,
+    position:'relative',
+  },
+  castPoster:{
+    width:dimensions.posterWidth-20,
+    height:dimensions.posterWidth-20,
+    borderRadius:dimensions.posterWidth-20/2,
+
+  },
+  castPosterContainer:{
+      borderRadius:dimensions.posterWidth-20/2,
       backgroundColor:colors.loadingColor
   },
   posterSlideShowContainer:{
@@ -161,7 +197,8 @@ export const styles = StyleSheet.create({
   popularHeaderContainer:{
       flexDirection:'row',
       justifyContent:'space-between',
-      alignItems:'center'
+      alignItems:'center',
+      width:'100%'
   } ,
   movieImages:{
       marginHorizontal:8,
@@ -213,12 +250,12 @@ export const styles = StyleSheet.create({
       fontSize:16,
       color:colors.lightWhite,
       paddingHorizontal:8,
-      paddingVertical:5,
+      paddingVertical:4,
       fontFamily:'Nunito-SemiBold',
       borderWidth:1,
       margin:5,
-      borderColor:colors.lightGray,
-      borderRadius:3,
+      borderColor:colors.lighterWhite,
+      borderRadius:20,
   },
   torrentSearchContainer:{
     marginVertical:12,
@@ -267,7 +304,7 @@ export const styles = StyleSheet.create({
     marginHorizontal:8
   },
   movieModalHeader:{
-    backgroundColor:'hsla(0,0%,10%,0.3)',
+    backgroundColor:'hsla(0,0%,0%,0.65)',
     flexDirection:'row',
     alignItems:'center',
     paddingHorizontal:10,
@@ -286,13 +323,13 @@ export const styles = StyleSheet.create({
   },
   movieYear:{
     fontSize:fontSizes.modalYear,
+    fontFamily:'Nunito-Regular',
     fontWeight:'300',
-    fontFamily:'Nunito-Regular'
+    color:colors.lightestWhite,
   },
   movieName:{
     fontSize:fontSizes.modalName,
     fontFamily:'Nunito-Bold',
-    textAlign:'center',
     marginVertical:2,
     color:colors.lightWhite,
     paddingHorizontal:10
@@ -311,7 +348,8 @@ export const styles = StyleSheet.create({
     fontFamily:'Nunito-Regular',
     fontSize:fontSizes.overview,
     marginBottom:5,
-    textAlign:'justify'
+    textAlign:'justify',
+    color:colors.lightestWhite
   },
   modalPosterContainer:{
     marginHorizontal:10,
@@ -325,7 +363,7 @@ export const styles = StyleSheet.create({
     borderRadius:10,
     position:'absolute',
     top:110,
-    left:20
+    left:20,
   },
   modalBackdropPoster:{
       width:'100%',
@@ -334,37 +372,39 @@ export const styles = StyleSheet.create({
   },
   taglineText:{
     fontFamily:'Nunito-Italic',
-    fontSize:18,
-    textAlign:'center',
+    fontSize:16,
     paddingHorizontal:10,
-    marginTop:3,
-    marginBottom:10,
+    marginTop:0,
+    marginBottom:0,
     color:colors.lightWhite
   },
   movieTextContainer:{
     marginHorizontal:10,
-    marginVertical:4
+    marginVertical:4,
+    flexDirection:'row',
+    alignItems:'center'
   },
   movieText:{
     fontSize:fontSizes.normalText,
     color:colors.lightWhite,
+    marginLeft:5,
     fontFamily:'Nunito-Regular'
   },
   videoContainer:{
     backgroundColor:colors.mainBlackColor,
-    marginHorizontal:10,
+    marginHorizontal:14,
     marginVertical:10
   },
   ytContainer:{
-    width:(50*windowWidth)/100,
+    width:(60*windowWidth)/100,
     backgroundColor:colors.mainBlackColor,
     marginHorizontal:18,
     marginTop:-30,
     position:'relative'
   },
   videoThumbnail:{
-    width:(50*windowWidth)/100,
-    height:(25*windowHeight)/100,
+    width:(60*windowWidth)/100,
+    height:(23*windowHeight)/100,
     borderRadius:10,
   },
   ytTitle:{
@@ -382,5 +422,31 @@ export const styles = StyleSheet.create({
     width:100,
     height:100
   },
-  
+  movieFeatureContainer:{
+    position:'absolute',
+    right:30,
+    flexDirection:'column',
+    height:'55%',
+    alignItems:'center',
+    justifyContent:'space-evenly',
+    zIndex:20,
+  },
+  firstFeatureContainer:{
+    height:'60%',
+    flexDirection:'column',
+    justifyContent:'space-evenly',
+  },
+  moviePlayContainer:{
+    position:'absolute',
+    right:15,
+    bottom:30
+  },
+  mainScreen:{ 
+    paddingBottom: 40,
+    paddingTop:60
+  },
+  rightArrowIcon:{
+    marginRight: 0, 
+    paddingHorizontal: 12
+  }
 });

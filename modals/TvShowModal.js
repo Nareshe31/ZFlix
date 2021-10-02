@@ -1,13 +1,15 @@
 import axios from 'axios'
 import React,{useEffect,useState} from 'react'
-import { Dimensions,View,Text,ScrollView,ActivityIndicator,Alert,Image,StyleSheet,Linking,Pressable, FlatList, SafeAreaView, TouchableOpacity,TouchableHighlight} from 'react-native'
+import { BackHandler,Dimensions,View,Text,ScrollView,ActivityIndicator,Alert,Image,StyleSheet,Linking,Pressable, FlatList, SafeAreaView, TouchableOpacity,TouchableHighlight,ToastAndroid} from 'react-native'
 import { styles,colors } from "../globalStyle";
 import ProgressCircle from 'react-native-progress-circle'
-import { MaterialIcons,Ionicons } from '@expo/vector-icons';
+import { MaterialIcons,Ionicons,MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
 import ImageView from "react-native-image-viewing";
 import { IMAGE_PATH ,months,API_KEY,getHour,getMinute, URLs} from '../globalUtils';
 import {Picker} from '@react-native-picker/picker';
 import Accordion from 'react-native-collapsible/Accordion';
+import { useSelector,useDispatch} from 'react-redux'
+import LottieView from 'lottie-react-native';
 
 const dummyEpisodes = [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 },{ id: 6 }, { id: 7 }, { id: 8 }]
 const windowWidth = Dimensions.get('window').width;
@@ -23,16 +25,28 @@ export default function TvShowModal({navigation,route}){
     const [seasonLoading,setSeasonLoading]=useState(true)
     const [seasonNumber,setSeasonNumber]=useState(1)
     const [activeSections,setActiveSections]=useState([])
+    const user=useSelector(state=>state)
+    const dispatch=useDispatch()
 
     let {name,first_air_date}=route.params
     useEffect(() => {
         
         getTvShowInfo()
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick)
+        return () => {
+            backHandler.remove()
+        }
     }, [route])
 
     useEffect(() => {
         getSeasonData(seasonNumber)
     }, [seasonNumber])
+
+    const handleBackButtonClick = () => {
+        navigation.goBack()
+        return true
+    }
+
     const getTvShowInfo=async()=>{
         try {
             setIsLoading(true)
@@ -91,7 +105,43 @@ export default function TvShowModal({navigation,route}){
     const updateSections=(activeSections)=>{
         setActiveSections(activeSections)
     }
-    
+    const addToWatchlist=async()=>{
+        try {
+            let {data}=await axios.post('http://important-bow-prawn.glitch.me/add-to-watchlist',{
+                id:user._id,
+                watchlist:{
+                    id:tvShowData.id,
+                    poster_path:tvShowData.poster_path,
+                    name:tvShowData.name,
+                    year:tvShowData.first_air_date,
+                    type:"tv"
+                }
+            })
+            dispatch({type:"ADD_TO_WATCHLIST",payload:data.user.watchlist})
+            ToastAndroid.show('Added to watchlist',ToastAndroid.SHORT)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const removeFromWatchlist=async()=>{
+        try {
+            let watchlistId=getMovieId()
+            let response=await axios.post('http://important-bow-prawn.glitch.me/remove-from-watchlist',{
+                id:user._id,
+                watchlistId
+            })
+            dispatch({type:"REMOVE_FROM_WATCHLIST",payload:tvShowData.id})
+            ToastAndroid.show('Removed from watchlist',ToastAndroid.SHORT)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const isMovieAdded=()=>{
+        return user?.watchlist.find(ele=>ele.id==tvShowData.id)
+    }
+    const getMovieId=()=>{
+        return user.watchlist.map(ele=>ele.id==tvShowData.id?ele._id:null)
+    }
     return(
         <View style={[styles.container,{position:'relative',backgroundColor:colors.mainBlackColor}]}>
             <View style={[styles.movieModalHeader]}>
@@ -104,24 +154,68 @@ export default function TvShowModal({navigation,route}){
             {isLoading?
                 (   
                     <View style={[styles.pageLoader,{backgroundColor:colors.mainBlackColor}]}>
-                        <ActivityIndicator size='large' color={colors.mainBlue} />
+                        {/* <ActivityIndicator size='large' color={colors.mainBlue} /> */}
+                        {/* <Image source={require('../assets/images/loading-hand.gif')} style={{width:250,height:350}}  /> */}
+                        <LottieView source={require('../assets/lotties/loading-hand.json')} autoPlay loop />
                     </View>
                 )
                 :
                 <ScrollView style={[styles.container]}>
                     
                     <View style={styles.modalPosterContainer}>
-                        <Image
-                            opacity={0.55}
-                            style={styles.modalBackdropPoster}
-                            resizeMode={'cover'}
-                            source={{uri:IMAGE_PATH+tvShowData.backdrop_path}}
-                        />
-                        <Image 
-                            resizeMode={'cover'}
-                            source={{uri:IMAGE_PATH+tvShowData.poster_path}}
-                            style={styles.modalPoster}
-                        />
+                        {tvShowData.backdrop_path?
+                            <Image
+                                opacity={0.55}
+                                style={styles.modalBackdropPoster}
+                                resizeMode={'cover'}
+                                source={{uri:IMAGE_PATH+tvShowData.backdrop_path}}
+                            />
+                            :
+                            <Image style={[styles.modalBackdropPoster,{width:'80%',marginLeft:'10%',backgroundColor:'#999',zIndex:-10}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
+                        }
+                        {tvShowData.poster_path?
+                            <Image 
+                                resizeMode={'cover'}
+                                source={{uri:IMAGE_PATH+tvShowData.poster_path}}
+                                style={styles.modalPoster}
+                            />
+                            :
+                            <>
+                                {tvShowData.backdrop_path?
+                                    <Image
+                                        style={styles.modalPoster}
+                                        resizeMode={'cover'}
+                                        source={{uri:IMAGE_PATH+tvShowData.backdrop_path}}
+                                    />
+                                :
+                                null}
+                            </>
+                            }
+
+                        <View style={s.movieFeatureContainer}>
+                            {!isMovieAdded()?
+                                <TouchableOpacity onPress={addToWatchlist}>
+                                    <View>
+                                        <Ionicons name="heart-outline" size={30} color={colors.lightWhite} />
+                                    </View>
+                                </TouchableOpacity>
+                                :
+                                <TouchableOpacity onPress={removeFromWatchlist}>
+                                    <View>
+                                        <Ionicons name="heart-sharp" size={30} color={colors.lightWhite} />
+                                    </View>
+                                </TouchableOpacity>
+                            }
+                            <View>
+                                <MaterialIcons name="share" size={30} color={colors.lightWhite} />
+                            </View>
+                            <TouchableOpacity onPress={()=>navigation.push('TorrentModal',{query:tvShowData.name+' s'+(seasonNumber<10?'0':'')+seasonNumber,type:'tv'})}>
+                                <View>
+                                    <MaterialCommunityIcons name="download-circle" size={30} color={colors.lightWhite} />
+                                </View>
+                            </TouchableOpacity>
+
+                        </View>
                     </View>
                     <View style={s.movieDetailContainer}>
                         <Pressable onPress={()=>{
@@ -136,11 +230,23 @@ export default function TvShowModal({navigation,route}){
                             </View>
                         </Pressable>
                         <View style={{flexDirection:'column',flexWrap:'wrap'}}>
-                            <View style={styles.movieTextContainer}>
-                                <Text style={[styles.movieText]}>
-                                    Episode Runtime: {tvShowData.episode_run_time[0]? (tvShowData.episode_run_time[0]>60?getHour(tvShowData.episode_run_time[0])+'hr ':'') + (getMinute(tvShowData.episode_run_time[0])?getMinute(tvShowData.episode_run_time[0])+' min' :'') :'N/A'}
-                                </Text>
-                            </View>
+                            {tvShowData.episode_run_time[0]?
+                                <View style={styles.movieTextContainer}>
+                                    <MaterialCommunityIcons name="clock-time-four-outline" size={20} color={colors.lightestWhite} />
+                                    <Text style={[styles.movieText]}>
+                                        {(tvShowData.episode_run_time[0]>60?getHour(tvShowData.episode_run_time[0])+'hr ':'') + (getMinute(tvShowData.episode_run_time[0])?getMinute(tvShowData.episode_run_time[0])+' min' :'')}
+                                    </Text>
+                                </View>
+                            :null}
+                            {tvShowData.vote_average?
+                                <View style={styles.movieTextContainer}>
+                                    <AntDesign name="star" size={20} color={colors.lightestWhite} />
+                                    <Text style={[styles.movieText]}>
+                                        {tvShowData.vote_average} (Audience Rating)
+                                    </Text>
+                                </View>
+                                :null
+                            }
 
                             <View style={styles.movieTextContainer}>
                                 <Text style={[styles.movieText]}>
@@ -188,7 +294,7 @@ export default function TvShowModal({navigation,route}){
                             ))}
                         </View>
 
-                        <View style={s.movieScore}>
+                        {/* <View style={s.movieScore}>
                             <View style={s.movieScoreLeft}>
                                 <ProgressCircle
                                     percent={Math.floor(tvShowData.vote_average*10)}
@@ -204,11 +310,29 @@ export default function TvShowModal({navigation,route}){
                             </View>
                             
                             <View style={s.movieScoreLeft}>
-                                <TouchableHighlight onPress={()=>navigation.push('TorrentModal',{query:tvShowData.name+' season '+seasonNumber,type:'tv'})}>
+                                <TouchableHighlight onPress={()=>navigation.push('TorrentModal',{query:tvShowData.name+' s'+(seasonNumber<10?'0':'')+seasonNumber,type:'tv'})}>
                                     <Text style={styles.torrentSearchButton}>Browse Torrents</Text>
                                 </TouchableHighlight>
                             </View>
-                        </View>
+                        </View> */}
+                        {/* <View style={styles.torrentSearchContainer}>
+                            {isMovieAdded()?
+                                <TouchableHighlight onPress={removeFromWatchlist}>
+                                    <View style={styles.addWatchlistButton}>
+                                        <Ionicons name="md-remove-outline" size={24} color={colors.lightWhite} />
+                                        <MaterialIcons style={{marginRight:5}} name="done" size={26} color={colors.lightWhite} />
+                                        <Text style={styles.watchlistText}>Watchlist</Text>
+                                    </View>
+                                </TouchableHighlight>
+                                :
+                                <TouchableHighlight onPress={addToWatchlist}>
+                                    <View style={styles.addWatchlistButton}>
+                                        <Ionicons name="ios-add-sharp" size={26} color={colors.lightWhite} />
+                                        <Text style={styles.watchlistText}>Watchlist</Text>
+                                    </View>
+                                </TouchableHighlight>
+                            }
+                        </View> */}
 
                         <View style={styles.movieOverview}>
                             <Text style={styles.heading_1}>Overview</Text>
@@ -247,7 +371,7 @@ export default function TvShowModal({navigation,route}){
                             }
                         </View>
 
-                        <View style={[s.recommendationMovieContainer,s.imagesContainer]}>
+                        <View style={[s.imagesContainer]}>
                             <FlatList  
                                 horizontal
                                 keyExtractor={(item)=>item.file_path}
@@ -268,6 +392,65 @@ export default function TvShowModal({navigation,route}){
                             />
                         </View>
 
+                        {tvShowData?.credits?.cast.length>0? 
+                            <View style={[s.imagesContainer]}>
+                                <Text style={[styles.heading_1]}>Cast</Text>
+                                <FlatList  
+                                    horizontal
+                                    showsHorizontalScrollIndicator={false}
+                                    keyExtractor={(item)=>item.id.toString()}
+                                    data={tvShowData.credits.cast}
+                                    renderItem={({item})=>(
+                                        <View style={styles.castWholePosterContainer}>
+                                            <TouchableOpacity onPress={()=>navigation.push('PersonModal',{screen:'PersonScreen',params:{id:item.id,name:item.name},key: Math.round( Math.random() * 10000000 )})}>
+                                                <View style={[styles.castPosterContainer]}>
+                                                    {item.profile_path?
+                                                        <Image style={styles.castPoster} source={{uri:IMAGE_PATH+item.profile_path}} />
+                                                        :
+                                                        <Image style={[styles.castPoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
+                                                    }
+                                                </View>
+                                                </TouchableOpacity>
+                                            <View style={styles.posterDetail}>
+                                                <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
+                                                {item.character?<Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterYear}>{item.character}</Text>:null}
+                                            </View>
+                                        </View>
+                                    )}
+                                />
+                            </View>
+                        :null}
+
+                        {tvShowData.credits.crew.length?
+                            <View style={[s.imagesContainer]}>
+                                <Text style={[styles.heading_1]}>Crew</Text>
+                                <FlatList  
+                                    horizontal
+                                    showsHorizontalScrollIndicator={false}
+                                    keyExtractor={(item)=>item.id.toString()+Math.round( Math.random() * 10000000 )}
+                                    data={tvShowData.credits.crew}
+                                    renderItem={({item})=>(
+                                        <View style={styles.castWholePosterContainer}>
+                                            <TouchableOpacity onPress={()=>navigation.push('PersonModal',{screen:'PersonScreen',params:{id:item.id,name:item.name},key: Math.round( Math.random() * 10000000 )})}>
+                                                <View style={[styles.castPosterContainer]}>
+                                                    {item.profile_path?
+                                                        <Image style={styles.castPoster} source={{uri:IMAGE_PATH+item.profile_path}} />
+                                                        :
+                                                        <Image style={[styles.castPoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
+                                                    }
+                                                    
+                                                </View>
+                                            </TouchableOpacity>
+                                            <View style={styles.posterDetail}>
+                                                <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
+                                                {item.job?<Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterYear}>{item.job}</Text>:null}
+                                            </View>
+                                        </View>
+                                    )}
+                                />
+                            </View>
+                        :null}
+                        
                         {tvShowData?.videos?.results.length?
                             <View style={styles.videoContainer}> 
                                 <Text style={[styles.heading_1]}>Videos</Text>
@@ -292,67 +475,9 @@ export default function TvShowModal({navigation,route}){
                         :null
                         }
 
-                        {tvShowData?.credits?.cast.length>0? 
-                            <View style={[s.castContainer,s.imagesContainer]}>
-                                <Text style={[styles.heading_1]}>Cast</Text>
-                                <FlatList  
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    keyExtractor={(item)=>item.id.toString()}
-                                    data={tvShowData.credits.cast}
-                                    renderItem={({item})=>(
-                                        <View style={styles.movieWholePosterContainer}>
-                                            <TouchableOpacity onPress={()=>navigation.push('PersonModal',{screen:'PersonScreen',params:{id:item.id,name:item.name},key: Math.round( Math.random() * 10000000 )})}>
-                                                <View style={[styles.moviePosterContainer]}>
-                                                    {item.profile_path?
-                                                        <Image style={styles.moviePoster} source={{uri:IMAGE_PATH+item.profile_path}} />
-                                                        :
-                                                        <Image style={[styles.moviePoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
-                                                    }
-                                                </View>
-                                                </TouchableOpacity>
-                                            <View style={styles.posterDetail}>
-                                                <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
-                                                {item.character?<Text style={styles.posterYear}>{item.character}</Text>:null}
-                                            </View>
-                                        </View>
-                                    )}
-                                />
-                            </View>
-                        :null}
-
-                        {tvShowData.credits.crew.length?
-                            <View style={[s.castContainer,s.imagesContainer]}>
-                                <Text style={[styles.heading_1]}>Crew</Text>
-                                <FlatList  
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    keyExtractor={(item)=>item.id.toString()+Math.round( Math.random() * 10000000 )}
-                                    data={tvShowData.credits.crew}
-                                    renderItem={({item})=>(
-                                        <View style={styles.movieWholePosterContainer}>
-                                            <TouchableOpacity onPress={()=>navigation.push('PersonModal',{screen:'PersonScreen',params:{id:item.id,name:item.name},key: Math.round( Math.random() * 10000000 )})}>
-                                                <View style={[styles.moviePosterContainer]}>
-                                                    {item.profile_path?
-                                                        <Image style={styles.moviePoster} source={{uri:IMAGE_PATH+item.profile_path}} />
-                                                        :
-                                                        <Image style={[styles.moviePoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
-                                                    }
-                                                    
-                                                </View>
-                                            </TouchableOpacity>
-                                            <View style={styles.posterDetail}>
-                                                <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
-                                                {item.job?<Text style={styles.posterYear}>{item.job}</Text>:null}
-                                            </View>
-                                        </View>
-                                    )}
-                                />
-                            </View>
-                        :null}
                         
                         {tvShowData?.similar?.results.length>0?
-                            <View style={[s.similarMovieContainer,s.imagesContainer]}>
+                            <View style={[s.imagesContainer]}>
                                 <Text style={[styles.heading_1]}>More like this</Text>
                                 <FlatList  
                                     horizontal
@@ -381,13 +506,13 @@ export default function TvShowModal({navigation,route}){
                         :null}
 
                         {tvShowData.recommendations.results.length>0?
-                            <View style={[s.recommendationMovieContainer,s.imagesContainer]}>
+                            <View style={[s.imagesContainer]}>
                                 <Text style={[styles.heading_1]}>Recommendations</Text>
                                 <FlatList  
                                     horizontal
                                     showsHorizontalScrollIndicator={false}
                                     keyExtractor={(item)=>item.id.toString()}
-                                    data={tvShowData.recommendations.results.slice(0,10)}
+                                    data={tvShowData.recommendations.results}
                                     renderItem={({item})=>(
                                         <View style={styles.movieWholePosterContainer}>
                                             <TouchableOpacity onPress={()=>navigation.push('TvShowModal',{screen:'TvModal',params:{id:item.id,name:item.name,first_air_date:item.first_air_date},key: Math.round( Math.random() * 10000000 )})}>
@@ -468,7 +593,7 @@ const s=StyleSheet.create({
     },
     imagesContainer:{
         marginTop:10,
-        marginBottom:15,
+        marginBottom:10,
         marginHorizontal:10
     },
     seasonDetailContainer:{
@@ -516,5 +641,15 @@ const s=StyleSheet.create({
     seasonFilter:{
         marginLeft:10
     },
+    movieFeatureContainer:{
+        position:'absolute',
+        right:30,
+        top:'40%',
+        flexDirection:'column',
+        height:'60%',
+        justifyContent:'space-evenly',
+        alignItems:'center',
+        zIndex:20,
+    }
 })
   

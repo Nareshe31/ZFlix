@@ -1,11 +1,12 @@
 import React from 'react';
-import { View,Text,StyleSheet,TouchableOpacity,Image,Dimensions,ToastAndroid } from 'react-native';
+import { View,Text,StyleSheet,TouchableOpacity,Image,ToastAndroid,Dimensions,Linking,TouchableHighlight } from 'react-native';
 import {colors,styles} from '../globalStyle'
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons,FontAwesome ,Ionicons} from '@expo/vector-icons';
 import {useSelector,useDispatch} from 'react-redux'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import * as SecureStore from 'expo-secure-store';
-import {IMAGE_PATH} from '../globalUtils'
+import Constants from "expo-constants"
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -20,15 +21,18 @@ export default function ProfileModal({navigation}){
       ToastAndroid.show("Signed out successfully", ToastAndroid.SHORT);
     }
     return(
+
         <View style={styles.container}>
             <View style={[s.movieModalHeader]}>
-                <TouchableOpacity style={{justifyContent:'center'}} onPress={()=>navigation.goBack()}>
-                    <View style={s.genreHeader} >
+                <View style={s.genreHeader} >
+                    <TouchableOpacity onPress={()=>navigation.goBack()}>
                         <MaterialIcons name="arrow-back" size={22} color={colors.lightWhite} /> 
-                        <Text ellipsizeMode={'tail'} numberOfLines={1} style={s.movieModalHeaderText}>Profile</Text>
-                    </View>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                    
+                    <Text ellipsizeMode={'tail'} numberOfLines={1} style={s.movieModalHeaderText}>Profile</Text>
+                </View>
             </View>
+            
             <View style={s.wholeInfoContainer}>
                 <View style={s.profileImageContainer}>
                     <Image source={require('../assets/images/profile/male-1.png')} style={s.profileImage} />
@@ -41,30 +45,52 @@ export default function ProfileModal({navigation}){
                     </TouchableWithoutFeedback>
                 </View>
             </View>
-            <View style={s.watchlist}>
-                <Text style={s.watchlistHeader}>Watchlist</Text>
-                {user && user?.watchlist.length?
-                    <View style={s.watchlistContainer}>
-                        {user?.watchlist.map(item=>(
-                            <View key={item._id} style={s.watchlistItemContainer}>
-                                <TouchableOpacity 
-                                    onPress={() => navigation.push('Modal', { screen: 'MovieModal', params: { id: item.id ,release_date:item.year,title:item.name}, key: Math.round(Math.random() * 10000000) })}
-                                    >
-                                    <View style={s.moviePosterContainer}>
-                                        <Image source={{uri:IMAGE_PATH+item.poster_path}} style={s.moviePoster} />
-                                    </View>
-                                </TouchableOpacity>
-                                
-                            </View>
-                        ))}
+            <View style={s.optionWholeContainer}>
+
+                <TouchableHighlight onPress={() => navigation.push('WatchlistModal')}>
+                    <View style={s.optionContainer}>
+                        <Ionicons name="heart" size={26} color={colors.lighterWhite} />
+                        <View style={s.optionTextContainer}>
+                            <Text style={s.optionText}>Favourite</Text>
+                            <Text style={s.optionTwoText}>Add to your favourite</Text>
+                        </View>
                     </View>
-                    :
-                    <View style={s.center}>
-                        <Text style={s.infoText}>Browse and to your watchlist</Text>
+                </TouchableHighlight>
+
+                <TouchableHighlight onPress={() => Linking.openURL('mailto:zflix.contact@pm.me')}>
+                    <View style={s.optionContainer}>
+                        <MaterialIcons name="mail-outline" size={26} color={colors.lighterWhite} />
+                        <View style={s.optionTextContainer}>
+                            <Text style={s.optionText}>Contact us</Text>
+                            <Text style={s.optionTwoText}>zflix.contact@pm.me</Text>
+                        </View>
                     </View>
-                }
+                </TouchableHighlight>
+
+                <View style={s.optionContainer}>
+                    <FontAwesome name="question-circle" size={26} color={colors.lighterWhite} />
+                    <View style={s.optionTextContainer}>
+                        <Text style={s.optionText}>Help</Text>
+                        <Text style={s.optionTwoText}>Ask your queries</Text>
+                    </View>
+                </View>
+                <View style={s.optionContainer}>
+                    <MaterialIcons name="developer-mode" size={24} color={colors.lighterWhite} />
+                    <View style={s.optionTextContainer}>
+                        <Text style={s.optionText}>Developer</Text>
+                        <Text style={s.optionTwoText}>Naresh E</Text>
+                    </View>
+                </View>
+                
+                
+            </View>
+
+            <View style={s.verionContainer}>
+                <Text style={s.versionText}>Privacy Policy  .  T&C</Text>
+                <Text style={s.versionText}>v{Constants.manifest.version}</Text>
             </View>
         </View>
+
     )
 }
 
@@ -125,35 +151,47 @@ const s=StyleSheet.create({
         paddingHorizontal:10,
         borderRadius:5
     },
-    watchlistContainer:{
-        flexDirection:'row',
-        flexWrap:'wrap',
-        alignItems:'center',
-    },
-    watchlistHeader:{
-        fontFamily:'Nunito-Bold',
-        fontSize:20,
-        color:colors.lightWhite,
-        marginVertical:10,
-        marginLeft:5
-    },
-    moviePosterContainer:{
-        borderRadius:10,
-        backgroundColor:colors.loadingColor,
-        margin:(1.6/100)* windowWidth,
-    },
-    moviePoster:{
-        width:(30/100)* windowWidth,
-        height:(20/100)* windowHeight,
-        borderRadius:10,
-    },
-    watchlist:{
-        marginVertical:10,
-    },
     center:{
         justifyContent:'center',
         alignItems:'center',
         height:200,
         backgroundColor:colors.lightBlack
+    },
+    optionWholeContainer:{
+        marginVertical:10,
+        borderBottomWidth:0,
+        paddingBottom:5,
+        borderBottomColor:colors.lighterWhite
+    },
+    optionContainer:{
+        flexDirection:'row',
+        marginVertical:10,
+        marginHorizontal:10,
+        alignItems:'center'
+    },
+    optionText:{
+        color:colors.lightestWhite,
+        fontFamily:'Nunito-Bold',
+        fontSize:17,
+    },
+    optionTextContainer:{
+        marginLeft:10
+    },
+    optionTwoText:{
+        color:colors.lighterWhite,
+        fontFamily:'Nunito-Regular',
+        fontSize:15,
+    },
+    verionContainer:{
+        paddingLeft:12,
+        borderBottomWidth:0,
+        paddingBottom:5,
+        borderBottomColor:colors.lighterWhite
+    },
+    versionText:{
+        fontFamily:'Nunito-SemiBold',
+        fontSize:14,
+        color:colors.lighterWhite,
+        marginVertical:3
     }
 })

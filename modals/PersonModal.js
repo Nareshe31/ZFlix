@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React,{useEffect,useState} from 'react'
-import { View,Dimensions,Text,ScrollView,ActivityIndicator,Image,StyleSheet,Linking,Alert,Pressable, FlatList, SafeAreaView, TouchableOpacity, Button, TouchableHighlight} from 'react-native'
+import { BackHandler,View,Dimensions,Text,ScrollView,ActivityIndicator,Image,StyleSheet,Linking,Alert,Pressable, FlatList, SafeAreaView, TouchableOpacity, Button, TouchableHighlight} from 'react-native'
 import { styles, colors } from "../globalStyle"
 import { MaterialIcons,Ionicons } from '@expo/vector-icons';
 import ImageView from "react-native-image-viewing";
@@ -17,7 +17,17 @@ export default function PersonModal({navigation,route}) {
     useEffect(() => {
         
         getMovieInfo()
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick)
+        return () => {
+            backHandler.remove()
+        }
+
     }, [route])
+    
+    const handleBackButtonClick = () => {
+        navigation.goBack()
+        return true
+    }
     const getMovieInfo=async()=>{
         try {
             setIsLoading(true)
@@ -46,7 +56,8 @@ export default function PersonModal({navigation,route}) {
             {isLoading?
                 (
                     <View style={[styles.pageLoader,styles.container,{backgroundColor:colors.mainBlackColor}]}>
-                        <ActivityIndicator size='large' color={colors.mainBlue} />
+                        {/* <ActivityIndicator size='large' color={colors.mainBlue} /> */}
+                        <Image source={require('../assets/images/loading-hand.gif')} style={{width:250,height:350}}  />
                     </View>
                 )
                 :
@@ -191,7 +202,6 @@ export default function PersonModal({navigation,route}) {
                                     data={personData.movie_credits.crew}
                                     renderItem={({item})=>(
                                         <View style={styles.movieWholePosterContainer}>
-                                            {item.job?<Text style={styles.posterTitle}>{item.job}</Text>:null}
                                             <TouchableOpacity onPress={()=>navigation.push('Modal',{screen:'MovieModal',params:{id:item.id,release_date:item.release_date,title:item.title},key: Math.round( Math.random() * 10000000 )})}>
                                                 <View style={styles.moviePosterContainer}>
                                                         {item.poster_path ?
@@ -204,6 +214,7 @@ export default function PersonModal({navigation,route}) {
                                             <View style={styles.posterDetail}>
                                                 <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.title}</Text>
                                                 {item.release_date?<Text style={styles.posterYear}>{months[Number(item.release_date.slice(5,7))-1]} {item.release_date.slice(8,10)}, {item.release_date.slice(0,4)}</Text>:null}
+                                                {item.job?<Text ellipsizeMode={'tail'} numberOfLines={1} style={s.personJob}>{item.job}</Text>:null}
                                             </View>
                                         </View>
                                     )}
@@ -260,6 +271,7 @@ export default function PersonModal({navigation,route}) {
                                             <View style={styles.posterDetail}>
                                                 <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
                                                 {item.first_air_date?<Text style={styles.posterYear}>{months[Number(item.first_air_date.slice(5,7))-1]} {item.first_air_date.slice(8,10)}, {item.first_air_date.slice(0,4)}</Text>:null}
+                                                {item.job?<Text ellipsizeMode={'tail'} numberOfLines={1} style={s.personJob}>{item.job}</Text>:null}
                                             </View>
                                         </View>
                                     )}
@@ -321,8 +333,14 @@ const s=StyleSheet.create({
         backgroundColor:colors.mainLightBlue
     },
     imagesContainer:{
-        marginVertical:18,
+        marginVertical:12,
         marginHorizontal:10
     },
+    personJob:{
+        fontFamily:'Nunito-SemiBold',
+        fontSize:16,
+        color:colors.lightWhite,
+        marginTop:5
+    }
 
 })

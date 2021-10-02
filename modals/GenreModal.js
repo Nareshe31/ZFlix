@@ -9,7 +9,50 @@ import {Picker} from '@react-native-picker/picker';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const loadingImages=[{id:0},{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8},{id:9}]
+const loadingImages=[{id:0},{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8},{id:9},{id:10},{id:11}]
+
+function LoadingComponent() {
+    const opacity = new Animated.Value(0.7)
+    useEffect(() => {
+        fadeIn()
+    }, [])
+    const fadeIn = () => {
+        Animated.timing(opacity, {
+            toValue: 1,
+            duration: 800,
+            useNativeDriver: true
+        }).start(() => fadeOut())
+    }
+    const fadeOut = () => {
+        Animated.timing(opacity, {
+            toValue: 0.7,
+            duration: 800,
+            useNativeDriver: true
+        }).start(() => fadeIn())
+    }
+    return(
+        <View style={[styles.pageLoader,{backgroundColor:colors.mainBlackColor}]}>
+            <FlatList  
+                data={loadingImages}
+                horizontal={false}
+                keyExtractor={(item)=>item.id.toString()}
+                contentContainerStyle={{alignItems:'center'}}
+                renderItem={({item})=>(
+                    <View style={s.movieWholePosterContainer}>
+                        <Animated.View style={[s.moviePosterContainer,{opacity:opacity}]}>
+                            <View style={s.moviePoster} ></View>
+                        </Animated.View>
+                        <View style={styles.posterDetail}>
+                            <Animated.View style={{opacity:opacity,width:(33*windowWidth)/100,backgroundColor:colors.loadingColor,marginVertical:6,borderRadius:10,padding:5}}></Animated.View>
+                            <Animated.View style={{opacity:opacity,width:(25*windowWidth)/100,backgroundColor:colors.loadingColor,padding:5,borderRadius:10}}></Animated.View>
+                        </View>
+                    </View>
+                )}
+                numColumns={2}
+            />
+        </View>
+    )
+}
 
 export default function GenreModal({navigation,route}) {
     const [isRefreshing,setIsRefreshing]=useState(false)
@@ -17,12 +60,10 @@ export default function GenreModal({navigation,route}) {
     const [filterValue,setFilterValue]=useState('popularity.desc')
     const [isLoading,setIsLoading]=useState(true)
     const [pages,setPages]=useState(0)
-    const opacity=new Animated.Value(0.7)
     const [onEndReachedCalledDuringMomentum,setOnEndReachedCalledDuringMomentum]=useState(false)
 
     useEffect(() => {
         setMovieData([])
-        fadeIn()
         getMovies(1)
         setIsLoading(true)
     }, [filterValue])
@@ -41,26 +82,7 @@ export default function GenreModal({navigation,route}) {
             // Alert.alert('Oops...','Something went wrong',[{text:"Go back",onPress:()=>navigation.goBack()}])
         }
     }
-    const fadeIn=()=>{
-        Animated.timing(opacity,{
-            toValue:1,
-            duration:800,
-            useNativeDriver:true
-        }).start(()=>isLoading?fadeOut():null)
-    }
-    const fadeOut=()=>{
-        Animated.timing(opacity,{
-            toValue:0.7,
-            duration:800,
-            useNativeDriver:true
-        }).start(()=>isLoading?fadeIn():null)
-    }
-
-    const Footer=()=>{
-        return isRefreshing?
-            <ActivityIndicator size='large' color={colors.mainBlue} />
-            :null
-    }
+    
     return(
         <View style={[styles.container,{width:'100%',position:'relative',backgroundColor:colors.mainBlackColor}]} >
             <View style={[s.movieModalHeader]}>
@@ -88,30 +110,12 @@ export default function GenreModal({navigation,route}) {
             </View>
 
             {isLoading?
-                <View style={[styles.pageLoader,{backgroundColor:colors.mainBlackColor}]}>
-                    <FlatList  
-                        data={loadingImages}
-                        horizontal={false}
-                        keyExtractor={(item)=>item.id.toString()}
-                        contentContainerStyle={{alignItems:'center'}}
-                        renderItem={({item})=>(
-                            <View style={s.movieWholePosterContainer}>
-                                <Animated.View style={[s.moviePosterContainer,{opacity}]}>
-                                    <View style={s.moviePoster} ></View>
-                                </Animated.View>
-                                <View style={styles.posterDetail}>
-                                    <Animated.View style={{opacity,width:(33*windowWidth)/100,backgroundColor:colors.loadingColor,marginVertical:6,borderRadius:10,padding:5}}></Animated.View>
-                                    <Animated.View style={{opacity,width:(25*windowWidth)/100,backgroundColor:colors.loadingColor,padding:5,borderRadius:10}}></Animated.View>
-                                </View>
-                            </View>
-                        )}
-                        numColumns={2}
-                    />
-                </View>
+                <LoadingComponent  />
                 :
                 <View style={[styles.container,{backgroundColor:colors.mainBlackColor}]}>
                     <FlatList  
                         data={movieData}
+                        key={'='}
                         horizontal={false}
                         keyExtractor={(item)=>item.id.toString()}
                         contentContainerStyle={{alignItems:'center'}}
@@ -124,7 +128,7 @@ export default function GenreModal({navigation,route}) {
                                         {item.poster_path?
                                             <Image style={s.moviePoster} source={{uri:IMAGE_PATH+item.poster_path}} />
                                             :
-                                            <Image style={[styles.moviePoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
+                                            <Image style={[s.moviePoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
                                         }
                                     </View>
                                 </TouchableOpacity>
@@ -142,7 +146,11 @@ export default function GenreModal({navigation,route}) {
                             </View>
                         )}
                         ListFooterComponent={()=>(
-                            ((movieData.length / 20) + 1)<pages?<ActivityIndicator size='large' color={colors.mainBlue} />:null
+                            ((movieData.length / 20) + 1)<pages?
+                            // <LoadingComponent  />
+                            <ActivityIndicator size='large' color={colors.mainBlue} />
+                            :
+                            null
                         )}
                         onEndReached={({distanceFromEnd})=>{
                             // distanceFromEnd<0 
@@ -155,7 +163,6 @@ export default function GenreModal({navigation,route}) {
                         onEndReachedThreshold={0.1}
                         numColumns={2}
                     />
-                    {/* <Footer  /> */}
                     
                 </View>
                 }
@@ -166,8 +173,10 @@ export default function GenreModal({navigation,route}) {
 const s=StyleSheet.create({
     moviePoster:{
         width:'100%',
-        height:(28*windowHeight)/100,
+        height:(23*windowHeight)/100,
         borderRadius:10,
+        minHeight:140,
+        maxHeight:200
     },
     moviePosterContainer:{
         width:'100%',
@@ -193,15 +202,14 @@ const s=StyleSheet.create({
         flexDirection:'row',
         alignItems:'center'
     },
-    genreFilter:{
-
-    },
     movieWholePosterContainer:{
-        width:(42*windowWidth)/100,
+        width:(38*windowWidth)/100,
         position:'relative',
         marginBottom:20,
         marginTop:8,
-        marginHorizontal:(3*windowWidth)/100
+        marginHorizontal:(4*windowWidth)/100,
+        minWidth:120,
+        maxWidth:220
     },
     posterDetail:{
         marginVertical:8,

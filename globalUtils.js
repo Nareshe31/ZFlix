@@ -30,6 +30,10 @@ export const URLs=[
     `https://api.themoviedb.org/3/discover/`,   //24
     'https://api.themoviedb.org/3/',  //25,
     '&append_to_response=images,videos,credits,similar,recommendations',  //26
+    'https://important-bow-prawn.glitch.me/add-to-search',  //27
+    'http://important-bow-prawn.glitch.me/add-to-watchlist',  //28
+    'http://important-bow-prawn.glitch.me/remove-multiple-from-watchlist',  //29
+    'http://important-bow-prawn.glitch.me/add-to-recent-movie', //30
 ]
 
 export const getHour=(runtime)=>{

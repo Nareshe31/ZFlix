@@ -1,9 +1,14 @@
 import axios from 'axios';
 import React, { useState, useContext,useRef } from 'react';
-import { View, Text, ToastAndroid, TextInput, StyleSheet, StatusBar, Alert, ImageBackground, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { View, Text, ToastAndroid, TextInput,Image, StyleSheet,Animated, StatusBar, Alert, ImageBackground, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { useDispatch } from 'react-redux'
 import * as SecureStore from 'expo-secure-store';
 import { colors, styles } from '../globalStyle';
+import { abs } from 'react-native-reanimated';
+
+const focusColor='hsla(0,0%,60%,0.65)'
+const normalColor='hsla(0,0%,35%,0.60)'
+const errorColor='hsla(25,100%,60%,1)'
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('')
@@ -13,6 +18,7 @@ export default function Login({ navigation }) {
     const [passwordError, setPasswordError] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [currentInput,setCurrentInput]=useState(0)
+
     const dispatch = useDispatch()
 
     const emailRef=useRef()
@@ -69,43 +75,46 @@ export default function Login({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('../assets/images/new-crop.png')} resizeMode='cover' style={s.image}>
+            {/* <ImageBackground source={require('../assets/images/new-crop.png')} resizeMode='cover' style={s.image}> */}
                 <View style={s.container}>
                     <View style={s.appHeader}>
-                        <Text style={s.appHeaderText}>ZFlix</Text>
+                        {/* <Text style={s.appHeaderText}>ZFlix</Text> */}
+                        <Image source={require('../assets/icon.png')} style={{width:75,height:75}} />
                     </View>
                     <View style={s.formContainer}>
                         {/* <Text style={s.header}>Login</Text> */}
                         <View style={s.inputContainer}>
-                            <Text style={s.label}>Email</Text>
+                            <Text style={[s.label]}>Email</Text>
+                           
                             <TextInput
-                                style={[s.input,{backgroundColor: currentInput==1?'hsla(0,0%,50%,0.90)':'hsla(0,0%,30%,0.80)'}]}
+                                style={[s.input,{backgroundColor: currentInput==1?focusColor:normalColor}]}
                                 ref={emailRef}
                                 returnKeyType={password.length>=4?'go':'next'}
                                 autoCorrect={false}
-                                onSubmitEditing={()=>password.length>=4?handleValidation():passwordRef.current.focus()}
+                                onSubmitEditing={()=>passwordRef.current.focus()}
                                 onFocus={()=>changeBackground("email")}
-                                selectionColor={colors.lighterWhite}
+                                selectionColor={colors.lightWhite}
                                 keyboardType='email-address'
-                                placeholder="abc@xyz.com"
+                                placeholder={currentInput==1?'':"abc@xyz.com"}
                                 placeholderTextColor={colors.lighterWhite}
                                 onChangeText={val => setEmail(val)}
                                 value={email} />
                         </View>
-                        <View style={s.inputContainer}>
-                            <Text style={s.label}>Password</Text>
+                        <View style={[s.inputContainer]}>
+                            {passwordError !=''?<View style={[s.errorLine]}></View>:null}
+                            <Text style={[s.label]}>Password</Text>
                             <TextInput 
-                                style={[s.input,{backgroundColor: currentInput==2?'hsla(0,0%,50%,0.90)':'hsla(0,0%,30%,0.80)'}]} 
-                                selectionColor={colors.lighterWhite} 
+                                style={[s.input,{backgroundColor: currentInput==2?focusColor:normalColor}]} 
+                                selectionColor={colors.lightWhite} 
                                 ref={passwordRef}
                                 returnKeyType='go'
                                 secureTextEntry={!showPassword} 
                                 maxLength={12}
                                 onSubmitEditing={handleValidation}
                                 onFocus={()=>changeBackground("password")}
-                                placeholder={`••••••••\u2022`} 
+                                placeholder={currentInput==2?'':'\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022'} 
                                 placeholderTextColor={colors.lighterWhite} 
-                                onChangeText={val => setPassword(val)} 
+                                onChangeText={val =>setPassword(val)} 
                                 value={password} />
                             {password != '' ?
                                 <TouchableWithoutFeedback onPress={() => setShowPassword(!showPassword)}>
@@ -139,7 +148,7 @@ export default function Login({ navigation }) {
                         </TouchableWithoutFeedback>
                     </View>
                 </View>
-            </ImageBackground>
+            {/* </ImageBackground> */}
         </View>
     )
 }
@@ -147,17 +156,16 @@ export default function Login({ navigation }) {
 const s = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'hsla(0,0%,0%,0.9)',
+        backgroundColor: colors.mainBlackColor,
         justifyContent: 'center',
         alignItems: 'center'
     },
     appHeader: {
         alignItems: 'center',
         paddingVertical: 20,
-        backgroundColor: 'hsla(0,0%,0%,0)'
     },
     appHeaderText: {
-        fontSize: 30,
+        fontSize: 36,
         fontFamily: 'Nunito-Bold',
         color: colors.mainBlue
     },
@@ -171,7 +179,7 @@ const s = StyleSheet.create({
         paddingHorizontal: 18,
         fontSize: 17,
         color: colors.inputWhite,
-        borderRadius: 5
+        borderRadius: 3
     },
     inputContainer: {
         marginVertical: 8
@@ -214,7 +222,7 @@ const s = StyleSheet.create({
     errorText: {
         fontFamily: 'Nunito-SemiBold',
         fontSize: 16,
-        color: 'hsla(0,60%,55%,1)'
+        color: errorColor
     },
     showHideText: {
         fontFamily: 'Nunito-Bold',
@@ -226,5 +234,16 @@ const s = StyleSheet.create({
         paddingVertical: 14,
         paddingHorizontal: 12
 
+    },
+    errorLine:{
+        width:'98%',
+        marginHorizontal:'1%',
+        height:2,
+        position:'absolute',
+        left:0,
+        bottom:0,
+        zIndex:10,
+        borderBottomWidth:2,
+        borderBottomColor:errorColor
     }
 })

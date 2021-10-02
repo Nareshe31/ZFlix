@@ -1,9 +1,13 @@
 import axios from 'axios';
 import React, { useState, useContext,useRef } from 'react';
-import { View, Text, ToastAndroid, TextInput, StyleSheet, StatusBar, Alert, ImageBackground, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { View, Text, ToastAndroid,Image, TextInput, StyleSheet, StatusBar, Alert, ImageBackground, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { useDispatch } from 'react-redux'
 import * as SecureStore from 'expo-secure-store';
 import { colors, styles } from '../globalStyle';
+
+const focusColor='hsla(0,0%,60%,0.65)'
+const normalColor='hsla(0,0%,35%,0.60)'
+const errorColor='hsla(25,100%,60%,1)'
 
 export default function Signup({ navigation }) {
     const [email, setEmail] = useState('')
@@ -12,6 +16,8 @@ export default function Signup({ navigation }) {
     const [isLoading, setIsLoading] = useState(false)
     const [loginError, setLoginError] = useState('')
     const [passwordError, setPasswordError] = useState('')
+    const [emailError,setEmailError]=useState('')
+    const [nameError, setNameError] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [currentInput,setCurrentInput]=useState(0)
     const dispatch = useDispatch()
@@ -21,22 +27,36 @@ export default function Signup({ navigation }) {
     const nameRef=useRef()
 
     const handleValidation = () => {
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/
         setLoginError('')
-        if (password.length >= 4 && email != '' && name.length>=4) {
+        if (name.length>4 && password.length >= 4 && email != '' && reg.test(email)) {
             setPasswordError('')
+            setNameError('')
+            setEmailError('')
             handleSubmit()
         }
         else {
-            if (password.length < 4) {
-                passwordRef.current.focus()
-                setPasswordError("You password must contain between 4 and 12 characters.")
-            }
-            else if (name.length < 4) {
+            
+            if(name.length < 4) {
+                setNameError('Name should contain more than 4 characters')
+                setPasswordError('')
+                setEmailError('')
                 nameRef.current.focus()
             }  
-            else {
+            else if(email=='' || !reg.test(email)){
                 emailRef.current.focus()
+                if(email==''){
+                    setEmailError('Email should not be empty')
+                }
+                else setEmailError('Invalid email address')
                 setPasswordError('')
+                setNameError('')
+            }
+            else{
+                passwordRef.current.focus()
+                setNameError('')
+                setEmailError('')
+                setPasswordError("You password must contain between 4 and 12 characters.")
             }
         }
     }
@@ -77,48 +97,54 @@ export default function Signup({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('../assets/images/new-crop.png')} resizeMode='cover' style={s.image}>
+            {/* <ImageBackground source={require('../assets/images/new-crop.png')} resizeMode='cover' style={s.image}> */}
                 <View style={s.container}>
                     <View style={s.appHeader}>
-                        <Text style={s.appHeaderText}>ZFlix</Text>
+                        {/* <Text style={s.appHeaderText}>ZFlix</Text> */}
+                        <Image source={require('../assets/icon.png')} style={{width:75,height:75}} />
                     </View>
                     <View style={s.formContainer}>
                         {/* <Text style={s.header}>Login</Text> */}
                         <View style={s.inputContainer}>
-                            <Text style={s.label}>Name</Text>
+                            {nameError !=''?<View style={[s.errorLine]}></View>:null}
+                            <Text style={s.label}>Full Name</Text>
                             <TextInput
-                                style={[s.input,{backgroundColor: currentInput==1?'hsla(0,0%,50%,0.90)':'hsla(0,0%,30%,0.80)'}]}
+                                style={[s.input,{backgroundColor: currentInput==1?focusColor:normalColor}]}
                                 ref={nameRef}
                                 returnKeyType={password.length>=4?'go':'next'}
                                 autoCorrect={false}
-                                onSubmitEditing={()=>email!='' && password.length>=4?handleValidation():emailRef.current.focus()}
+                                onSubmitEditing={()=>name.length>4?emailRef.current.focus():handleValidation()}
                                 onFocus={()=>changeBackground("name")}
                                 selectionColor={colors.lighterWhite}
-                                placeholder="John Doe"
+                                placeholder={currentInput==1?'':"John Doe"}
                                 placeholderTextColor={colors.lighterWhite}
                                 onChangeText={val => setName(val)}
                                 value={name} />
                         </View>
+                        {nameError !=''?<Text style={[s.errorText]}>{nameError}</Text>:null}
                         <View style={s.inputContainer}>
+                            {nameError=='' && emailError!=''?<View style={[s.errorLine]}></View>:null}
                             <Text style={s.label}>Email</Text>
                             <TextInput
-                                style={[s.input,{backgroundColor: currentInput==2?'hsla(0,0%,50%,0.90)':'hsla(0,0%,30%,0.80)'}]}
+                                style={[s.input,{backgroundColor: currentInput==2?focusColor:normalColor}]}
                                 ref={emailRef}
                                 returnKeyType={password.length>=4?'go':'next'}
                                 autoCorrect={false}
-                                onSubmitEditing={()=>name.length>=4 && password.length>=4?handleValidation():passwordRef.current.focus()}
+                                onSubmitEditing={()=>handleValidation()}
                                 onFocus={()=>changeBackground("email")}
                                 selectionColor={colors.lighterWhite}
                                 keyboardType='email-address'
-                                placeholder="abc@xyz.com"
+                                placeholder={currentInput==2?'':"abc@xyz.com"}
                                 placeholderTextColor={colors.lighterWhite}
                                 onChangeText={val => setEmail(val)}
                                 value={email} />
                         </View>
+                        {nameError=='' && emailError!=''?<Text style={[s.errorText]}>{emailError}</Text>:null}
                         <View style={s.inputContainer}>
+                            {nameError=='' && emailError=='' && passwordError!=''?<View style={[s.errorLine]}></View>:null}
                             <Text style={s.label}>Password</Text>
                             <TextInput 
-                                style={[s.input,{backgroundColor: currentInput==3?'hsla(0,0%,50%,0.90)':'hsla(0,0%,30%,0.80)'}]} 
+                                style={[s.input,{backgroundColor: currentInput==3?focusColor:normalColor}]} 
                                 selectionColor={colors.lighterWhite} 
                                 ref={passwordRef}
                                 returnKeyType='go'
@@ -126,7 +152,7 @@ export default function Signup({ navigation }) {
                                 maxLength={12}
                                 onSubmitEditing={handleValidation}
                                 onFocus={()=>changeBackground("password")}
-                                placeholder={`••••••••\u2022`} 
+                                placeholder={currentInput==3?'':`••••••••\u2022`} 
                                 placeholderTextColor={colors.lighterWhite} 
                                 onChangeText={val => setPassword(val)} 
                                 value={password} />
@@ -162,7 +188,7 @@ export default function Signup({ navigation }) {
                         </TouchableWithoutFeedback>
                     </View>
                 </View>
-            </ImageBackground>
+            {/* </ImageBackground> */}
         </View>
     )
 }
@@ -170,17 +196,16 @@ export default function Signup({ navigation }) {
 const s = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'hsla(0,0%,0%,0.9)',
+        backgroundColor: colors.mainBlackColor,
         justifyContent: 'center',
         alignItems: 'center'
     },
     appHeader: {
         alignItems: 'center',
         paddingVertical: 20,
-        backgroundColor: 'hsla(0,0%,0%,0)'
     },
     appHeaderText: {
-        fontSize: 30,
+        fontSize: 36,
         fontFamily: 'Nunito-Bold',
         color: colors.mainBlue
     },
@@ -237,7 +262,7 @@ const s = StyleSheet.create({
     errorText: {
         fontFamily: 'Nunito-SemiBold',
         fontSize: 16,
-        color: 'hsla(0,60%,55%,1)'
+        color: errorColor
     },
     showHideText: {
         fontFamily: 'Nunito-Bold',
@@ -249,5 +274,16 @@ const s = StyleSheet.create({
         paddingVertical: 14,
         paddingHorizontal: 12
 
+    },
+    errorLine:{
+        width:'98%',
+        marginHorizontal:'1%',
+        height:2,
+        position:'absolute',
+        left:0,
+        bottom:0,
+        zIndex:10,
+        borderBottomWidth:2,
+        borderBottomColor:errorColor
     }
 })

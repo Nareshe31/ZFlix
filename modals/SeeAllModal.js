@@ -57,12 +57,12 @@ export default function SeeAllModal({ navigation, route }) {
     return (
         <View style={[styles.container, { width: '100%', position: 'relative', backgroundColor: colors.mainBlackColor }]} >
             <View style={[s.movieModalHeader]}>
-                    <View style={s.genreHeader} >
-                        <TouchableOpacity style={{ justifyContent: 'center',paddingLeft:0}} onPress={() => navigation.goBack()}>
-                            <MaterialIcons name="arrow-back" size={22} color={colors.lightWhite} />
-                        </TouchableOpacity>
-                        <Text ellipsizeMode={'tail'} numberOfLines={1} style={s.movieModalHeaderText}>{title}</Text>
-                    </View>
+                <View style={s.genreHeader} >
+                    <TouchableOpacity style={{ justifyContent: 'center',paddingLeft:0}} onPress={() => navigation.goBack()}>
+                        <MaterialIcons name="arrow-back" size={22} color={colors.lightWhite} />
+                    </TouchableOpacity>
+                    <Text ellipsizeMode={'tail'} numberOfLines={1} style={s.movieModalHeaderText}>{title}</Text>
+                </View>
             </View>
 
             {isLoading ?
@@ -159,8 +159,10 @@ export default function SeeAllModal({ navigation, route }) {
 const s = StyleSheet.create({
     moviePoster: {
         width: '100%',
-        height: (26*windowHeight)/100,
+        height: (23*windowHeight)/100,
         borderRadius: 10,
+        minHeight:140,
+        maxHeight:200
     },
     moviePosterContainer: {
         width: '100%',
@@ -191,11 +193,13 @@ const s = StyleSheet.create({
 
     },
     movieWholePosterContainer: {
-        width: (42 * windowWidth) / 100,
+        width: (38 * windowWidth) / 100,
         position: 'relative',
         marginBottom: 20,
         marginTop:8,
-        marginHorizontal: (3 * windowWidth) / 100
+        marginHorizontal: (4 * windowWidth) / 100,
+        minWidth:120,
+        maxWidth:220
     },
     posterDetail: {
         marginVertical: 8,

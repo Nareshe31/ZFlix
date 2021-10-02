@@ -1,9 +1,12 @@
 import React,{useState,useEffect} from 'react';
-import {Dimensions, View,Text,StyleSheet, SafeAreaView ,TouchableOpacity,ActivityIndicator,RefreshControl,Linking, FlatList} from 'react-native';
+import {BackHandler,Dimensions, View,Text,StyleSheet, SafeAreaView,Image ,TouchableOpacity,ActivityIndicator,RefreshControl,Linking, FlatList} from 'react-native';
 import { styles,colors } from '../globalStyle';
 import { MaterialIcons,FontAwesome,MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import {Torrent_Search} from '../globalUtils';
+import * as WebBrowser from 'expo-web-browser';
+import LottieView from 'lottie-react-native';
+
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -15,7 +18,17 @@ export default function TorrentModal({navigation,route}) {
     const [onEndReachedCalledDuringMomentum,setOnEndReachedCalledDuringMomentum]=useState(false)
     useEffect(() => {
         getTorrents(1)
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick)
+        return () => {
+            backHandler.remove()
+        }
     }, [])
+
+    const handleBackButtonClick = () => {
+        navigation.goBack()
+        return true
+    }
+
     
     const getTorrents=async(page)=>{
         try {
@@ -40,7 +53,10 @@ export default function TorrentModal({navigation,route}) {
             </View>
             {isLoading?
                 <View style={[styles.pageLoader,{backgroundColor:colors.mainBlackColor}]}>
-                    <ActivityIndicator size='large' color={colors.mainBlue}  />
+                    {/* <ActivityIndicator size='large' color={colors.mainBlue}  /> */}
+                    {/* <Image source={require('../assets/images/loading-hand.gif')} style={{width:250,height:350}}  /> */}
+                    <LottieView source={require('../assets/lotties/loading-hand.json')} autoPlay loop />
+                
                 </View>
                 :
                 <View style={[styles.container,{backgroundColor:colors.mainBlackColor}]}>
@@ -68,7 +84,7 @@ export default function TorrentModal({navigation,route}) {
                                                 <Text style={s.normalText}>{item.peers}</Text>
                                             </View>
                                             <View style={[s.flex]}>
-                                                <TouchableOpacity onPress={()=>Linking.openURL(item.torrent)}>
+                                                <TouchableOpacity onPress={()=>WebBrowser.openBrowserAsync(item.torrent)}>
                                                     <View style={[s.torrentLinkContainer,s.flex]}>
                                                         <MaterialIcons name="file-download" size={22} color={colors.lightGray} />
                                                         {/* <Text style={s.normalText}>Download</Text> */}
@@ -103,6 +119,7 @@ export default function TorrentModal({navigation,route}) {
                         </SafeAreaView>
                         :
                         <View style={styles.noResultContainer}>
+                            <Image source={require('../assets/images/no-result.gif')} style={{width:100,height:100,margin:10}} />
                             <Text style={styles.noResultText}>No torrents found</Text>
                         </View>
                         
