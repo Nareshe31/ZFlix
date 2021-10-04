@@ -2,13 +2,12 @@ import axios from 'axios'
 import React,{useEffect,useState} from 'react'
 import { BackHandler,View,Text,ScrollView,ActivityIndicator,Image,StyleSheet,Animated,Linking,Alert,ToastAndroid,Pressable, FlatList, TouchableOpacity, TouchableHighlight} from 'react-native'
 import { styles, colors } from "../globalStyle";
-import ProgressCircle from 'react-native-progress-circle'
 import { MaterialIcons,Ionicons,MaterialCommunityIcons ,AntDesign} from '@expo/vector-icons';
 import ImageView from "react-native-image-viewing";
 import { IMAGE_PATH,months,getHour,getMinute,convertMoney, URLs,API_KEY } from '../globalUtils';
 import { useSelector,useDispatch} from 'react-redux'
 import LottieView from 'lottie-react-native';
-import Poster from '../components/molecules/Poster'
+import PosterContainer from '../components/molecules/PosterContainer'
 
 const HEADER_MAX_HEIGHT = 450;
 const HEADER_MIN_HEIGHT = 0;
@@ -458,34 +457,24 @@ export default function ModalScreen({navigation,route}){
 
                         
 
-                        {movieData.similar.results.length?
-                            <View style={[s.imagesContainer]}>
-                                <Text style={[styles.heading_1]}>More like this</Text>
-                                <FlatList  
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    keyExtractor={(item)=>item.id.toString()}
-                                    data={movieData.similar.results}
-                                    renderItem={({item})=>(
-                                        <Poster type='movie' item={item} navigation={navigation} />
-                                    )}
-                                />
-                            </View>
+                        {movieData?.similar?.results.length?
+                            <PosterContainer
+                                data={movieData.similar.results}
+                                title="More like this"
+                                loading={false}
+                                navigation={navigation}
+                                type="movie"
+                            />
                         :null}
 
-                        {movieData.recommendations.results.length?
-                            <View style={[s.imagesContainer]}>
-                                <Text style={[styles.heading_1]}>Recommendations</Text>
-                                <FlatList  
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    keyExtractor={(item)=>item.id.toString()}
-                                    data={movieData.recommendations.results}
-                                    renderItem={({item})=>(
-                                        <Poster type='movie' item={item} navigation={navigation} />
-                                    )}
-                                />
-                            </View>
+                        {movieData?.recommendations?.results.length?
+                            <PosterContainer
+                                data={movieData.recommendations.results}
+                                title="Recommendations"
+                                loading={false}
+                                navigation={navigation}
+                                type="movie"
+                            />
                         :null}
                         
                         <ImageView

@@ -6,7 +6,7 @@ const windowHeight = Dimensions.get('window').height;
 export const fontSizes={
   appHeader:26,
   posterHeader:20,
-  movieName:17,
+  movieName:16,
   movieDate:14,
   modalHeader:18,
   modalName:22,
@@ -17,8 +17,8 @@ export const fontSizes={
 }
 
 export const dimensions={
-  posterWidth:(34*windowWidth)/100,
-  posterHeight:(21*windowHeight)/100
+  posterWidth:(32*windowWidth)/100,
+  posterHeight:(19*windowHeight)/100
 }
 
 export const mainColor='hsl(190,80%,50%)';
@@ -124,18 +124,18 @@ export const styles = StyleSheet.create({
     },
     popularContainer:{
       width:'100%',
-      marginBottom:10,
+      marginBottom:8,
   },
   popularHeaderText:{
       fontSize:fontSizes.posterHeader,
-      marginVertical:5,
-      marginHorizontal:15,
+      marginVertical:0,
+      marginHorizontal:10,
       fontWeight:'600',
       fontFamily:'Nunito-Bold',
       color:colors.lightWhite
   },
   posterDetail:{
-      marginVertical:8,
+      marginVertical:5,
   },
   posterTitle:{
       color:colors.lightWhite,
@@ -149,7 +149,7 @@ export const styles = StyleSheet.create({
   },
   movieWholePosterContainer:{
       width:dimensions.posterWidth,
-      marginHorizontal:8,
+      marginHorizontal:5,
       position:'relative',
       minWidth:120,
       maxWidth:180,
@@ -190,7 +190,7 @@ export const styles = StyleSheet.create({
   },
   posterSlideShowContainer:{
       marginLeft:5,
-      paddingVertical:10,
+      paddingVertical:5,
       borderRadius:10,
   },
   
@@ -304,7 +304,7 @@ export const styles = StyleSheet.create({
     marginHorizontal:8
   },
   movieModalHeader:{
-    backgroundColor:'hsla(0,0%,0%,0.65)',
+    backgroundColor:colors.mainBlackColor,
     flexDirection:'row',
     alignItems:'center',
     paddingHorizontal:10,

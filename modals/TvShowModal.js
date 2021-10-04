@@ -1,8 +1,7 @@
 import axios from 'axios'
 import React,{useEffect,useState} from 'react'
-import { BackHandler,Dimensions,View,Text,ScrollView,ActivityIndicator,Alert,Image,StyleSheet,Linking,Pressable, FlatList, SafeAreaView, TouchableOpacity,TouchableHighlight,ToastAndroid} from 'react-native'
+import { Animated,BackHandler,Dimensions,View,Text,ScrollView,ActivityIndicator,Alert,Image,StyleSheet,Linking,Pressable, FlatList, SafeAreaView,TouchableHighlight,ToastAndroid} from 'react-native'
 import { styles,colors } from "../globalStyle";
-import ProgressCircle from 'react-native-progress-circle'
 import { MaterialIcons,Ionicons,MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
 import ImageView from "react-native-image-viewing";
 import { IMAGE_PATH ,months,API_KEY,getHour,getMinute, URLs} from '../globalUtils';
@@ -10,8 +9,9 @@ import {Picker} from '@react-native-picker/picker';
 import Accordion from 'react-native-collapsible/Accordion';
 import { useSelector,useDispatch} from 'react-redux'
 import LottieView from 'lottie-react-native';
+import PosterContainer from '../components/molecules/PosterContainer'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const dummyEpisodes = [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 },{ id: 6 }, { id: 7 }, { id: 8 }]
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -27,6 +27,13 @@ export default function TvShowModal({navigation,route}){
     const [activeSections,setActiveSections]=useState([])
     const user=useSelector(state=>state)
     const dispatch=useDispatch()
+
+    const scrollY = new Animated.Value(0);
+    const diffClamp = Animated.diffClamp(scrollY, 0, 57);
+    const translateY = diffClamp.interpolate({
+        inputRange: [0, 57],
+        outputRange: [0, -57],
+    });
 
     let {name,first_air_date}=route.params
     useEffect(() => {
@@ -144,12 +151,20 @@ export default function TvShowModal({navigation,route}){
     }
     return(
         <View style={[styles.container,{position:'relative',backgroundColor:colors.mainBlackColor}]}>
-            <View style={[styles.movieModalHeader]}>
-                <TouchableOpacity style={{paddingLeft:0}} onPress={()=>navigation.goBack()}>
-                    <MaterialIcons name="arrow-back" size={22} color={colors.lightWhite} /> 
-                </TouchableOpacity>
-                <Text ellipsizeMode={'middle'} numberOfLines={1} style={styles.movieModalHeaderText}>{name} <Text style={[styles.movieYear]}>({first_air_date.slice(0,4)})</Text></Text>
-            </View>
+            <Animated.View
+                style={{
+                    transform: [{ translateY: translateY }],
+                    elevation: 1,
+                    zIndex: 1000,
+                }}
+            >
+                <View style={[styles.movieModalHeader]}>
+                    <TouchableOpacity style={{paddingLeft:0}} onPress={()=>navigation.goBack()}>
+                        <MaterialIcons name="arrow-back" size={22} color={colors.lightWhite} /> 
+                    </TouchableOpacity>
+                    <Text ellipsizeMode={'middle'} numberOfLines={1} style={styles.movieModalHeaderText}>{name} <Text style={[styles.movieYear]}>({first_air_date.slice(0,4)})</Text></Text>
+                </View>
+            </Animated.View>
 
             {isLoading?
                 (   
@@ -160,7 +175,10 @@ export default function TvShowModal({navigation,route}){
                     </View>
                 )
                 :
-                <ScrollView style={[styles.container]}>
+                <ScrollView 
+                    style={[styles.container,{paddingTop:45}]}
+                    onScroll={(e) => scrollY.setValue(e.nativeEvent.contentOffset.y)}
+                    >
                     
                     <View style={styles.modalPosterContainer}>
                         {tvShowData.backdrop_path?
@@ -477,61 +495,23 @@ export default function TvShowModal({navigation,route}){
 
                         
                         {tvShowData?.similar?.results.length>0?
-                            <View style={[s.imagesContainer]}>
-                                <Text style={[styles.heading_1]}>More like this</Text>
-                                <FlatList  
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    keyExtractor={(item)=>item.id.toString()}
-                                    data={tvShowData.similar.results}
-                                    renderItem={({item})=>(
-                                        <View style={styles.movieWholePosterContainer}>
-                                            <TouchableOpacity onPress={()=>navigation.push('TvShowModal',{screen:'TvModal',params:{id:item.id,name:item.name,first_air_date:item.first_air_date},key: Math.round( Math.random() * 10000000 )})}>
-                                                <View style={styles.moviePosterContainer}>
-                                                    {item.poster_path?
-                                                        <Image style={styles.moviePoster} source={{uri:IMAGE_PATH+item.poster_path}} />
-                                                        :
-                                                        <Image style={[styles.moviePoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
-                                                    }
-                                                </View>
-                                            </TouchableOpacity>
-                                            <View style={styles.posterDetail}>
-                                                <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
-                                                {item.first_air_date?<Text style={styles.posterYear}>{months[Number(item.first_air_date.slice(5,7))-1]} {item.first_air_date.slice(8,10)}, {item.first_air_date.slice(0,4)}</Text>:null}
-                                            </View>
-                                        </View>
-                                    )}
-                                />
-                            </View>
+                            <PosterContainer
+                                data={tvShowData.similar.results}
+                                title="More like this"
+                                loading={false}
+                                navigation={navigation}
+                                type="tv"
+                            />
                         :null}
 
                         {tvShowData.recommendations.results.length>0?
-                            <View style={[s.imagesContainer]}>
-                                <Text style={[styles.heading_1]}>Recommendations</Text>
-                                <FlatList  
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    keyExtractor={(item)=>item.id.toString()}
-                                    data={tvShowData.recommendations.results}
-                                    renderItem={({item})=>(
-                                        <View style={styles.movieWholePosterContainer}>
-                                            <TouchableOpacity onPress={()=>navigation.push('TvShowModal',{screen:'TvModal',params:{id:item.id,name:item.name,first_air_date:item.first_air_date},key: Math.round( Math.random() * 10000000 )})}>
-                                                <View style={styles.moviePosterContainer}>
-                                                    {item.poster_path?
-                                                        <Image style={styles.moviePoster} source={{uri:IMAGE_PATH+item.poster_path}} />
-                                                        :
-                                                        <Image style={[styles.moviePoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
-                                                    }
-                                                </View>
-                                            </TouchableOpacity>
-                                            <View style={styles.posterDetail}>
-                                                <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
-                                                {item.first_air_date?<Text style={styles.posterYear}>{months[Number(item.first_air_date.slice(5,7))-1]} {item.first_air_date.slice(8,10)}, {item.first_air_date.slice(0,4)}</Text>:null}
-                                            </View>
-                                        </View>
-                                    )}
-                                />
-                            </View>
+                            <PosterContainer
+                                data={tvShowData.recommendations.results}
+                                title="Recommendations"
+                                loading={false}
+                                navigation={navigation}
+                                type="tv"
+                            />
                         :null}
                         
                         <ImageView

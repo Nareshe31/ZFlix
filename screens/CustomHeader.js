@@ -15,9 +15,6 @@ export default function CustomHeader({navigation}) {
         </TouchableOpacity>
         
         <TouchableOpacity >
-          {/* <View style={[styles.headerCenter,styles.headerPart]}>
-            <Text style={[styles.headerText]}>ZFlix</Text>
-          </View> */}
           <Image source={require('../assets/images/logo-wo-bg.png')} style={{width:32,height:32}} />
         </TouchableOpacity>
         

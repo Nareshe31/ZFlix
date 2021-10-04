@@ -1,101 +1,19 @@
 import React, { useEffect, useState } from "react";
 import {
   BackHandler,
-  Dimensions,
   View,
-  Text,
   ScrollView,
-  FlatList,
-  Image,
   StyleSheet,
-  SafeAreaView,
-  RefreshControl,
-  TouchableOpacity,
   Animated,
   Alert,
 } from "react-native";
 import { styles, colors } from "../globalStyle";
 import CustomHeader from "./CustomHeader";
-import { months, URLs } from "../globalUtils";
-import { MaterialIcons } from "@expo/vector-icons";
+import { URLs } from "../globalUtils";
 import axios from "axios";
-import Poster from "../components/molecules/Poster";
-
-const loadingImages = [
-  { id: 0 },
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 },
-  { id: 7 },
-  { id: 8 },
-];
-const windowWidth = Dimensions.get("window").width;
-
-function ContainerLoading() {
-  const opacity = new Animated.Value(0.7);
-  useEffect(() => {
-    fadeIn();
-  }, []);
-
-  const fadeIn = () => {
-    Animated.timing(opacity, {
-      toValue: 1,
-      duration: 800,
-      useNativeDriver: true,
-    }).start(() => fadeOut());
-  };
-  const fadeOut = () => {
-    Animated.timing(opacity, {
-      toValue: 0.7,
-      duration: 800,
-      useNativeDriver: true,
-    }).start(() => fadeIn());
-  };
-  return (
-    <View style={styles.posterSlideShowContainer}>
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={loadingImages}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.movieWholePosterContainer}>
-            <Animated.View style={[styles.moviePosterContainer, { opacity }]}>
-              <View style={styles.moviePoster}></View>
-            </Animated.View>
-            <View style={styles.posterDetail}>
-              <Animated.View
-                style={{
-                  width: (33 * windowWidth) / 100,
-                  backgroundColor: colors.loadingColor,
-                  marginVertical: 6,
-                  borderRadius: 10,
-                  padding: 5,
-                  opacity,
-                }}
-              ></Animated.View>
-              <Animated.View
-                style={{
-                  width: (25 * windowWidth) / 100,
-                  backgroundColor: colors.loadingColor,
-                  padding: 5,
-                  borderRadius: 10,
-                  opacity,
-                }}
-              ></Animated.View>
-            </View>
-          </View>
-        )}
-      />
-    </View>
-  );
-}
+import PostersContainer from "../components/molecules/PostersContainer";
 
 export default function TvShowScreen({ navigation }) {
-  const [refreshing, setRefreshing] = useState(false);
   const [isPopularLoading, setIsPopularLoading] = useState(true);
   const [isTopRatedLoading, setIsTopRatedLoading] = useState(true);
   const [isUpcomingLoading, setIsUpcomingLoading] = useState(true);
@@ -141,7 +59,6 @@ export default function TvShowScreen({ navigation }) {
     await getTopRated();
     setIsUpcomingLoading(true);
     await getUpcoming();
-    setRefreshing(false);
   };
   const getPopular = async () => {
     try {
@@ -186,121 +103,31 @@ export default function TvShowScreen({ navigation }) {
         style={[styles.container, s.mainBackground]}
         contentContainerStyle={styles.mainScreen}
         onScroll={(e) => scrollY.setValue(e.nativeEvent.contentOffset.y)}
-        refreshControl={
-          <RefreshControl onRefresh={getAllData} refreshing={refreshing} />
-        }
       >
-        <View style={styles.popularContainer}>
-          <View style={styles.popularHeaderContainer}>
-            <Text style={styles.popularHeaderText}>Popular Shows</Text>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("SeeAllModal", {
-                  id: 9,
-                  title: "Popular Shows",
-                })
-              }
-            >
-              <MaterialIcons
-                style={styles.rightArrowIcon}
-                name="keyboard-arrow-right"
-                size={24}
-                color={colors.lighterWhite}
-              />
-            </TouchableOpacity>
-          </View>
-
-          {isPopularLoading ? (
-            <ContainerLoading />
-          ) : (
-            <SafeAreaView
-              style={{ flex: 1 }}
-              style={styles.posterSlideShowContainer}
-            >
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={popular}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                  <Poster type="tv" item={item} navigation={navigation} />
-                )}
-              />
-            </SafeAreaView>
-          )}
-        </View>
-
-        <View style={styles.popularContainer}>
-          <View style={styles.popularHeaderContainer}>
-            <Text style={styles.popularHeaderText}>Top Rated Shows</Text>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("SeeAllModal", {
-                  id: 10,
-                  title: "Top Rated Shows",
-                })
-              }
-            >
-              <MaterialIcons
-                style={styles.rightArrowIcon}
-                name="keyboard-arrow-right"
-                size={24}
-                color={colors.lighterWhite}
-              />
-            </TouchableOpacity>
-          </View>
-          {isTopRatedLoading ? (
-            <ContainerLoading />
-          ) : (
-            <SafeAreaView style={styles.posterSlideShowContainer}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={topRated}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                  <Poster type="tv" item={item} navigation={navigation} />
-                )}
-              />
-            </SafeAreaView>
-          )}
-        </View>
-
-        <View style={styles.popularContainer}>
-          <View style={styles.popularHeaderContainer}>
-            <Text style={styles.popularHeaderText}>New Season Shows</Text>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("SeeAllModal", {
-                  id: 11,
-                  title: "New Season Shows",
-                })
-              }
-            >
-              <MaterialIcons
-                style={styles.rightArrowIcon}
-                name="keyboard-arrow-right"
-                size={24}
-                color={colors.lighterWhite}
-              />
-            </TouchableOpacity>
-          </View>
-          {isUpcomingLoading ? (
-            <ContainerLoading />
-          ) : (
-            <SafeAreaView style={styles.posterSlideShowContainer}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={upcoming}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                  <Poster type="tv" item={item} navigation={navigation} />
-                )}
-              />
-            </SafeAreaView>
-          )}
-        </View>
+        <PostersContainer
+          data={popular}
+          title="Popular Shows"
+          loading={isPopularLoading}
+          navigation={navigation}
+          type="tv"
+          apiId="9"
+        />
+        <PostersContainer
+          data={topRated}
+          title="Top Rated Shows"
+          loading={isTopRatedLoading}
+          navigation={navigation}
+          type="tv"
+          apiId="10"
+        />
+        <PostersContainer
+          data={upcoming}
+          title="New Season Shows"
+          loading={isUpcomingLoading}
+          navigation={navigation}
+          type="tv"
+          apiId="11"
+        />
       </ScrollView>
     </View>
   );

@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import {Linking, Modal,StyleSheet, Text, View,StatusBar,SafeAreaView,Image, Pressable, Alert} from 'react-native';
+import {Linking,Dimensions, Modal,StyleSheet, Text, View,StatusBar,SafeAreaView,Image, Pressable, Alert} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -35,7 +35,9 @@ import Signup from './screens/Signup';
 import ProfileModal from './modals/ProfileModal';
 import * as Linkings from 'expo-linking'
 import NetInfo from "@react-native-community/netinfo";
-import LoadingDots from "react-native-loading-dots";
+import LottieView from 'lottie-react-native';
+
+const windowHeight=Dimensions.get('window').height
 
 const RootStack=createStackNavigator()
 const MovieModalStack=createStackNavigator()
@@ -282,7 +284,7 @@ function Index() {
       'Nunito-Bold': require('./assets/fonts/Nunito-Bold.ttf'),
       'Nunito-SemiBold': require('./assets/fonts/Nunito-SemiBold.ttf'),
       'Nunito-SemiBoldItalic': require('./assets/fonts/Nunito-SemiBoldItalic.ttf'),
-      'Nunito-Italic': require('./assets/fonts/Nunito-Italic.ttf'),
+      'Nunito-Italic': require('./assets/fonts/Nunito-Italic.ttf')
     })
   if(isFontLoading){
     return(
@@ -305,13 +307,7 @@ function Index() {
               <Image source={require('./assets/custom-splash.png')} resizeMode='contain' style={s.loadingLogo}  />
               <Text style={s.loadingText}>{words[loadingWord]}</Text>
               <Text style={s.versionText}>v{Constants.manifest.version}</Text>
-              <View style={[s.loadingGifContainer]}>
-                <LoadingDots 
-                  dots={5} 
-                  bounceHeight={14} 
-                  size={18}
-                  colors={['#5672C6','#89CEE2','#774F9E','#CE8CD1','#DD6B8E']} />
-              </View>
+              <LottieView source={require('./assets/lotties/loading-bubble.json')} style={s.loadingGif} autoPlay loop />
           </View>
         </SafeAreaView>
       )
@@ -446,15 +442,8 @@ const s=StyleSheet.create({
     backgroundColor:colors.mainBlackColor,
   },
   loadingGif:{
-    width:200,
-    height:200,
-    zIndex:5,
-    bottom:-15,
     position:'absolute',
-    backgroundColor:colors.mainBlackColor,
-  },
-  loadingGifContainer:{
-    position:'absolute',
-    bottom:90
+    top:windowHeight/2-50,
+    width:220,
   }
 })

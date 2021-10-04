@@ -1,101 +1,18 @@
 import React, { useState, useEffect } from "react";
 import {
   BackHandler,
-  Dimensions,
   View,
-  Text,
   ScrollView,
-  FlatList,
-  Image,
   StyleSheet,
-  SafeAreaView,
   RefreshControl,
-  TouchableOpacity,
   Animated,
   Alert,
 } from "react-native";
 import { styles, colors } from "../globalStyle";
 import CustomHeader from "./CustomHeader";
 import axios from "axios";
-import { months, URLs, IMAGE_PATH } from "../globalUtils";
-import { MaterialIcons } from "@expo/vector-icons";
-import Poster from "../components/molecules/Poster";
-
-const loadingImages = [
-  { id: 0 },
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 },
-  { id: 7 },
-  { id: 8 },
-];
-const windowWidth = Dimensions.get("window").width;
-
-function ContainerLoading() {
-  const opacity = new Animated.Value(0.7);
-  useEffect(() => {
-    fadeIn();
-  }, []);
-  const fadeIn = () => {
-    Animated.timing(opacity, {
-      toValue: 1,
-      duration: 800,
-      useNativeDriver: true,
-    }).start(() => fadeOut());
-  };
-  const fadeOut = () => {
-    Animated.timing(opacity, {
-      toValue: 0.7,
-      duration: 800,
-      useNativeDriver: true,
-    }).start(() => fadeIn());
-  };
-
-  return (
-    <View style={styles.posterSlideShowContainer}>
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={loadingImages}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.movieWholePosterContainer}>
-            <Animated.View
-              key={item.id}
-              style={[styles.moviePosterContainer, { opacity }]}
-            >
-              <View style={styles.moviePoster}></View>
-            </Animated.View>
-            <View style={styles.posterDetail}>
-              <Animated.View
-                style={{
-                  width: (33 * windowWidth) / 100,
-                  backgroundColor: colors.loadingColor,
-                  marginVertical: 6,
-                  borderRadius: 10,
-                  padding: 5,
-                  opacity,
-                }}
-              ></Animated.View>
-              <Animated.View
-                style={{
-                  width: (25 * windowWidth) / 100,
-                  backgroundColor: colors.loadingColor,
-                  padding: 5,
-                  borderRadius: 10,
-                  opacity,
-                }}
-              ></Animated.View>
-            </View>
-          </View>
-        )}
-      />
-    </View>
-  );
-}
+import {URLs} from "../globalUtils";
+import PostersContainer from "../components/molecules/PostersContainer";
 
 export default function MovieScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
@@ -113,7 +30,7 @@ export default function MovieScreen({ navigation }) {
     outputRange: [0, -55],
   });
   useEffect(() => {
-    getAllData();
+    getAllData()
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       handleBackButtonClick
@@ -194,122 +111,36 @@ export default function MovieScreen({ navigation }) {
           <RefreshControl onRefresh={getAllData} refreshing={refreshing} />
         }
       >
-        <View style={styles.popularContainer}>
-          <View style={styles.popularHeaderContainer}>
-            <Text style={styles.popularHeaderText}>Popular Movies</Text>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("SeeAllModal", {
-                  id: 6,
-                  title: "Popular Movies",
-                })
-              }
-            >
-              <MaterialIcons
-                style={styles.rightArrowIcon}
-                name="keyboard-arrow-right"
-                size={24}
-                color={colors.lighterWhite}
-              />
-            </TouchableOpacity>
-          </View>
-
-          {isPopularLoading ? (
-            <ContainerLoading />
-          ) : (
-            <SafeAreaView
-              style={{ flex: 1 }}
-              style={styles.posterSlideShowContainer}
-            >
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={popular}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                  <Poster type="movie" item={item} navigation={navigation} />
-                )}
-              />
-            </SafeAreaView>
-          )}
-        </View>
-
-        <View style={styles.popularContainer}>
-          <View style={styles.popularHeaderContainer}>
-            <Text style={styles.popularHeaderText}>Top Rated Movies</Text>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("SeeAllModal", {
-                  id: 7,
-                  title: "Top Rated Movies",
-                })
-              }
-            >
-              <MaterialIcons
-                style={styles.rightArrowIcon}
-                name="keyboard-arrow-right"
-                size={24}
-                color={colors.lighterWhite}
-              />
-            </TouchableOpacity>
-          </View>
-          {isTopRatedLoading ? (
-            <ContainerLoading />
-          ) : (
-            <SafeAreaView style={styles.posterSlideShowContainer}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={topRated}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                  <Poster type="movie" item={item} navigation={navigation} />
-                )}
-              />
-            </SafeAreaView>
-          )}
-        </View>
-
-        <View style={styles.popularContainer}>
-          <View style={styles.popularHeaderContainer}>
-            <Text style={styles.popularHeaderText}>Upcoming Movies</Text>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("SeeAllModal", {
-                  id: 8,
-                  title: "Upcoming Movies",
-                })
-              }
-            >
-              <MaterialIcons
-                style={styles.rightArrowIcon}
-                name="keyboard-arrow-right"
-                size={24}
-                color={colors.lighterWhite}
-              />
-            </TouchableOpacity>
-          </View>
-
-          {isUpcomingLoading ? (
-            <ContainerLoading />
-          ) : (
-            <SafeAreaView style={styles.posterSlideShowContainer}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={upcoming}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                  <Poster type="movie" item={item} navigation={navigation} />
-                )}
-              />
-            </SafeAreaView>
-          )}
-        </View>
+        <PostersContainer
+          data={popular}
+          title="Popular Movies"
+          loading={isPopularLoading}
+          navigation={navigation}
+          type="movie"
+          apiId='6'
+        />
+        <PostersContainer
+          data={topRated}
+          title="Top Rated Movies"
+          loading={isTopRatedLoading}
+          navigation={navigation}
+          type="movie"
+          apiId='7'
+        />
+        <PostersContainer
+          data={upcoming}
+          title="Upcoming Movies"
+          loading={isUpcomingLoading}
+          navigation={navigation}
+          type="movie"
+          apiId='8'
+        />
       </ScrollView>
     </View>
   );
 }
+
+//Popular Top Rated Upcoming
 
 const s = StyleSheet.create({
   container: {

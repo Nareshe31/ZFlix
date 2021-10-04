@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { styles } from "../../globalStyle";
+import { styles,colors } from "../../globalStyle";
 import { months } from "../../globalUtils";
+import {AntDesign} from '@expo/vector-icons'
 
 export default function CardText({ item ,type}) {
   const MoviePosterText = () => (
@@ -9,10 +10,12 @@ export default function CardText({ item ,type}) {
       <Text ellipsizeMode={"tail"} numberOfLines={1} style={styles.posterTitle}>
         {item.title}
       </Text>
+      
       {item.release_date ? (
         <Text style={styles.posterYear}>
-          {months[Number(item.release_date.slice(5, 7)) - 1]}{" "}
-          {item.release_date.slice(8, 10)}, {item.release_date.slice(0, 4)}
+          {/* {months[Number(item.release_date.slice(5, 7)) - 1]+" "} */}
+           {item.release_date.slice(0, 4)}
+           
         </Text>
       ) : null}
     </View>
@@ -25,8 +28,9 @@ export default function CardText({ item ,type}) {
       </Text>
       {item.first_air_date ? (
         <Text style={styles.posterYear}>
-          {months[Number(item.first_air_date.slice(5, 7)) - 1]}{" "}
-          {item.first_air_date.slice(8, 10)}, {item.first_air_date.slice(0, 4)}
+          {/* {months[Number(item.first_air_date.slice(5, 7)) - 1]}{" "} */}
+          {/* {item.first_air_date.slice(8, 10)},  */}
+          {item.first_air_date.slice(0, 4)}
         </Text>
       ) : null}
     </View>
