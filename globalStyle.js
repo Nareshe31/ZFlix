@@ -16,9 +16,13 @@ export const fontSizes={
   videoName:16,
 }
 
+// export const dimensions={
+//   posterWidth:(32*windowWidth)/100,
+//   posterHeight:(19*windowHeight)/100
+// }
 export const dimensions={
-  posterWidth:(32*windowWidth)/100,
-  posterHeight:(19*windowHeight)/100
+  posterWidth:120,
+  posterHeight:120
 }
 
 export const mainColor='hsl(190,80%,50%)';
@@ -27,6 +31,7 @@ export const colors={
   // mainBlackColor:'#191820',
   // mainBlackColor:'#0a0608',
   mainBlackColor:'#010101',
+  mainBlackLightColor:'#121212',
   // lightGray:'#9EA2A2',
   lightGray:'hsl(0,0%,78%)',
   // mainBlue:'hsl(220, 85%, 75%)' bluepurple,
@@ -53,8 +58,7 @@ export const styles = StyleSheet.create({
     },
     header:{
       flexDirection:'row',
-      backgroundColor:colors.mainBlackColor,
-      // backgroundColor:'hsla(0,0%,10%,0.8)',
+      backgroundColor:colors.mainBlackLightColor,
       paddingVertical:10,
       paddingHorizontal:12,
       borderRadius:0,
@@ -135,7 +139,7 @@ export const styles = StyleSheet.create({
       color:colors.lightWhite
   },
   posterDetail:{
-      marginVertical:5,
+      marginVertical:3,
   },
   posterTitle:{
       color:colors.lightWhite,
@@ -151,15 +155,13 @@ export const styles = StyleSheet.create({
       width:dimensions.posterWidth,
       marginHorizontal:5,
       position:'relative',
-      minWidth:120,
+      minWidth:100,
       maxWidth:180,
-      // backgroundColor:'hsla(0,0%,10%,0.8)',
-      // borderRadius:10,
   },
   moviePoster:{
       borderRadius:10,
       minWidth:100,
-      maxWidth:200,
+      maxWidth:180,
       minHeight:150,
       maxHeight:180,
       width:dimensions.posterWidth,
@@ -167,7 +169,7 @@ export const styles = StyleSheet.create({
   },
   moviePosterContainer:{
       borderRadius:10,
-      minWidth:120,
+      minWidth:100,
       maxWidth:180,
       minHeight:150,
       maxHeight:180,
@@ -190,8 +192,7 @@ export const styles = StyleSheet.create({
   },
   posterSlideShowContainer:{
       marginLeft:5,
-      paddingVertical:5,
-      borderRadius:10,
+      paddingVertical:8,
   },
   
   popularHeaderContainer:{
@@ -231,7 +232,7 @@ export const styles = StyleSheet.create({
     flex:1,
     backgroundColor:colors.mainBlackColor,
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
   },
   noResultText:{
     fontSize:24,

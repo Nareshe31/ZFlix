@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react';
 import { View,Animated ,FlatList,Dimensions} from 'react-native'
-import { styles,colors } from "../../globalStyle";
+import { styles,colors,dimensions } from "../../globalStyle";
 
 const loadingImages = [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }, { id: 7 }, { id: 8 }]
 const windowWidth = Dimensions.get('window').width;
@@ -38,8 +38,8 @@ export default function PostersLoadingContainer() {
                             </View>
                         </Animated.View>
                         <View style={styles.posterDetail}>
-                            <Animated.View style={{ width: (33 * windowWidth) / 100, backgroundColor: colors.loadingColor, marginVertical: 6, borderRadius: 10, padding: 5, opacity }}></Animated.View>
-                            <Animated.View style={{ width: (25 * windowWidth) / 100, backgroundColor: colors.loadingColor, padding: 5, borderRadius: 10, opacity }}></Animated.View>
+                            <Animated.View style={{ width: dimensions.posterWidth-10, backgroundColor: colors.loadingColor, marginVertical: 6, borderRadius: 10, padding: 5, opacity }}></Animated.View>
+                            <Animated.View style={{ width: dimensions.posterWidth-40, backgroundColor: colors.loadingColor, padding: 5, borderRadius: 10, opacity }}></Animated.View>
                         </View>
                     </View>
                 )} />

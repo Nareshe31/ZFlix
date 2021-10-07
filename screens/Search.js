@@ -23,6 +23,7 @@ export default function Search({navigation}) {
     const [isTvGenreLoading,setIsTvGenreLoading]=useState(true)
     const [searching,setSearching]=useState(false)
     const [isSearching,setIsSearching]=useState(false)
+    const [isFirstSearch,setIsFirstSearch]=useState(true)
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const user=useSelector(state=>state)
 
@@ -124,6 +125,7 @@ export default function Search({navigation}) {
                     let {data}=await axios.get(`${URLs[22]}${searchQuery}&api_key=${API_KEY}&page=1`)
                     setSuggestions(data.results)
                     setIsSearching(false)
+                    setIsFirstSearch(false)
                     // let response = await axios.get(URL+'/api/search/' + name)
                     // this.setState({ searched_users: response.data.users,searching:false})
                 }
@@ -339,16 +341,15 @@ export default function Search({navigation}) {
                             {searchQuery!=''?
                                 <View style={[styles.popularHeaderContainer,{paddingBottom:8}]}>
                                     <Text style={styles.popularHeaderText}>Top Results</Text>
-                                    
                                 </View>
                                 :null
                             }
                             <View style={styles.noResultContainer}>
-                                {searchQuery!='' && !searchSuggestions.length?
+                                {searchQuery!='' && !isFirstSearch && !searchSuggestions.length?
                                     <Image source={require('../assets/images/no-result.gif')} style={{width:100,height:100,margin:10}} />
                                     :null
                                 }
-                                <Text style={styles.noResultText}>{searchQuery=='' && !searchSuggestions.length?"Type to see results":"No results"}</Text>                                
+                                <Text style={styles.noResultText}>{searchQuery=='' && !isFirstSearch && !searchSuggestions.length?"Type to see results":"No results"}</Text>                                
                             </View>
                         </View>
                     }
@@ -499,8 +500,9 @@ const s=StyleSheet.create({
     genreBox:{
         paddingVertical:8,
         paddingHorizontal:12,
-        borderWidth:1,
-        borderColor:colors.lighterWhite,
+        borderWidth:0.75,
+        borderColor:'hsla(0,0%,25%,1)',
+        backgroundColor:colors.mainBlackLightColor,
         alignSelf:'flex-start',
         marginVertical:8,
         marginHorizontal:6,

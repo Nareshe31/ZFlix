@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { View,Text,TouchableOpacity,Animated, ScrollView,StyleSheet,Image,ActivityIndicator,Pressable, FlatList,TouchableHighlight} from 'react-native';
 import { styles,colors } from "../globalStyle";
-import ProgressCircle from 'react-native-progress-circle'
 import { MaterialIcons,Ionicons } from '@expo/vector-icons';
 import ImageView from "react-native-image-viewing";
 import { IMAGE_PATH,months,getHour,getMinute,convertMoney, URLs,API_KEY } from '../globalUtils';
