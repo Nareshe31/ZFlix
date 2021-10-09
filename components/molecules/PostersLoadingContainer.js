@@ -38,8 +38,8 @@ export default function PostersLoadingContainer() {
                             </View>
                         </Animated.View>
                         <View style={styles.posterDetail}>
-                            <Animated.View style={{ width: dimensions.posterWidth-10, backgroundColor: colors.loadingColor, marginVertical: 6, borderRadius: 10, padding: 5, opacity }}></Animated.View>
-                            <Animated.View style={{ width: dimensions.posterWidth-40, backgroundColor: colors.loadingColor, padding: 5, borderRadius: 10, opacity }}></Animated.View>
+                            <Animated.View style={{ width: dimensions.posterWidth-20, backgroundColor: colors.loadingColor, marginVertical: 5, borderRadius: 10, padding: 4, opacity }}></Animated.View>
+                            <Animated.View style={{ width: dimensions.posterWidth-50, backgroundColor: colors.loadingColor, padding: 4, borderRadius: 10, opacity,marginBottom:5 }}></Animated.View>
                         </View>
                     </View>
                 )} />

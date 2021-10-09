@@ -1,8 +1,8 @@
 import React from 'react';
-import { View,StyleSheet } from 'react-native'
+import { View,StyleSheet,Text } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons,Ionicons,MaterialCommunityIcons } from '@expo/vector-icons';
-import { colors } from '../globalStyle';
+import { colors, styles } from '../globalStyle';
 import Popular from '../screens/Popular'
 import Movie from '../screens/Movie'
 import TvShow from '../screens/TvShow'
@@ -17,8 +17,9 @@ export default function BottomTabScreen(){
             }} >
           <Tab.Screen name="Popular" component={Popular}  options={{tabBarIcon:({focused})=>(
             <View style={s.centerAlign}>
-              {focused?<MaterialIcons name="home" size={28} color={colors.mainBlue} />:
+              {focused?<MaterialIcons name="home" size={28} color={colors.lightWhite} />:
               <MaterialCommunityIcons name="home-outline" size={28} color={colors.lighterWhite} />}
+              <Text style={styles.text}>Home</Text>
             </View>
           )}}  />
           <Tab.Screen name="Search" component={Search} options={{tabBarIcon:({focused})=>(
@@ -46,7 +47,7 @@ export default function BottomTabScreen(){
   
 const s=StyleSheet.create({
     centerAlign:{
-        flexDirection:'row',
+        flexDirection:'column',
         justifyContent:'center',
         alignItems:'center',
         padding:0

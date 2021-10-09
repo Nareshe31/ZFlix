@@ -8,6 +8,8 @@ import { IMAGE_PATH,months,getHour,getMinute,convertMoney, URLs,API_KEY } from '
 import { useSelector,useDispatch} from 'react-redux'
 import LottieView from 'lottie-react-native';
 import PosterContainer from '../components/molecules/PosterContainer'
+import CastPosterContainer from '../components/molecules/CastPosterContainer'
+import VideoContainer from '../components/molecules/VideoContainer';
 
 const HEADER_MAX_HEIGHT = 450;
 const HEADER_MIN_HEIGHT = 0;
@@ -372,90 +374,23 @@ export default function ModalScreen({navigation,route}){
                             :null
                         }
 
-                        {movieData.credits.cast.length?
-                            <View style={[s.imagesContainer]}>
-                                <Text style={[styles.heading_1]}>Cast</Text>
-                                <FlatList  
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    keyExtractor={(item)=>item.id.toString()}
-                                    data={movieData.credits.cast}
-                                    renderItem={({item})=>(
-                                        <View style={styles.castWholePosterContainer}>
-                                            <TouchableOpacity onPress={()=>navigation.push('PersonModal',{screen:'PersonScreen',params:{id:item.id,name:item.name},key: Math.round( Math.random() * 10000000 )})}>
-                                                <View style={[styles.castPosterContainer]}>
-                                                    {item.profile_path?
-                                                        <Image style={styles.castPoster} source={{uri:IMAGE_PATH+item.profile_path}} />
-                                                        :
-                                                        <Image style={[styles.castPoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
-                                                    }
-                                                    
-                                                </View>
-                                            </TouchableOpacity>
-                                            <View style={styles.posterDetail}>
-                                                <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
-                                                {item.character?<Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterYear}>{item.character}</Text>:null}
-                                            </View>
-                                        </View>
-                                    )}
-                                />
-                            </View>
-                        :null}
+                        <CastPosterContainer 
+                            data={movieData.credits.cast}
+                            title="Cast"
+                            loading={false}
+                            type='person'
+                            navigation={navigation}
+                        />
 
-                        {movieData.credits.crew.length?
-                            <View style={[s.imagesContainer]}>
-                                <Text style={[styles.heading_1]}>Crew</Text>
-                                <FlatList  
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    keyExtractor={(item)=>item.id.toString()+Math.round( Math.random() * 10000000 )}
-                                    data={movieData.credits.crew}
-                                    renderItem={({item})=>(
-                                        <View style={styles.castWholePosterContainer}>
-                                            <TouchableOpacity onPress={()=>navigation.push('PersonModal',{screen:'PersonScreen',params:{id:item.id,name:item.name},key: Math.round( Math.random() * 10000000 )})}>
-                                                <View style={[styles.castPosterContainer]}>
-                                                    {item.profile_path?
-                                                        <Image style={styles.castPoster} source={{uri:IMAGE_PATH+item.profile_path}} />
-                                                        :
-                                                        <Image style={[styles.castPoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
-                                                    }
-                                                    
-                                                </View>
-                                            </TouchableOpacity>
-                                            <View style={styles.posterDetail}>
-                                                <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
-                                                {item.job?<Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterYear}>{item.job}</Text>:null}
-                                            </View>
-                                        </View>
-                                    )}
-                                />
-                            </View>
-                        :null}
+                        <CastPosterContainer 
+                            data={movieData.credits.crew}
+                            title="Crew"
+                            loading={false}
+                            type='person'
+                            navigation={navigation}
+                        />
 
-                        {movieData.videos.results.length?
-                            <View style={styles.videoContainer}> 
-                                <Text style={[styles.heading_1]}>Trailers & Extras</Text>
-                                <FlatList 
-                                    data={movieData.videos.results}
-                                    horizontal
-                                    keyExtractor={(item)=>item.key}
-                                    renderItem={({item})=>item.site==='YouTube' ?(
-                                        <TouchableHighlight onPress={()=>Linking.openURL(URLs[17]+item.key)}>
-                                            <View style={styles.ytContainer}>
-                                                <Image resizeMode='cover' blurRadius={0.40} style={styles.videoThumbnail} source={{uri:URLs[18]+item.key+URLs[19]}} />
-                                                <Text ellipsizeMode={'tail'} numberOfLines={2} style={styles.ytTitle}>{item.name}</Text>
-                                                
-                                                <View style={styles.videoPlayButton}>
-                                                    <Image style={styles.youtubeLogo} source={require('../assets/images/youtube-logo.png')}  />
-                                                </View>
-                                            </View>
-                                        </TouchableHighlight>
-                                    ):null}
-                                    />
-                            </View>
-                        :null}
-
-                        
+                        <VideoContainer data={movieData.videos.results} />
 
                         {movieData?.similar?.results.length?
                             <PosterContainer

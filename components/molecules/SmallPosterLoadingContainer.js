@@ -40,8 +40,8 @@ export default function SmallPosterLoadingContainer() {
                             <View style={s.moviePoster} ></View>
                         </Animated.View>
                         <View style={styles.posterDetail}>
-                            <Animated.View style={{opacity:opacity,width:(windowWidth-48)/3-10,backgroundColor:colors.loadingColor,marginVertical:6,borderRadius:10,padding:5}}></Animated.View>
-                            <Animated.View style={{opacity:opacity,width:(windowWidth-48)/3-35,backgroundColor:colors.loadingColor,padding:5,borderRadius:10}}></Animated.View>
+                            <Animated.View style={{opacity:opacity,width:(windowWidth-48)/3-20,backgroundColor:colors.loadingColor,marginVertical:5,borderRadius:10,padding:4}}></Animated.View>
+                            <Animated.View style={{opacity:opacity,width:(windowWidth-48)/3-50,backgroundColor:colors.loadingColor,padding:4,borderRadius:10,marginBottom:5}}></Animated.View>
                         </View>
                     </View>
                 )}
@@ -55,14 +55,16 @@ const s=StyleSheet.create({
     moviePoster:{
         width:'100%',
         height:(19*windowHeight)/100,
-        borderRadius:10,
+        borderTopLeftRadius:10,
+        borderTopRightRadius:10,
         minHeight:80,
         maxHeight:160
     },
     moviePosterContainer:{
         width:'100%',
         position:'relative',
-        borderRadius:10,
+        borderTopLeftRadius:10,
+        borderTopRightRadius:10,
         backgroundColor:colors.loadingColor
     },
     movieWholePosterContainer:{
@@ -71,6 +73,8 @@ const s=StyleSheet.create({
         marginVertical: 8,
         marginHorizontal: 8,
         minWidth:80,
-        maxWidth:160
+        maxWidth:160,
+        borderRadius:10,
+        backgroundColor:colors.mainBlackLightColor
     },
 })

@@ -18,7 +18,7 @@ export default function SeeAllModal({ navigation, route }) {
     const [movieData, setMovieData] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [pages, setPages] = useState(0)
-    const { id, title } = route.params
+    const { id, title,type } = route.params
 
     useEffect(() => {
         setMovieData([])
@@ -47,7 +47,7 @@ export default function SeeAllModal({ navigation, route }) {
             {isLoading ?
                 <SmallPosterLoadingContainer  />
                 :
-                <SmallPosterContainer navigation={navigation} handleReachEnd={handleReachEnd} movieData={movieData} pages={pages}  />
+                <SmallPosterContainer type={type} navigation={navigation} handleReachEnd={handleReachEnd} movieData={movieData} pages={pages}  />
             }
         </View>
     )

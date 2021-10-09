@@ -11,6 +11,8 @@ import { useSelector,useDispatch} from 'react-redux'
 import LottieView from 'lottie-react-native';
 import PosterContainer from '../components/molecules/PosterContainer'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import VideoContainer from '../components/molecules/VideoContainer';
+import CastPosterContainer from '../components/molecules/CastPosterContainer'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -410,109 +412,39 @@ export default function TvShowModal({navigation,route}){
                             />
                         </View>
 
-                        {tvShowData?.credits?.cast.length>0? 
-                            <View style={[s.imagesContainer]}>
-                                <Text style={[styles.heading_1]}>Cast</Text>
-                                <FlatList  
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    keyExtractor={(item)=>item.id.toString()}
-                                    data={tvShowData.credits.cast}
-                                    renderItem={({item})=>(
-                                        <View style={styles.castWholePosterContainer}>
-                                            <TouchableOpacity onPress={()=>navigation.push('PersonModal',{screen:'PersonScreen',params:{id:item.id,name:item.name},key: Math.round( Math.random() * 10000000 )})}>
-                                                <View style={[styles.castPosterContainer]}>
-                                                    {item.profile_path?
-                                                        <Image style={styles.castPoster} source={{uri:IMAGE_PATH+item.profile_path}} />
-                                                        :
-                                                        <Image style={[styles.castPoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
-                                                    }
-                                                </View>
-                                                </TouchableOpacity>
-                                            <View style={styles.posterDetail}>
-                                                <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
-                                                {item.character?<Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterYear}>{item.character}</Text>:null}
-                                            </View>
-                                        </View>
-                                    )}
-                                />
-                            </View>
-                        :null}
+                        <CastPosterContainer 
+                            data={tvShowData.credits.cast}
+                            title="Cast"
+                            loading={false}
+                            type='person'
+                            navigation={navigation}
+                        />
 
-                        {tvShowData.credits.crew.length?
-                            <View style={[s.imagesContainer]}>
-                                <Text style={[styles.heading_1]}>Crew</Text>
-                                <FlatList  
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    keyExtractor={(item)=>item.id.toString()+Math.round( Math.random() * 10000000 )}
-                                    data={tvShowData.credits.crew}
-                                    renderItem={({item})=>(
-                                        <View style={styles.castWholePosterContainer}>
-                                            <TouchableOpacity onPress={()=>navigation.push('PersonModal',{screen:'PersonScreen',params:{id:item.id,name:item.name},key: Math.round( Math.random() * 10000000 )})}>
-                                                <View style={[styles.castPosterContainer]}>
-                                                    {item.profile_path?
-                                                        <Image style={styles.castPoster} source={{uri:IMAGE_PATH+item.profile_path}} />
-                                                        :
-                                                        <Image style={[styles.castPoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
-                                                    }
-                                                    
-                                                </View>
-                                            </TouchableOpacity>
-                                            <View style={styles.posterDetail}>
-                                                <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
-                                                {item.job?<Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterYear}>{item.job}</Text>:null}
-                                            </View>
-                                        </View>
-                                    )}
-                                />
-                            </View>
-                        :null}
+                        <CastPosterContainer 
+                            data={tvShowData.credits.crew}
+                            title="Crew"
+                            loading={false}
+                            type='person'
+                            navigation={navigation}
+                        />
+
+                        <VideoContainer data={tvShowData.videos.results}  />
                         
-                        {tvShowData?.videos?.results.length?
-                            <View style={styles.videoContainer}> 
-                                <Text style={[styles.heading_1]}>Videos</Text>
-                                <FlatList 
-                                    data={tvShowData.videos.results}
-                                    horizontal
-                                    keyExtractor={(item)=>item.key}
-                                    renderItem={({item})=>item.site==='YouTube'?(
-                                        <TouchableOpacity onPress={()=>Linking.openURL(URLs[17]+item.key)}>
-                                            <View style={styles.ytContainer}>
-                                                <Image resizeMode='stretch' blurRadius={0.35} style={styles.videoThumbnail} source={{uri:URLs[18]+item.key+URLs[19]}} />
-                                                <Text  style={styles.ytTitle}>{item.name}</Text>
-                                                <View style={styles.videoPlayButton}>
-                                                    <Image style={styles.youtubeLogo} source={require('../assets/images/youtube-logo.png')}  />
-                                                </View>
-                                                
-                                            </View>
-                                        </TouchableOpacity>
-                                    ):null}
-                                    />
-                            </View>
-                        :null
-                        }
+                        <PosterContainer
+                            data={tvShowData.similar.results}
+                            title="More like this"
+                            loading={false}
+                            navigation={navigation}
+                            type="tv"
+                        />
 
-                        
-                        {tvShowData?.similar?.results.length>0?
-                            <PosterContainer
-                                data={tvShowData.similar.results}
-                                title="More like this"
-                                loading={false}
-                                navigation={navigation}
-                                type="tv"
-                            />
-                        :null}
-
-                        {tvShowData.recommendations.results.length>0?
-                            <PosterContainer
-                                data={tvShowData.recommendations.results}
-                                title="Recommendations"
-                                loading={false}
-                                navigation={navigation}
-                                type="tv"
-                            />
-                        :null}
+                        <PosterContainer
+                            data={tvShowData.recommendations.results}
+                            title="Recommendations"
+                            loading={false}
+                            navigation={navigation}
+                            type="tv"
+                        />
                         
                         <ImageView
                             images={images}

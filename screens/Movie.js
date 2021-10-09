@@ -9,7 +9,7 @@ import {
   Alert,
 } from "react-native";
 import { styles, colors } from "../globalStyle";
-import CustomHeader from "./CustomHeader";
+import AppHeader from '../components/molecules/AppHeader';
 import axios from "axios";
 import {URLs} from "../globalUtils";
 import PostersContainer from "../components/molecules/PostersContainer";
@@ -93,7 +93,7 @@ export default function MovieScreen({ navigation }) {
   };
 
   return (
-    <View style={[styles.container, s.mainBackground]}>
+    <View style={[styles.container]}>
       <Animated.View
         style={{
           transform: [{ translateY: translateY }],
@@ -101,10 +101,10 @@ export default function MovieScreen({ navigation }) {
           zIndex: 1000,
         }}
       >
-        <CustomHeader navigation={navigation} />
+        <AppHeader navigation={navigation} />
       </Animated.View>
       <ScrollView
-        style={[styles.container, s.mainBackground]}
+        style={[styles.container]}
         contentContainerStyle={styles.mainScreen}
         onScroll={(e) => scrollY.setValue(e.nativeEvent.contentOffset.y)}
         refreshControl={
@@ -146,8 +146,5 @@ const s = StyleSheet.create({
   container: {
     paddingTop: 10,
     paddingBottom: 15,
-  },
-  mainBackground: {
-    backgroundColor: colors.mainBlackColor,
-  },
+  }
 });

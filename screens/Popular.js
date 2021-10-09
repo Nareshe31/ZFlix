@@ -9,7 +9,7 @@ import {
     ToastAndroid,
 } from "react-native";
 import { styles } from "../globalStyle";
-import CustomHeader from "./CustomHeader";
+import AppHeader from '../components/molecules/AppHeader';
 import axios from "axios";
 import { API_KEY } from "../globalUtils";
 import PostersContainer from "../components/molecules/PostersContainer";
@@ -113,7 +113,7 @@ export default function PopularScreen({ navigation }) {
                     zIndex: 1000,
                 }}
             >
-                <CustomHeader navigation={navigation} />
+                <AppHeader navigation={navigation} />
             </Animated.View>
             <ScrollView
                 style={[styles.container]}

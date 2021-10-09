@@ -1,7 +1,7 @@
 import React from "react";
 import { View, SafeAreaView, FlatList } from "react-native";
 import { styles } from "../../globalStyle";
-import Poster from "./Poster";
+import CastPoster from "./CastPoster";
 import PostersLoadingContainer from "./PostersLoadingContainer";
 import PosterContainerHeader from "../atoms/PosterContainerHeader";
 
@@ -28,9 +28,9 @@ export default function PostersContainer({
             horizontal
             showsHorizontalScrollIndicator={false}
             data={data}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item.id.toString()+Math.round( Math.random() * 10000000 )}
             renderItem={({ item }) => (
-              <Poster type={type} item={item} navigation={navigation} />
+              <CastPoster type={type} item={item} navigation={navigation} />
             )}
           />
         </SafeAreaView>

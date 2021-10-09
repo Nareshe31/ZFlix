@@ -20,6 +20,7 @@ export default function PostersContainer({
         navigation={navigation}
         title={title}
         apiId={apiId}
+        type={type}
       />
       {loading ? (
         <PostersLoadingContainer />

@@ -3,11 +3,12 @@ import { View, TouchableOpacity, Text } from "react-native";
 import { styles, colors } from "../../globalStyle";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function PostersContainerHeader({ navigation,title,apiId }) {
+export default function PostersContainerHeader({ navigation,title,apiId,type }) {
   const navigateToScreen = () => {
       navigation.navigate("SeeAllModal", {
         id: apiId,
         title:title,
+        type:type
       });
   };
 

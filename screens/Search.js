@@ -2,7 +2,6 @@ import axios from 'axios';
 import React,{useState,useEffect,useRef} from 'react';
 import {Dimensions, BackHandler,View,Text,TextInput,StyleSheet,Image,Animated, TouchableOpacity,FlatList,TouchableHighlight ,Alert,Keyboard, ScrollView, ActivityIndicator,TouchableWithoutFeedback} from 'react-native';
 import {styles,colors} from '../globalStyle'
-import CustomHeader from './CustomHeader'
 import { MaterialIcons } from '@expo/vector-icons';
 import {API_KEY,URLs,IMAGE_PATH} from '../globalUtils'
 import {useSelector} from 'react-redux'

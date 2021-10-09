@@ -8,7 +8,7 @@ import {
   Alert,
 } from "react-native";
 import { styles, colors } from "../globalStyle";
-import CustomHeader from "./CustomHeader";
+import AppHeader from '../components/molecules/AppHeader';
 import { URLs } from "../globalUtils";
 import axios from "axios";
 import PostersContainer from "../components/molecules/PostersContainer";
@@ -97,7 +97,7 @@ export default function TvShowScreen({ navigation }) {
           zIndex: 1000,
         }}
       >
-        <CustomHeader navigation={navigation} />
+        <AppHeader navigation={navigation} />
       </Animated.View>
       <ScrollView
         style={[styles.container, s.mainBackground]}

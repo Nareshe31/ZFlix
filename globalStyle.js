@@ -14,6 +14,7 @@ export const fontSizes={
   normalText:17,
   overview:17,
   videoName:16,
+  borderRadius:10
 }
 
 // export const dimensions={
@@ -31,7 +32,7 @@ export const colors={
   // mainBlackColor:'#191820',
   // mainBlackColor:'#0a0608',
   mainBlackColor:'#010101',
-  mainBlackLightColor:'#121212',
+  mainBlackLightColor:'#191919',
   // lightGray:'#9EA2A2',
   lightGray:'hsl(0,0%,78%)',
   // mainBlue:'hsl(220, 85%, 75%)' bluepurple,
@@ -47,7 +48,8 @@ export const colors={
   lightestWhite:'hsl(0,0%,70%)',
   inputWhite:'hsla(0,0%,95%,0.85)',
   lightBlack:'hsl(0,0%,10%)',
-  loadingColor:'hsl(0,0%,75%)'
+  loadingColor:'hsla(0,0%,30%,1)',
+  rippleColor:'rgba(255,255,255,1)'
 }
 
 export const styles = StyleSheet.create({
@@ -61,9 +63,9 @@ export const styles = StyleSheet.create({
       backgroundColor:colors.mainBlackLightColor,
       paddingVertical:10,
       paddingHorizontal:12,
-      borderRadius:0,
+      borderRadius:10,
       marginBottom:0,
-      marginHorizontal:0,
+      marginHorizontal:5,
       justifyContent:'space-between',
       alignItems:'center',
       position:'absolute',
@@ -139,7 +141,8 @@ export const styles = StyleSheet.create({
       color:colors.lightWhite
   },
   posterDetail:{
-      marginVertical:3,
+      marginVertical:5,
+      marginHorizontal:8
   },
   posterTitle:{
       color:colors.lightWhite,
@@ -157,9 +160,12 @@ export const styles = StyleSheet.create({
       position:'relative',
       minWidth:100,
       maxWidth:180,
+      backgroundColor:colors.mainBlackLightColor,
+      borderRadius:10
   },
   moviePoster:{
-      borderRadius:10,
+      borderTopLeftRadius:10,
+      borderTopRightRadius:10,
       minWidth:100,
       maxWidth:180,
       minHeight:150,
@@ -168,7 +174,8 @@ export const styles = StyleSheet.create({
       height:dimensions.posterHeight,
   },
   moviePosterContainer:{
-      borderRadius:10,
+      borderTopLeftRadius:10,
+      borderTopRightRadius:10,
       minWidth:100,
       maxWidth:180,
       minHeight:150,
@@ -443,7 +450,7 @@ export const styles = StyleSheet.create({
     bottom:30
   },
   mainScreen:{ 
-    paddingBottom: 40,
+    paddingBottom: 50,
     paddingTop:60
   },
   rightArrowIcon:{

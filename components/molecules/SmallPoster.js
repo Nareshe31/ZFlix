@@ -2,7 +2,8 @@ import React from 'react';
 import { View,TouchableOpacity,StyleSheet,Dimensions } from 'react-native';
 import SmallCardImage from '../atoms/SmallCardImage'
 import CardText from '../atoms/CardText'
-import { styles } from "../../globalStyle";
+import { styles,colors } from "../../globalStyle";
+import Ripple from 'react-native-material-ripple';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -21,10 +22,10 @@ export default function SmallPoster({navigation,item,type}){
 
     return(
         <View style={s.movieWholePosterContainer}>
-            <TouchableOpacity onPress={navigateToScreen }>
+            <Ripple onPress={navigateToScreen } rippleColor={colors.rippleColor} >
                 <SmallCardImage item={item} type={type}  />
-            </TouchableOpacity>
-            <CardText item={item} type={type} />
+                <CardText item={item} type={type} />
+            </Ripple>
         </View>
     )
 }
@@ -36,6 +37,8 @@ const s=StyleSheet.create({
         marginVertical: 8,
         marginHorizontal: 8,
         minWidth:80,
-        maxWidth:160
+        maxWidth:160,
+        backgroundColor:colors.mainBlackLightColor,
+        borderRadius:10
     },
 })

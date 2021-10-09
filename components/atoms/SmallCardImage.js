@@ -48,14 +48,16 @@ const s=StyleSheet.create({
     moviePoster:{
         width:'100%',
         height:(19*windowHeight)/100,
-        borderRadius:10,
+        borderTopLeftRadius:10,
+        borderTopRightRadius:10,
         minHeight:80,
         maxHeight:160
     },
     moviePosterContainer:{
         width:'100%',
         position:'relative',
-        borderRadius:10,
+        borderTopLeftRadius:10,
+        borderTopRightRadius:10,
         backgroundColor:colors.loadingColor
     },
    
