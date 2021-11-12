@@ -9,6 +9,7 @@ export default function SmallPosterContainer({
     pages,
     handleReachEnd,
     type,
+    addCategory
 }) {
     const [
         onEndReachedCalledDuringMomentum,
@@ -20,7 +21,7 @@ export default function SmallPosterContainer({
                 data={
                     movieData.length / 20 === pages
                         ? movieData
-                        : movieData.slice(0, movieData.length - (movieData.length % 3))
+                        : (movieData.length<3?movieData:movieData.slice(0, movieData.length - (movieData.length % 3)))
                 }
                 horizontal={false}
                 keyExtractor={(item) => item.id.toString()}
@@ -30,6 +31,7 @@ export default function SmallPosterContainer({
                         navigation={navigation}
                         item={item}
                         type={type ? type : item.media_type}
+                        addCategory={addCategory}
                     />
                 )}
                 ListFooterComponent={() =>

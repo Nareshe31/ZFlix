@@ -5,6 +5,8 @@ import {useSelector,useDispatch} from 'react-redux'
 import { colors,styles } from '../globalStyle';
 import { MaterialIcons,FontAwesome } from '@expo/vector-icons';
 import axios from 'axios'
+import Ripple from 'react-native-material-ripple';
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -66,7 +68,7 @@ export default function WatchlistModal({navigation,route}) {
                             <TouchableOpacity style={{ justifyContent: 'center',paddingLeft:0}} onPress={() => navigation.goBack()}>
                                 <MaterialIcons name="arrow-back" size={24} color={colors.lightWhite} />
                             </TouchableOpacity>
-                            <Text ellipsizeMode={'tail'} numberOfLines={1} style={s.movieModalHeaderText}>Favourite</Text>
+                            <Text ellipsizeMode={'tail'} numberOfLines={1} style={s.movieModalHeaderText}>Favourites</Text>
                         </View>
                         :
                         <View style={{flexDirection:'row'}}>
@@ -102,7 +104,8 @@ export default function WatchlistModal({navigation,route}) {
                     <View style={[s.watchlistContainer]}>
                         {user?.watchlist.map(item=>(
                             <View key={item._id} style={[s.watchlistItemContainer]}>
-                                <TouchableHighlight 
+                                <Ripple 
+                                    rippleColor={colors.rippleColor}
                                     onLongPress={()=>{
                                         if(!isSelected){
                                             setIsSelected(true)
@@ -129,7 +132,7 @@ export default function WatchlistModal({navigation,route}) {
                                             :null
                                         }
                                     </View>
-                                </TouchableHighlight>
+                                </Ripple>
                                 {isSelected?
                                     <View style={{position:'absolute',top:18,right:15,backgroundColor:colors.lightWhite,minWidth:20,minHeight:20,borderRadius:10}}>
                                         {selectedTId.includes(item.id)?<MaterialIcons name="done" size={18} color={colors.mainBlackColor} />:null}
@@ -186,15 +189,17 @@ const s=StyleSheet.create({
     moviePosterContainer:{
         borderRadius:10,
         backgroundColor:colors.loadingColor,
-        marginHorizontal:(1.6/100)* windowWidth,
-        marginVertical:10,
+        marginVertical: 8,
+        marginHorizontal: 8,
     },
     moviePoster:{
-        width:(30/100)* windowWidth,
-        height:(20/100)* windowHeight,
+        width:(windowWidth-48)/3,
+        height:(17/100)* windowHeight,
         borderRadius:10,
         borderWidth:0.2,
-        borderColor:colors.lighterWhite
+        borderColor:colors.lighterWhite,
+        minHeight:80,
+        maxHeight:160
     },
     watchlist:{
         marginVertical:10,

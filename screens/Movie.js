@@ -107,9 +107,9 @@ export default function MovieScreen({ navigation }) {
         style={[styles.container]}
         contentContainerStyle={styles.mainScreen}
         onScroll={(e) => scrollY.setValue(e.nativeEvent.contentOffset.y)}
-        refreshControl={
-          <RefreshControl onRefresh={getAllData} refreshing={refreshing} />
-        }
+        // refreshControl={
+        //   <RefreshControl onRefresh={getAllData} refreshing={refreshing} />
+        // }
       >
         <PostersContainer
           data={popular}

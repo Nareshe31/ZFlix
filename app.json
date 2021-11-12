@@ -27,7 +27,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.naresh.ZFlix"
+      "package": "com.zflix"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -80,7 +80,7 @@ const s = StyleSheet.create({
         width: "100%",
     },
     movieModalHeader: {
-        backgroundColor: colors.mainBlackLightColor,
+        backgroundColor: colors.transparentColor,
         flexDirection: "row",
         paddingHorizontal: 10,
         paddingVertical: 10,

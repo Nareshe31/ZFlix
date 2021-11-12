@@ -7,7 +7,7 @@ import Ripple from 'react-native-material-ripple';
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function SmallPoster({navigation,item,type}){
+export default function SmallPoster({navigation,item,type,addCategory}){
 
     const navigateToScreen=()=>{
         if (type==='movie') {
@@ -24,7 +24,7 @@ export default function SmallPoster({navigation,item,type}){
         <View style={s.movieWholePosterContainer}>
             <Ripple onPress={navigateToScreen } rippleColor={colors.rippleColor} >
                 <SmallCardImage item={item} type={type}  />
-                <CardText item={item} type={type} />
+                <CardText item={item} type={type} addCategory={addCategory} />
             </Ripple>
         </View>
     )

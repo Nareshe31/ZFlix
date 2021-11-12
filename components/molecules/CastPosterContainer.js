@@ -10,7 +10,8 @@ export default function PostersContainer({
   loading,
   data,
   type,
-  title
+  title,
+  crew
 }) {
 
   if(data && !data.length)  return null
@@ -30,7 +31,7 @@ export default function PostersContainer({
             data={data}
             keyExtractor={(item) => item.id.toString()+Math.round( Math.random() * 10000000 )}
             renderItem={({ item }) => (
-              <CastPoster type={type} item={item} navigation={navigation} />
+              <CastPoster type={type} crew={crew} item={item} navigation={navigation} />
             )}
           />
         </SafeAreaView>

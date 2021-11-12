@@ -1,8 +1,9 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, StyleSheet, Text,Animated } from "react-native";
+import { TouchableOpacity,TouchableHighlight } from "react-native-gesture-handler";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../../globalStyle";
+import Ripple from 'react-native-material-ripple'
 
 export default function ScreenHeader({ navigation, title}) {
     const handleBack = () => {
@@ -11,14 +12,14 @@ export default function ScreenHeader({ navigation, title}) {
     return (
         <View style={[s.movieModalHeader]}>
             <View style={s.screenHeader}>
-                <TouchableOpacity onPress={handleBack}>
+                <TouchableHighlight onPress={handleBack}>
                     <MaterialIcons
                         name="arrow-back"
                         style={s.backArrow}
                         size={20}
                         color={colors.lightWhite}
                     />
-                </TouchableOpacity>
+                </TouchableHighlight>
                 <Text
                     ellipsizeMode="tail"
                     numberOfLines={1}
@@ -38,19 +39,21 @@ const s = StyleSheet.create({
         width: "100%",
     },
     movieModalHeader: {
-        backgroundColor: colors.mainBlackLightColor,
+        backgroundColor: colors.transparentColor,
         flexDirection: "row",
         paddingHorizontal: 10,
-        paddingVertical: 10,
+        paddingVertical: 12,
         width: "100%",
     },
     movieModalHeaderText: {
-        fontSize: 21,
+        fontSize: 18,
         color: colors.lightWhite,
         flex: 1,
         marginTop: 1,
+        fontFamily:'Nunito-Bold'
     },
     backArrow: {
-        paddingHorizontal: 5,
+        paddingLeft:5,
+        paddingRight:12,
     },
 });

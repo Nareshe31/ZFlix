@@ -92,20 +92,20 @@ export default function Main() {
     else{
       if(isLoading){
         return(
-          <SafeAreaView style={[styles.container]}>
-            <StatusBar backgroundColor={colors.mainBlackColor} />
+          <View style={[styles.container,{paddingTop:StatusBar.currentHeight}]}>
+            <StatusBar backgroundColor={colors.transparentColor} translucent />
             <View style={[styles.pageLoader,{backgroundColor:colors.mainBlackColor}]}>
                 <Image source={require('./assets/custom-splash.png')} resizeMode='contain' style={s.loadingLogo}  />
                 <Text style={s.loadingText}>{words[loadingWord]}</Text>
                 <Text style={s.versionText}>v{Constants.manifest.version}</Text>
                 <LottieView source={require('./assets/lotties/loading-bubble.json')} style={s.loadingGif} autoPlay loop />
             </View>
-          </SafeAreaView>
+          </View>
         )
       }
       return (
-        <SafeAreaView style={[styles.container]}>
-          <StatusBar backgroundColor={colors.mainBlackColor} />
+        <View style={[styles.container,{paddingTop:StatusBar.currentHeight}]}>
+          <StatusBar backgroundColor={colors.transparentColor} translucent />
           <Modal animationType='fade' visible={modalVisible} transparent={true} 
             onRequestClose={() => {
               setModalVisible(!modalVisible);
@@ -132,7 +132,7 @@ export default function Main() {
             :
             <GuestStackNavigator  />
             }
-        </SafeAreaView>
+        </View>
       )
     }
   }

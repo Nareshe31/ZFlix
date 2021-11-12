@@ -1,11 +1,13 @@
 import React from 'react';
-import { View,Text,StyleSheet,TouchableOpacity,Image,ToastAndroid,Dimensions,Linking,TouchableHighlight } from 'react-native';
+import {View,Text,StyleSheet,TouchableOpacity,Image,ToastAndroid,Dimensions,Linking,TouchableHighlight } from 'react-native';
 import {colors,styles} from '../globalStyle'
-import { MaterialIcons,FontAwesome ,Ionicons} from '@expo/vector-icons';
+import { MaterialIcons,FontAwesome ,Ionicons,MaterialCommunityIcons} from '@expo/vector-icons';
 import {useSelector,useDispatch} from 'react-redux'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import * as SecureStore from 'expo-secure-store';
 import Constants from "expo-constants"
+import Ripple from 'react-native-material-ripple'
+import * as WebBrowser from 'expo-web-browser';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -47,7 +49,7 @@ export default function ProfileModal({navigation}){
             </View>
             <View style={s.optionWholeContainer}>
 
-                <TouchableHighlight onPress={() => navigation.push('WatchlistModal')}>
+                <Ripple onPress={() =>navigation.push('WatchlistModal')} rippleColor={colors.rippleColor}>
                     <View style={s.optionContainer}>
                         <Ionicons name="heart" size={26} color={colors.lighterWhite} />
                         <View style={s.optionTextContainer}>
@@ -55,18 +57,41 @@ export default function ProfileModal({navigation}){
                             <Text style={s.optionTwoText}>Add to your favourite</Text>
                         </View>
                     </View>
-                </TouchableHighlight>
+                </Ripple>
 
-                <TouchableHighlight onPress={() => Linking.openURL('mailto:zflix.contact@pm.me')}>
+                <TouchableHighlight onPress={()=>Linking.openURL('mailto:zflix.contact@protonmail.com')}>
                     <View style={s.optionContainer}>
                         <MaterialIcons name="mail-outline" size={26} color={colors.lighterWhite} />
                         <View style={s.optionTextContainer}>
                             <Text style={s.optionText}>Contact us</Text>
-                            <Text style={s.optionTwoText}>zflix.contact@pm.me</Text>
+                            <Text style={s.optionTwoText}>zflix.contact@protonmail.com</Text>
                         </View>
                     </View>
                 </TouchableHighlight>
 
+                <TouchableHighlight onPress={()=>WebBrowser.openBrowserAsync('https://www.themoviedb.org/')} >
+                    <View style={[s.optionContainer]}>
+                        <MaterialCommunityIcons name="api" size={26} color={colors.lighterWhite} />
+                        <View style={[s.optionTextContainer,{flexDirection:'row'}]}>
+                            <View>
+                                <Text style={s.optionText}>The Movie Database API</Text>
+                                <Text style={s.optionTwoText}>Data source provider</Text>
+                            </View>
+                            <Image source={require('../assets/images/TMDB-logo.png')} resizeMode='contain' style={{width:40,height:40,marginLeft:30,backgroundColor:colors.mainBlackColor}} />
+                        </View>
+                    </View>
+                </TouchableHighlight>
+
+                <TouchableHighlight onPress={()=>WebBrowser.openBrowserAsync('https://nareshe.netlify.app/')} >
+                    <View style={s.optionContainer}>
+                        <MaterialIcons name="developer-mode" size={24} color={colors.lighterWhite} />
+                        <View style={s.optionTextContainer}>
+                            <Text style={s.optionText}>Developer</Text>
+                            <Text style={s.optionTwoText}>Naresh E</Text>
+                        </View>
+                    </View>
+                </TouchableHighlight>
+                
                 <View style={s.optionContainer}>
                     <FontAwesome name="question-circle" size={26} color={colors.lighterWhite} />
                     <View style={s.optionTextContainer}>
@@ -74,15 +99,6 @@ export default function ProfileModal({navigation}){
                         <Text style={s.optionTwoText}>Ask your queries</Text>
                     </View>
                 </View>
-                <View style={s.optionContainer}>
-                    <MaterialIcons name="developer-mode" size={24} color={colors.lighterWhite} />
-                    <View style={s.optionTextContainer}>
-                        <Text style={s.optionText}>Developer</Text>
-                        <Text style={s.optionTwoText}>Naresh E</Text>
-                    </View>
-                </View>
-                
-                
             </View>
 
             <View style={s.verionContainer}>
@@ -128,7 +144,7 @@ const s=StyleSheet.create({
     wholeInfoContainer:{
         flexDirection:'row',
         paddingVertical:20,
-        backgroundColor:'hsla(0,0%,10%,1)'
+        backgroundColor:colors.mainBlackLightColor
     },
     infoContainer:{
         justifyContent:'center',
@@ -146,7 +162,7 @@ const s=StyleSheet.create({
         fontFamily:'Nunito-SemiBold',
         fontSize:18,
         marginTop:10,
-        backgroundColor:'hsla(0,0%,60%,0.6)',
+        backgroundColor:'hsla(0,0%,50%,0.6)',
         paddingVertical:8,
         paddingHorizontal:10,
         borderRadius:5
@@ -160,14 +176,15 @@ const s=StyleSheet.create({
     optionWholeContainer:{
         marginVertical:10,
         borderBottomWidth:0,
-        paddingBottom:5,
-        borderBottomColor:colors.lighterWhite
+        paddingBottom:0,
+        borderBottomColor:colors.lighterWhite,
     },
     optionContainer:{
         flexDirection:'row',
-        marginVertical:10,
-        marginHorizontal:10,
-        alignItems:'center'
+        paddingVertical:12,
+        paddingHorizontal:10,
+        alignItems:'center',
+        
     },
     optionText:{
         color:colors.lightestWhite,

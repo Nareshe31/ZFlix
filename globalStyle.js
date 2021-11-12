@@ -1,460 +1,470 @@
-import { StyleSheet,Dimensions } from 'react-native'
-  
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import { StyleSheet, Dimensions } from "react-native";
 
-export const fontSizes={
-  appHeader:26,
-  posterHeader:20,
-  movieName:16,
-  movieDate:14,
-  modalHeader:18,
-  modalName:22,
-  modalYear:18,
-  normalText:17,
-  overview:17,
-  videoName:16,
-  borderRadius:10
-}
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+
+export const fontSizes = {
+  appHeader: 26,
+  posterHeader: 18,
+  movieName: 15,
+  movieDate: 13,
+  modalHeader: 18,
+  modalName: 22,
+  modalYear: 18,
+  normalText: 17,
+  overview: 17,
+  videoName: 16,
+  borderRadius: 10,
+  appHeaderHeight: 65,
+  navText: 13,
+};
 
 // export const dimensions={
 //   posterWidth:(32*windowWidth)/100,
 //   posterHeight:(19*windowHeight)/100
 // }
-export const dimensions={
-  posterWidth:120,
-  posterHeight:120
-}
+export const dimensions = {
+  posterWidth: 120,
+  posterHeight: 140,
+};
 
-export const mainColor='hsl(190,80%,50%)';
-export const backgroundBlackColor='hsl(0,10%,100%)';
-export const colors={ 
+export const mainColor = "hsl(190,80%,50%)";
+export const backgroundBlackColor = "hsl(0,10%,100%)";
+export const colors = {
   // mainBlackColor:'#191820',
   // mainBlackColor:'#0a0608',
-  mainBlackColor:'#010101',
-  mainBlackLightColor:'#191919',
+  mainBlackColor: "#010101",
+  mainBlackLightColor: "#151515",
+  lightBlackColor: "hsla(0,0%,30%,1)",
+  lightestBlackColor: "hsla(0,0%,13%,1)",
   // lightGray:'#9EA2A2',
-  lightGray:'hsl(0,0%,78%)',
+  lightGray: "hsl(0,0%,78%)",
   // mainBlue:'hsl(220, 85%, 75%)' bluepurple,
-  mainBlue:'#b52522',
-  mainDarkBlue:'#DA0037',
-  mainLightBlue:'	hsl(1, 80%, 62%)',
+  mainBlue: "#b52522",
+  mainDarkBlue: "#DA0037",
+  mainLightBlue: "	hsl(1, 80%, 62%)",
   // #314665
   // '#9d291f' red
   // mainBlue:'	hsl(216, 35%, 50%)',
   // lightWhite:'#BEC6D4'
-  lightWhite:'hsl(0,0%,85%)',
-  lighterWhite:'hsl(0,0%,55%)',
-  lightestWhite:'hsl(0,0%,70%)',
-  inputWhite:'hsla(0,0%,95%,0.85)',
-  lightBlack:'hsl(0,0%,10%)',
-  loadingColor:'hsla(0,0%,30%,1)',
-  rippleColor:'rgba(255,255,255,1)'
-}
+  lightWhite: "hsl(0,0%,85%)",
+  lighterWhite: "hsl(0,0%,55%)",
+  lightestWhite: "hsl(0,0%,70%)",
+  inputWhite: "hsla(0,0%,95%,0.85)",
+  lightBlack: "hsl(0,0%,10%)",
+  loadingColor: "hsla(0,0%,30%,1)",
+  rippleColor: "rgba(255,255,255,1)",
+  transparentColor: "hsla(0,0%,0%,0.7)",
+};
 
 export const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: colors.mainBlackColor,
-      position:'relative'
-    },
-    header:{
-      flexDirection:'row',
-      backgroundColor:colors.mainBlackLightColor,
-      paddingVertical:10,
-      paddingHorizontal:12,
-      borderRadius:10,
-      marginBottom:0,
-      marginHorizontal:5,
-      justifyContent:'space-between',
-      alignItems:'center',
-      position:'absolute',
-      left:0,
-      top:0,
-      right:0,
-      zIndex:1000,
-      // elevation:5
-    },
-    headerTextContainer:{
-      flex:1,
-      paddingLeft:30,
-      paddingRight:14,
-    },
-    headerText:{
-      fontSize:fontSizes.appHeader,
-      fontFamily:'Nunito-Bold',
-      color:colors.mainBlue
-    },
-    headerLogoImage:{
-      width:40,
-      height:40,
-      opacity:0.9
-    },
-    profileImage:{
-      width:36,
-      height:36,
-      borderWidth:1,
-      borderColor:colors.lighterWhite,
-      borderRadius:18,
-      // position:'absolute',
-      // right:10,
-      // top:-5
-    },
-    text:{
-      color:colors.lightWhite,
-      fontFamily:'Nunito-SemiBold'
-    },
-    drawerHeader:{
-      padding:15,
-      backgroundColor:'hsl(190,80%,50%)',
-      marginBottom:15
-    },
-    drawerHeaderText:{
-      fontSize:32,
-      color:'white',
-      textAlign:'center',
-      fontFamily:'Nunito-Bold'
-    },
-    loadingContainer:{
-      width:'100%',
-      height:250,
-      justifyContent:'center',
-      alignItems:'center',
-      backgroundColor:colors.mainBlackColor
-    },
-    pageLoader:{
-      flex:1,
-      alignItems:'center',
-      justifyContent:'center',
-      backgroundColor:colors.mainBlackColor
-    },
-    popularContainer:{
-      width:'100%',
-      marginBottom:8,
+  container: {
+    flex: 1,
+    backgroundColor: colors.mainBlackColor,
+    position: "relative",
   },
-  popularHeaderText:{
-      fontSize:fontSizes.posterHeader,
-      marginVertical:0,
-      marginHorizontal:10,
-      fontWeight:'600',
-      fontFamily:'Nunito-Bold',
-      color:colors.lightWhite
+  header: {
+    flexDirection: "row",
+    backgroundColor: colors.transparentColor,
+    paddingHorizontal: 12,
+    borderRadius: 0,
+    marginBottom: 0,
+    marginHorizontal: 0,
+    justifyContent: "space-between",
+    alignItems: "center",
+    position: "absolute",
+    left: 0,
+    top: 0,
+    right: 0,
+    zIndex: 1000,
+    height: fontSizes.appHeaderHeight,
   },
-  posterDetail:{
-      marginVertical:5,
-      marginHorizontal:8
+  headerTextContainer: {
+    flex: 1,
+    paddingLeft: 30,
+    paddingRight: 14,
   },
-  posterTitle:{
-      color:colors.lightWhite,
-      fontFamily:'Nunito-SemiBold',
-      fontSize:fontSizes.movieName,
+  headerText: {
+    fontSize: fontSizes.appHeader,
+    fontFamily: "Nunito-Bold",
+    color: colors.mainBlue,
   },
-  posterYear:{
-      color:colors.lightGray,
-      fontFamily:'Nunito-Regular',
-      fontSize:fontSizes.movieDate
+  headerLogoImage: {
+    width: 40,
+    height: 40,
+    opacity: 0.9,
   },
-  movieWholePosterContainer:{
-      width:dimensions.posterWidth,
-      marginHorizontal:5,
-      position:'relative',
-      minWidth:100,
-      maxWidth:180,
-      backgroundColor:colors.mainBlackLightColor,
-      borderRadius:10
+  profileImage: {
+    width: 36,
+    height: 36,
+    borderWidth: 1,
+    borderColor: colors.lighterWhite,
+    borderRadius: 18,
+    // position:'absolute',
+    // right:10,
+    // top:-5
   },
-  moviePoster:{
-      borderTopLeftRadius:10,
-      borderTopRightRadius:10,
-      minWidth:100,
-      maxWidth:180,
-      minHeight:150,
-      maxHeight:180,
-      width:dimensions.posterWidth,
-      height:dimensions.posterHeight,
+  text: {
+    color: colors.lightWhite,
+    fontFamily: "Nunito-SemiBold",
   },
-  moviePosterContainer:{
-      borderTopLeftRadius:10,
-      borderTopRightRadius:10,
-      minWidth:100,
-      maxWidth:180,
-      minHeight:150,
-      maxHeight:180,
-      backgroundColor:colors.loadingColor
+  drawerHeader: {
+    padding: 15,
+    backgroundColor: "hsl(190,80%,50%)",
+    marginBottom: 15,
   },
-  castWholePosterContainer:{
-    width:dimensions.posterWidth-20,
-    marginHorizontal:12,
-    position:'relative',
+  drawerHeaderText: {
+    fontSize: 32,
+    color: "white",
+    textAlign: "center",
+    fontFamily: "Nunito-Bold",
   },
-  castPoster:{
-    width:dimensions.posterWidth-20,
-    height:dimensions.posterWidth-20,
-    borderRadius:dimensions.posterWidth-20/2,
+  loadingContainer: {
+    width: "100%",
+    height: 250,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.mainBlackColor,
+  },
+  pageLoader: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.mainBlackColor,
+  },
+  popularContainer: {
+    width: "100%",
+    marginBottom: 8,
+  },
+  popularHeaderText: {
+    fontSize: fontSizes.posterHeader,
+    marginVertical: 0,
+    marginHorizontal: 10,
+    fontWeight: "600",
+    fontFamily: "Nunito-Bold",
+    color: colors.lightWhite,
+  },
+  posterDetail: {
+    marginVertical: 5,
+    marginHorizontal: 8,
+  },
+  posterTitle: {
+    color: colors.lightWhite,
+    fontFamily: "Nunito-SemiBold",
+    fontSize: fontSizes.movieName,
+  },
+  posterYear: {
+    color: colors.lightGray,
+    fontFamily: "Nunito-Regular",
+    fontSize: fontSizes.movieDate,
+  },
+  movieWholePosterContainer: {
+    width: dimensions.posterWidth,
+    marginHorizontal: 5,
+    position: "relative",
+    minWidth: 100,
+    maxWidth: 180,
+    backgroundColor: colors.mainBlackLightColor,
+    borderRadius: 10,
+  },
+  moviePoster: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    minWidth: 100,
+    maxWidth: 180,
+    minHeight: 120,
+    maxHeight: 160,
+    width: dimensions.posterWidth,
+    height: dimensions.posterHeight,
+  },
+  moviePosterContainer: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    minWidth: 100,
+    maxWidth: 180,
+    minHeight: 120,
+    maxHeight: 160,
+    backgroundColor: colors.loadingColor,
+  },
+  castWholePosterContainer: {
+    width: dimensions.posterWidth,
+    position: "relative",
+    // backgroundColor:colors.mainBlackLightColor,
+  },
+  castPoster: {
+    width: dimensions.posterWidth - 20,
+    height: dimensions.posterWidth - 20,
+    borderRadius: dimensions.posterWidth - 20 / 2,
+  },
+  castPosterContainer: {
+    width: dimensions.posterWidth - 20,
+    borderRadius: dimensions.posterWidth - 20 / 2,
+    backgroundColor: colors.loadingColor,
+    alignSelf: "center",
+    marginTop: 8,
+  },
+  posterSlideShowContainer: {
+    marginLeft: 5,
+    paddingVertical: 8,
+  },
 
+  popularHeaderContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
   },
-  castPosterContainer:{
-      borderRadius:dimensions.posterWidth-20/2,
-      backgroundColor:colors.loadingColor
+  movieImages: {
+    marginHorizontal: 8,
+    marginVertical: 0,
   },
-  posterSlideShowContainer:{
-      marginLeft:5,
-      paddingVertical:8,
+  heading_1: {
+    fontSize: fontSizes.posterHeader,
+    fontFamily: "Nunito-Bold",
+    color: colors.lightWhite,
+    marginBottom: 10,
   },
-  
-  popularHeaderContainer:{
-      flexDirection:'row',
-      justifyContent:'space-between',
-      alignItems:'center',
-      width:'100%'
-  } ,
-  movieImages:{
-      marginHorizontal:8,
-      marginVertical:0
+  tv: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 2,
+    alignItems: "center",
   },
-  heading_1:{
-      fontSize:fontSizes.posterHeader,
-      fontFamily:'Nunito-Bold',
-      color:colors.lightWhite,
-      marginBottom:10
+  tvBox: {
+    color: colors.lightWhite,
+    paddingVertical: 2,
+    paddingHorizontal: 5,
+    fontSize: fontSizes.movieDate,
+    textAlign: "center",
+    textAlignVertical: "center",
+    borderWidth: 0.5,
+    borderColor: colors.lighterWhite,
+    borderRadius: 5,
+    fontFamily: "Nunito-Regular",
+    backgroundColor: colors.mainBlackColor,
   },
-  tv:{
-    flexDirection:'row',
-    justifyContent:'space-between',
-    marginTop:2,
-    alignItems:'center'
+  noResultContainer: {
+    flex: 1,
+    backgroundColor: colors.mainBlackColor,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  tvBox:{
-    color:colors.lightWhite,
-    paddingHorizontal:5,
-    paddingTop:3,
-    fontSize:12,
-    textAlign:'center',
-    textAlignVertical:'center',
-    borderWidth:0.8,
-    borderColor:colors.lightGray,
-    borderRadius:5
+  noResultText: {
+    fontSize: 22,
+    fontFamily: "Nunito-SemiBold",
+    color: colors.lightWhite,
+    marginTop: -20,
   },
-  noResultContainer:{
-    flex:1,
-    backgroundColor:colors.mainBlackColor,
-    justifyContent:'center',
-    alignItems:'center',
+  genreContainer: {
+    width: "94%",
+    marginHorizontal: "3%",
+    flexDirection: "row",
+    marginVertical: 10,
+    flexWrap: "wrap",
   },
-  noResultText:{
-    fontSize:24,
-    fontFamily:'Nunito-SemiBold',
-    color:colors.lightWhite,
-    marginTop:-20
+  genreName: {
+    fontSize: 16,
+    color: colors.lightWhite,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    fontFamily: "Nunito-SemiBold",
+    borderWidth: 1,
+    margin: 5,
+    borderColor: colors.lighterWhite,
+    borderRadius: 20,
   },
-  genreContainer:{
-      width:'94%',
-      marginHorizontal:'3%',
-      flexDirection:'row',
-      marginVertical:10,
-      flexWrap:'wrap',
+  torrentSearchContainer: {
+    marginVertical: 12,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
   },
-  genreName:{
-      fontSize:16,
-      color:colors.lightWhite,
-      paddingHorizontal:8,
-      paddingVertical:4,
-      fontFamily:'Nunito-SemiBold',
-      borderWidth:1,
-      margin:5,
-      borderColor:colors.lighterWhite,
-      borderRadius:20,
+  torrentSearchButton: {
+    paddingVertical: 10,
+    color: colors.lightWhite,
+    paddingHorizontal: 24,
+    borderRadius: 3,
+    fontSize: 16,
+    fontFamily: "Nunito-SemiBold",
+    backgroundColor: colors.mainBlue,
+    textAlign: "center",
   },
-  torrentSearchContainer:{
-    marginVertical:12,
-    flexDirection:'row',
-    justifyContent:'space-evenly',
-    alignItems:'center'
+  addWatchlistButton: {
+    paddingVertical: 7,
+    paddingHorizontal: 18,
+    flexDirection: "row",
+    borderRadius: 3,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "hsla(0,0%,30%,0.8)",
+    textAlign: "center",
   },
-  torrentSearchButton:{
-    paddingVertical:10,
-    color:colors.lightWhite,
-    paddingHorizontal:24,
-    borderRadius:3,
-    fontSize:16,
-    fontFamily:'Nunito-SemiBold',
-    backgroundColor:colors.mainBlue,
-    textAlign:'center'
+  watchlistText: {
+    fontSize: 16,
+    color: colors.lightWhite,
+    fontFamily: "Nunito-SemiBold",
   },
-  addWatchlistButton:{
-    paddingVertical:7,
-    paddingHorizontal:18,
-    flexDirection:'row',
-    borderRadius:3,
-    alignItems:'center',
-    justifyContent:'center',
-    backgroundColor:'hsla(0,0%,30%,0.8)',
-    textAlign:'center'
+  addedWatchlistButton: {
+    paddingVertical: 10,
+    color: colors.lightWhite,
+    paddingHorizontal: 24,
+    borderRadius: 3,
+    fontSize: 16,
+    fontFamily: "Nunito-SemiBold",
+    backgroundColor: "hsla(0,0%,30%,0.8)",
+    textAlign: "center",
   },
-  watchlistText:{
-    fontSize:16,
-    color:colors.lightWhite,
-    fontFamily:'Nunito-SemiBold',
+  navText: {
+    fontFamily: "Nunito-Bold",
+    fontSize: fontSizes.navText,
+    marginHorizontal: 8,
   },
-  addedWatchlistButton:{
-    paddingVertical:10,
-    color:colors.lightWhite,
-    paddingHorizontal:24,
-    borderRadius:3,
-    fontSize:16,
-    fontFamily:'Nunito-SemiBold',
-    backgroundColor:'hsla(0,0%,30%,0.8)',
-    textAlign:'center'
+  movieModalHeader: {
+    backgroundColor: colors.mainBlackColor,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    position: "absolute",
+    left: 0,
+    top: 0,
+    zIndex: 10,
   },
-  navText:{
-    fontFamily:'Nunito-SemiBold',
-    fontSize:18,
-    marginHorizontal:8
+  movieModalHeaderText: {
+    fontSize: fontSizes.modalHeader,
+    color: colors.lightWhite,
+    marginLeft: 8,
+    flex: 1,
+    flexWrap: "wrap",
   },
-  movieModalHeader:{
-    backgroundColor:colors.mainBlackColor,
-    flexDirection:'row',
-    alignItems:'center',
-    paddingHorizontal:10,
-    paddingVertical:10,
-    position:'absolute',
-    left:0,
-    top:0,
-    zIndex:10
+  movieYear: {
+    fontSize: fontSizes.modalYear,
+    fontFamily: "Nunito-Regular",
+    fontWeight: "300",
+    color: colors.lightestWhite,
   },
-  movieModalHeaderText:{
-    fontSize:fontSizes.modalHeader,
-    color:colors.lightWhite,
-    marginLeft:8,
-    flex:1,
-    flexWrap:'wrap'
+  movieName: {
+    fontSize: fontSizes.modalName,
+    fontFamily: "Nunito-Bold",
+    marginVertical: 2,
+    color: colors.lightWhite,
+    paddingHorizontal: 10,
   },
-  movieYear:{
-    fontSize:fontSizes.modalYear,
-    fontFamily:'Nunito-Regular',
-    fontWeight:'300',
-    color:colors.lightestWhite,
+  movieOverview: {
+    marginVertical: 10,
+    marginHorizontal: 15,
   },
-  movieName:{
-    fontSize:fontSizes.modalName,
-    fontFamily:'Nunito-Bold',
-    marginVertical:2,
-    color:colors.lightWhite,
-    paddingHorizontal:10
+  overviewHeader: {
+    fontSize: fontSizes.posterHeader,
+    fontFamily: "Nunito-Bold",
+    color: colors.lightWhite,
+    marginBottom: 5,
   },
-  movieOverview:{
-    marginVertical:10,
-    marginHorizontal:15
+  overviewText: {
+    fontFamily: "Nunito-Regular",
+    fontSize: fontSizes.overview,
+    marginBottom: 5,
+    textAlign: "justify",
+    color: colors.lightestWhite,
   },
-  overviewHeader:{
-    fontSize:fontSizes.posterHeader,
-    fontFamily:'Nunito-Bold',
-    color:colors.lightWhite,
-    marginBottom:5
+  modalPosterContainer: {
+    marginHorizontal: 10,
+    position: "relative",
+    backgroundColor: colors.mainBlackColor,
+    height: 400,
   },
-  overviewText:{
-    fontFamily:'Nunito-Regular',
-    fontSize:fontSizes.overview,
-    marginBottom:5,
-    textAlign:'justify',
-    color:colors.lightestWhite
+  modalPoster: {
+    width: 150,
+    height: 200,
+    borderRadius: 10,
+    position: "absolute",
+    top: 110,
+    left: 20,
   },
-  modalPosterContainer:{
-    marginHorizontal:10,
-    position:'relative',
-    backgroundColor:colors.mainBlackColor,
-    height:400,
+  modalBackdropPoster: {
+    width: "100%",
+    height: 400,
+    backgroundColor: colors.mainBlackColor,
   },
-  modalPoster:{
-    width:150,
-    height:200,
-    borderRadius:10,
-    position:'absolute',
-    top:110,
-    left:20,
+  taglineText: {
+    fontFamily: "Nunito-Italic",
+    fontSize: 16,
+    paddingHorizontal: 10,
+    marginTop: 0,
+    marginBottom: 0,
+    color: colors.lightWhite,
   },
-  modalBackdropPoster:{
-      width:'100%',
-      height:400,
-      backgroundColor:colors.mainBlackColor,
+  movieTextContainer: {
+    marginHorizontal: 10,
+    marginVertical: 4,
+    flexDirection: "row",
+    alignItems: "center",
   },
-  taglineText:{
-    fontFamily:'Nunito-Italic',
-    fontSize:16,
-    paddingHorizontal:10,
-    marginTop:0,
-    marginBottom:0,
-    color:colors.lightWhite
+  movieText: {
+    fontSize: fontSizes.normalText,
+    color: colors.lightWhite,
+    marginLeft: 5,
+    fontFamily: "Nunito-Regular",
   },
-  movieTextContainer:{
-    marginHorizontal:10,
-    marginVertical:4,
-    flexDirection:'row',
-    alignItems:'center'
+  videoContainer: {
+    backgroundColor: colors.mainBlackColor,
+    marginHorizontal: 14,
+    marginTop: 10,
+    marginBottom: 15,
   },
-  movieText:{
-    fontSize:fontSizes.normalText,
-    color:colors.lightWhite,
-    marginLeft:5,
-    fontFamily:'Nunito-Regular'
+  ytContainer: {
+    width: (60 * windowWidth) / 100,
+    backgroundColor: colors.mainBlackColor,
+    marginHorizontal: 18,
+    marginTop: -30,
+    marginBottom: 20,
+    position: "relative",
   },
-  videoContainer:{
-    backgroundColor:colors.mainBlackColor,
-    marginHorizontal:14,
-    marginVertical:10
+  videoThumbnail: {
+    width: (60 * windowWidth) / 100,
+    height: (23 * windowHeight) / 100,
+    borderRadius: 10,
   },
-  ytContainer:{
-    width:(60*windowWidth)/100,
-    backgroundColor:colors.mainBlackColor,
-    marginHorizontal:18,
-    marginTop:-30,
-    position:'relative'
+  ytTitle: {
+    color: colors.lightWhite,
+    fontFamily: "Nunito-SemiBold",
+    fontSize: fontSizes.videoName,
+    marginTop: -15,
   },
-  videoThumbnail:{
-    width:(60*windowWidth)/100,
-    height:(23*windowHeight)/100,
-    borderRadius:10,
+  videoPlayButton: {
+    position: "absolute",
+    alignSelf: "center",
+    marginTop: (6 * windowHeight) / 100,
   },
-  ytTitle:{
-    color:colors.lightWhite,
-    fontFamily:'Nunito-SemiBold',
-    fontSize:fontSizes.videoName,
-    marginTop:-15
+  youtubeLogo: {
+    width: 100,
+    height: 100,
   },
-  videoPlayButton:{
-    position:'absolute',
-    alignSelf:'center',
-    marginTop:(6*windowHeight)/100,
+  movieFeatureContainer: {
+    position: "absolute",
+    right: 30,
+    flexDirection: "column",
+    height: "55%",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    zIndex: 20,
   },
-  youtubeLogo:{
-    width:100,
-    height:100
+  firstFeatureContainer: {
+    height: "60%",
+    flexDirection: "column",
+    justifyContent: "space-evenly",
   },
-  movieFeatureContainer:{
-    position:'absolute',
-    right:30,
-    flexDirection:'column',
-    height:'55%',
-    alignItems:'center',
-    justifyContent:'space-evenly',
-    zIndex:20,
+  moviePlayContainer: {
+    position: "absolute",
+    right: 15,
+    bottom: 30,
   },
-  firstFeatureContainer:{
-    height:'60%',
-    flexDirection:'column',
-    justifyContent:'space-evenly',
+  mainScreen: {
+    paddingBottom: 0,
+    paddingTop: fontSizes.appHeaderHeight + 5,
   },
-  moviePlayContainer:{
-    position:'absolute',
-    right:15,
-    bottom:30
+  rightArrowIcon: {
+    marginRight: 0,
+    paddingHorizontal: 12,
   },
-  mainScreen:{ 
-    paddingBottom: 50,
-    paddingTop:60
-  },
-  rightArrowIcon:{
-    marginRight: 0, 
-    paddingHorizontal: 12
-  }
 });

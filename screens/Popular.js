@@ -57,6 +57,7 @@ export default function PopularScreen({ navigation }) {
         }
     };
     const getAllData = async () => {
+        setRefreshing(true)
         setIsMovieLoading(true);
         await getPopularMovies();
         setIsTvShowLoading(true);
@@ -120,7 +121,11 @@ export default function PopularScreen({ navigation }) {
                 contentContainerStyle={styles.mainScreen}
                 onScroll={(e) => scrollY.setValue(e.nativeEvent.contentOffset.y)}
                 refreshControl={
-                    <RefreshControl onRefresh={changeFilter} refreshing={refreshing} />
+                    <RefreshControl 
+                        onRefresh={changeFilter} 
+                        refreshing={refreshing}
+                        progressViewOffset={80}
+                        />
                 }
             >
                 <PostersContainer

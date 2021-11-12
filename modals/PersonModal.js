@@ -5,6 +5,8 @@ import { styles, colors } from "../globalStyle"
 import { MaterialIcons,Ionicons } from '@expo/vector-icons';
 import ImageView from "react-native-image-viewing";
 import { IMAGE_PATH,months,getHour,getMinute,convertMoney, URLs, API_KEY } from '../globalUtils';
+import PosterContainer from "../components/molecules/PosterContainer";
+import Ripple from 'react-native-material-ripple';
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -148,49 +150,31 @@ export default function PersonModal({navigation,route}) {
                                     showsHorizontalScrollIndicator={false}
                                     data={personData.images.profiles}
                                     renderItem={({item,index})=>(
-                                        <TouchableOpacity onPress={()=>{
+                                        <Ripple onPress={()=>{
                                             setImageIndex(index)
                                             setIsVisible(true)
-                                            }}>
-                                            <View style={[styles.moviePosterContainer,s.movieImages,{marginHorizontal:8}]}>
+                                            }}
+                                            rippleColor={colors.rippleColor}
+                                            >
+                                            <View style={[styles.moviePosterContainer,s.movieImages,{marginHorizontal:8,borderRadius:10}]}>
                                                 <Image 
-                                                    style={styles.moviePoster}
+                                                    style={[styles.moviePoster,{borderRadius:10}]}
                                                     source={{uri:IMAGE_PATH+item.file_path}} />
                                             </View>
-                                        </TouchableOpacity>
+                                        </Ripple>
                                     )}
                                 />
                             </View>
                         :null}
                         
-                        {personData?.movie_credits?.cast?.length>0?
-                            <View style={[s.similarMovieContainer,s.imagesContainer]}>
-                                <Text style={[styles.heading_1]}>Movies (Cast)</Text>
-                                <FlatList  
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    keyExtractor={(item)=>item.id.toString()+Math.round( Math.random() * 10000000 )}
-                                    data={personData.movie_credits.cast}
-                                    renderItem={({item})=>(
-                                        <View style={styles.movieWholePosterContainer}>
-                                            <TouchableOpacity onPress={()=>navigation.push('Modal',{screen:'MovieModal',params:{id:item.id,release_date:item.release_date,title:item.title},key: Math.round( Math.random() * 10000000 )})}>
-                                                <View style={styles.moviePosterContainer}>
-                                                        {item.poster_path ?
-                                                            <Image resizeMode='cover' style={styles.moviePoster} source={{ uri: IMAGE_PATH + item.poster_path }}></Image>
-                                                            :
-                                                            <Image style={[styles.moviePoster, { width: '80%', marginLeft: '10%' }]} resizeMode='contain' source={require('../assets/images/no-image.png')} />
-                                                        }
-                                                </View>
-                                            </TouchableOpacity>
-                                            <View style={styles.posterDetail}>
-                                                <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.title}</Text>
-                                                {item.release_date?<Text style={styles.posterYear}>{months[Number(item.release_date.slice(5,7))-1]} {item.release_date.slice(8,10)}, {item.release_date.slice(0,4)}</Text>:null}
-                                            </View>
-                                        </View>
-                                    )}
-                                />
-                            </View>
-                        :null}
+                        <PosterContainer
+                            data={personData.movie_credits.cast}
+                            title="Movies (Cast)"
+                            loading={false}
+                            navigation={navigation}
+                            type="movie"
+                        />
+
 
                         {personData?.movie_credits?.crew?.length>0?
                             <View style={[s.similarMovieContainer,s.imagesContainer]}>
@@ -221,34 +205,13 @@ export default function PersonModal({navigation,route}) {
                                 />
                             </View>
                         :null}
-                        {personData?.tv_credits?.cast?.length>0?
-                            <View style={[s.imagesContainer]}>
-                                <Text style={[styles.heading_1]}>TV Shows (Cast)</Text>
-                                <FlatList  
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    keyExtractor={(item)=>item.id.toString()+Math.round( Math.random() * 10000000 )}
-                                    data={personData.tv_credits.cast}
-                                    renderItem={({item})=>(
-                                        <View style={styles.movieWholePosterContainer}>    
-                                            <TouchableOpacity onPress={()=>navigation.push('TvShowModal',{screen:'TvModal',params:{id:item.id,name:item.name,first_air_date:item.first_air_date},key: Math.round( Math.random() * 10000000 )})}>
-                                                <View key={item.id} style={styles.moviePosterContainer}>
-                                                    {item.poster_path ?
-                                                        <Image resizeMode='cover' style={styles.moviePoster} source={{ uri: IMAGE_PATH + item.poster_path }}></Image>
-                                                        :
-                                                        <Image style={[styles.moviePoster, { width: '80%', marginLeft: '10%' }]} resizeMode='contain' source={require('../assets/images/no-image.png')} />
-                                                    }
-                                                </View>
-                                            </TouchableOpacity>
-                                            <View style={styles.posterDetail}>
-                                                <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
-                                                {item.first_air_date?<Text style={styles.posterYear}>{months[Number(item.first_air_date.slice(5,7))-1]} {item.first_air_date.slice(8,10)}, {item.first_air_date.slice(0,4)}</Text>:null}
-                                            </View>
-                                        </View>
-                                    )}
-                                />
-                            </View>
-                        :null}
+                        <PosterContainer
+                            data={personData?.tv_credits?.cast}
+                            title="TV Shows (Cast)"
+                            loading={false}
+                            navigation={navigation}
+                            type="tv"
+                        />
                         {personData?.tv_credits?.crew?.length>0?
                             <View style={[s.imagesContainer]}>
                                 <Text style={[styles.heading_1]}>TV Shows (Crew)</Text>

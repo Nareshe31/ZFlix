@@ -41,7 +41,7 @@ export default function SeeAllModal({ navigation, route }) {
         getMovies(movieData.length / 20 + 1)
     }
     return (
-        <View style={[styles.container, { width: '100%', position: 'relative', backgroundColor: colors.mainBlackColor }]} >
+        <View style={[styles.container, { width: '100%', position: 'relative'}]} >
             <ScreenHeader navigation={navigation} title={title} filter={false} />
 
             {isLoading ?

@@ -34,6 +34,7 @@ export const URLs=[
     'http://important-bow-prawn.glitch.me/add-to-watchlist',  //28
     'http://important-bow-prawn.glitch.me/remove-multiple-from-watchlist',  //29
     'http://important-bow-prawn.glitch.me/add-to-recent-movie', //30
+    `https://api.themoviedb.org/3/configuration/languages?api_key=${API_KEY}`,  //31
 ]
 
 export const getHour=(runtime)=>{

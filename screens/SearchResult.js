@@ -5,79 +5,11 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { API_KEY,IMAGE_PATH,months,URLs} from '../globalUtils';
 import axios from 'axios';
 import {useSelector} from 'react-redux'
+import SmallPosterLoadingContainer from '../components/molecules/SmallPosterLoadingContainer';
+import SmallPosterContainer from '../components/molecules/SmallPosterContainer'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
-const loadingImages=[{id:0},{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8},{id:9}]
-
-function Movie({navigation,item}) {
-    return(
-    <View style={s.movieWholePosterContainer}>
-        <TouchableOpacity onPress={()=> navigation.push('Modal',{screen:'MovieModal',params:{id:item.id,release_date:item.release_date,title:item.title},key: Math.round( Math.random() * 10000000 )})} >
-            <View style={s.moviePosterContainer}>
-                {item.poster_path?
-                    <Image style={s.moviePoster}  source={{uri:IMAGE_PATH+item.poster_path}} />
-                    :
-                    <Image style={[s.moviePoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
-                }
-            </View>
-        </TouchableOpacity>
-        <View style={styles.posterDetail}>
-            <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.title}</Text>
-            <View style={styles.tv}>
-                {item.release_date?<Text style={styles.posterYear}>{months[Number(item.release_date.slice(5,7))-1]} {item.release_date.slice(8,10)}, {item.release_date.slice(0,4)} </Text>:null}
-                <Text style={styles.tvBox}>Movie</Text>
-            </View>
-        </View>
-    </View>
-    )
-}
-
-function TvShow({navigation,item}) {
-    return(
-    <View style={s.movieWholePosterContainer}>
-        <TouchableOpacity onPress={()=> navigation.push('TvShowModal',{screen:'TvModal',params:{id:item.id,name:item.name,first_air_date:item.first_air_date},key: Math.round( Math.random() * 10000000 )})} >
-            <View style={s.moviePosterContainer}>
-                {item.poster_path?
-                    <Image style={s.moviePoster}  source={{uri:IMAGE_PATH+item.poster_path}} />
-                    :
-                    <Image style={[s.moviePoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
-                }
-            </View>
-        </TouchableOpacity>
-        <View style={styles.posterDetail}>
-            <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
-            <View style={styles.tv}>
-                {item.first_air_date?<Text style={styles.posterYear}>{months[Number(item.first_air_date.slice(5,7))-1]} {item.first_air_date.slice(8,10)}, {item.first_air_date.slice(0,4)}</Text>:<Text style={styles.posterYear}>N/A</Text>}
-                <Text style={styles.tvBox}>TV</Text>
-            </View>
-        </View>
-    </View>
-    )
-}
-
-function Person({navigation,item}) {
-    return(
-        <View style={s.movieWholePosterContainer}> 
-            <TouchableOpacity onPress={()=>navigation.push('PersonModal',{screen:'PersonScreen',params:{id:item.id,name:item.name},key: Math.round( Math.random() * 10000000 )})}>
-                <View key={item.id} style={[s.moviePosterContainer]}>
-                    {item.profile_path?
-                        <Image resizeMode='cover' style={[s.moviePoster]} source={{uri:IMAGE_PATH+item.profile_path}}></Image>
-                        :
-                        <Image style={[s.moviePoster,{width:'80%',marginLeft:'10%'}]} resizeMode='contain'  source={require('../assets/images/no-image.png')} />
-                    }
-                    
-                </View>
-            </TouchableOpacity>
-            <View style={styles.posterDetail}>
-                <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.posterTitle}>{item.name}</Text>
-                {item.known_for_department?<Text style={styles.posterYear}>{item.known_for_department}</Text>:null}
-            </View>
-        </View>
-    )
-    
-}
 
 export default function SearchResult({navigation,route}) {
     const [searchResults,setSearchResults]=useState([])
@@ -98,7 +30,6 @@ export default function SearchResult({navigation,route}) {
     }, [])
 
     const handleBackButtonClick = () => {
-        console.log(navigation)
             navigation.goBack()
         
             // navigation.navigate('Main')
@@ -124,19 +55,9 @@ export default function SearchResult({navigation,route}) {
         }
     }
 
-    const fadeIn=()=>{
-        Animated.timing(opacity,{
-            toValue:1,
-            duration:800,
-            useNativeDriver:true
-        }).start(()=>isSearchLoading?fadeOut():null)
-    }
-    const fadeOut=()=>{
-        Animated.timing(opacity,{
-            toValue:0.7,
-            duration:800,
-            useNativeDriver:true
-        }).start(()=>isSearchLoading?fadeIn():null)
+    const handleReachEnd=()=>{
+        setIsRefreshing(true)
+        search((searchResults.length/20)+1)
     }
 
     return(
@@ -148,62 +69,22 @@ export default function SearchResult({navigation,route}) {
                 <Text ellipsizeMode={'tail'} numberOfLines={1} style={[s.movieModalHeaderText]}>Search results for "{route.params.searchQuery}"</Text>
             </View>
             {isSearchLoading?
-                <View style={[styles.pageLoader,{backgroundColor:colors.mainBlackColor}]}>
-                    <FlatList  
-                        data={loadingImages}
-                        horizontal={false}
-                        keyExtractor={(item)=>item.id.toString()}
-                        contentContainerStyle={{alignItems:'center'}}
-                        renderItem={({item})=>(
-                            <View style={s.movieWholePosterContainer}>
-                                <Animated.View style={[s.moviePosterContainer,{opacity}]}>
-                                    <View style={s.moviePoster} ></View>
-                                </Animated.View>
-                                <View style={styles.posterDetail}>
-                                    <Animated.View style={{opacity,width:(33*windowWidth)/100,backgroundColor:colors.loadingColor,marginVertical:6,borderRadius:10,padding:5}}></Animated.View>
-                                    <Animated.View style={{opacity,width:(25*windowWidth)/100,backgroundColor:colors.loadingColor,padding:5,borderRadius:10}}></Animated.View>
-                                </View>
-                            </View>
-                        )}
-                        numColumns={2}
-                    />
-                </View>
+                <SmallPosterLoadingContainer  />
                 :
-                <View style={[styles.container,{backgroundColor:colors.mainBlackColor}]}>
+                <View style={[styles.container]}>
                     {searchResults.length==0?
                         <View style={styles.noResultContainer}>
                             <Text style={styles.noResultText}>No results found</Text>
                         </View>
                         :
-                        <View style={[styles.container,{backgroundColor:colors.mainBlackColor}]}>
-                            <FlatList  
-                                data={searchResults}
-                                keyExtractor={(item)=>item.id.toString()}
-                                contentContainerStyle={{alignItems:'center'}}
-                                renderItem={({item})=>(
-                                        item.media_type==='movie'?<Movie navigation={navigation} item={item} />:
-                                            (item.media_type==='tv'?
-                                                <TvShow navigation={navigation} item={item}  />
-                                                :
-                                                <Person navigation={navigation} item={item} />
-                                            ))
-                                }
-                                ListFooterComponent={()=>(
-                                    ((searchResults.length / 20) + 1)<pages?<ActivityIndicator size='large' color={colors.mainBlue} />:null
-                                )}
-                                onEndReached={()=>{
-                                    if(!onEndReachedCalledDuringMomentum && ((searchResults.length/20)+1)<pages ){
-                                        setIsRefreshing(true)
-                                        search((searchResults.length/20)+1)
-                                    }
-                                }}
-                                onEndReachedThreshold={0.25}
-                                onMomentumScrollBegin = {() => {setOnEndReachedCalledDuringMomentum(false)}}
-                                numColumns={2}
-                            />
-                            {/* {isRefreshing?
-                                <ActivityIndicator size='large' color={colors.mainBlue} />
-                                :null} */}
+                        <View style={[styles.container]}>
+                            <SmallPosterContainer 
+                                navigation={navigation} 
+                                movieData={searchResults}
+                                handleReachEnd={handleReachEnd}
+                                pages={pages}
+                                addCategory={true}
+                                />
                         </View>
                     }
                 </View>

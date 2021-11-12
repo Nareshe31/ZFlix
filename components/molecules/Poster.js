@@ -2,7 +2,7 @@ import React from 'react';
 import { View,TouchableOpacity } from 'react-native';
 import CardImage from '../atoms/CardImage'
 import CardText from '../atoms/CardText'
-import { styles } from "../../globalStyle";
+import { colors, styles } from "../../globalStyle";
 import Ripple from 'react-native-material-ripple';
 
 export default function Poster({navigation,item,type}){
@@ -20,7 +20,7 @@ export default function Poster({navigation,item,type}){
 
     return(
         <View style={styles.movieWholePosterContainer}>
-            <Ripple rippleColor='rgba(255,255,255,1)' onPress={navigateToScreen }>
+            <Ripple rippleColor={colors.rippleColor} onPress={navigateToScreen }>
                 <>
                 <CardImage item={item} type={type}  />
                 <CardText item={item} type={type} />

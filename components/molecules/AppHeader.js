@@ -1,7 +1,7 @@
 import React from 'react';
 import { View,Text,Image } from 'react-native'
 import { MaterialIcons,Ionicons } from '@expo/vector-icons'; 
-import { colors, styles } from "../../globalStyle";
+import { colors, styles } from '../../globalStyle';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function AppHeader({navigation}) {
@@ -15,12 +15,12 @@ export default function AppHeader({navigation}) {
         </TouchableOpacity>
         
         <TouchableOpacity >
-          <Image source={require('../../assets/images/logo-wo-bg.png')} style={{width:32,height:32}} />
+          <Image source={require('../../assets/images/logo-wo-bg.png')} style={{width:30,height:30}} />
         </TouchableOpacity>
         
         <TouchableOpacity onPress={()=>navigation.push('WatchlistModal')}>
           <View>
-            <Ionicons name="heart" size={28} color={colors.lighterWhite} />
+            <Ionicons name="heart" size={28} color={colors.lightWhite} />
           </View>
         </TouchableOpacity>
       </View>

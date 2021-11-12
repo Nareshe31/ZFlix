@@ -34,7 +34,7 @@ export default function PostersLoadingContainer() {
                 renderItem={({ item }) => (
                     <View style={[styles.movieWholePosterContainer]}>
                         <Animated.View style={[styles.moviePosterContainer, { opacity: opacity }]}>
-                            <View style={[styles.moviePoster,{justifyContent:'center',alignItems:'center'}]} >
+                            <View style={[styles.moviePoster]} >
                             </View>
                         </Animated.View>
                         <View style={styles.posterDetail}>

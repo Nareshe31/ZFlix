@@ -13,31 +13,35 @@ export default function BottomTabScreen(){
     return(
         <Tab.Navigator tabBarOptions={{
             showLabel:false,
-            style:s.bottomNav
+            style:s.bottomNav,
+            keyboardHidesTabBar:true
             }} >
           <Tab.Screen name="Popular" component={Popular}  options={{tabBarIcon:({focused})=>(
             <View style={s.centerAlign}>
-              {focused?<MaterialIcons name="home" size={28} color={colors.lightWhite} />:
-              <MaterialCommunityIcons name="home-outline" size={28} color={colors.lighterWhite} />}
-              <Text style={styles.text}>Home</Text>
+              {focused?<MaterialIcons name="home" size={22} color={colors.lightWhite} />:
+              <MaterialCommunityIcons name="home-outline" size={22} color={colors.lighterWhite} />}
+              <Text style={[styles.navText,{color:focused?colors.lightWhite:colors.lighterWhite}]}>Home</Text>
             </View>
           )}}  />
           <Tab.Screen name="Search" component={Search} options={{tabBarIcon:({focused})=>(
             <View style={s.centerAlign}>
-              {focused?<Ionicons name="search" size={28} color={colors.mainBlue} />:
-              <Ionicons name="search-outline" size={28} color={colors.lighterWhite} />}
+              {focused?<Ionicons name="search" size={22} color={colors.lightWhite} />:
+              <Ionicons name="search-outline" size={22} color={colors.lighterWhite} />}
+              <Text style={[styles.navText,{color:focused?colors.lightWhite:colors.lighterWhite}]}>Search</Text>
             </View>
           )}}  />
           <Tab.Screen name="Movie" component={Movie} options={{tabBarIcon:({focused})=>(
             <View style={s.centerAlign}>
-              {focused?<MaterialCommunityIcons name="movie-open" size={28} color={colors.mainBlue} />:
-              <MaterialCommunityIcons name="movie-open-outline" size={28} color={colors.lighterWhite} />}
+              {focused?<MaterialCommunityIcons name="movie-open" size={22} color={colors.lightWhite} />:
+              <MaterialCommunityIcons name="movie-open-outline" size={22} color={colors.lighterWhite} />}
+              <Text style={[styles.navText,{color:focused?colors.lightWhite:colors.lighterWhite}]}>Movies</Text>
             </View>
           )}}  />
           <Tab.Screen name="TvShow" component={TvShow} options={{tabBarIcon:({focused})=>(
             <View style={s.centerAlign}>
-              {focused?<Ionicons name="tv" size={28} color={colors.mainBlue} />:
-              <Ionicons name="md-tv-outline" size={28} color={colors.lighterWhite} />}
+              {focused?<Ionicons name="tv" size={22} color={colors.lightWhite} />:
+              <Ionicons name="md-tv-outline" size={22} color={colors.lighterWhite} />}
+              <Text style={[styles.navText,{color:focused?colors.lightWhite:colors.lighterWhite}]}>Tv Shows</Text>
             </View>
           )}} />
         
@@ -56,7 +60,6 @@ const s=StyleSheet.create({
         borderTopRightRadius:0,
         borderTopLeftRadius:0,
         backgroundColor:colors.mainBlackLightColor,
-        position:'absolute',
         bottom: 0,
         left:0,
         marginHorizontal:0,

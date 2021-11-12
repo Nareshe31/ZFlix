@@ -54,7 +54,7 @@ export default function SmallPosterLoadingContainer() {
 const s=StyleSheet.create({
     moviePoster:{
         width:'100%',
-        height:(19*windowHeight)/100,
+        height:(17*windowHeight)/100,
         borderTopLeftRadius:10,
         borderTopRightRadius:10,
         minHeight:80,
