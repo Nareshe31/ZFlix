@@ -325,9 +325,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 10,
     paddingVertical: 10,
-    position: "absolute",
-    left: 0,
-    top: 0,
+
     zIndex: 10,
   },
   movieModalHeaderText: {

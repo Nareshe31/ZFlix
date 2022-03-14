@@ -39,7 +39,7 @@ export default function Main() {
     const getUserDetails=async(token)=>{
         try {
             setLoadingWord(1)
-            let response=await axios.get('http://important-bow-prawn.glitch.me/user-details/'+token)
+            let response=await axios.get(URLs[33]+token)
             dispatch({type:"LOGIN",payload:response.data.user})
             setIsLoading(false)
         } catch (error) {
@@ -57,13 +57,10 @@ export default function Main() {
         }
         else{
           setUpdate(res)
-          setModalVisible(!modalVisible) 
+          setModalVisible(false) 
         }
         getToken()
-      })
-      fetch(URLs[16]).then(res=>res.json()).then(res=>res)
-      fetch(URLs[14]).then(res=>res)
-      
+      })      
       unsubscribe()
     }, [])
    
@@ -104,7 +101,7 @@ export default function Main() {
         )
       }
       return (
-        <View style={[styles.container,{paddingTop:StatusBar.currentHeight}]}>
+        <View style={[styles.container]}>
           <StatusBar backgroundColor={colors.transparentColor} translucent />
           <Modal animationType='fade' visible={modalVisible} transparent={true} 
             onRequestClose={() => {

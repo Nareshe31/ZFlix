@@ -7,6 +7,7 @@ import {
     RefreshControl,
     Alert,
     ToastAndroid,
+    StatusBar
 } from "react-native";
 import { styles } from "../globalStyle";
 import AppHeader from '../components/molecules/AppHeader';
@@ -106,7 +107,7 @@ export default function PopularScreen({ navigation }) {
         setFilter((prev) => (prev == "week" ? "day" : "week"));
     };
     return (
-        <View style={[styles.container]}>
+        <View style={[styles.container,{paddingTop:StatusBar.currentHeight}]}>
             <Animated.View
                 style={{
                     transform: [{ translateY: translateY }],

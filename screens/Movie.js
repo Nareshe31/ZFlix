@@ -7,6 +7,7 @@ import {
   RefreshControl,
   Animated,
   Alert,
+  StatusBar
 } from "react-native";
 import { styles, colors } from "../globalStyle";
 import AppHeader from '../components/molecules/AppHeader';
@@ -93,7 +94,7 @@ export default function MovieScreen({ navigation }) {
   };
 
   return (
-    <View style={[styles.container]}>
+    <View style={[styles.container,{paddingTop:StatusBar.currentHeight}]}>
       <Animated.View
         style={{
           transform: [{ translateY: translateY }],

@@ -15,6 +15,7 @@ import {
     ScrollView,
     TouchableWithoutFeedback,
     FlatList,
+    StatusBar
 } from "react-native";
 import { styles, colors } from "../globalStyle";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -196,7 +197,7 @@ export default function Search({ navigation }) {
     }
     return (
         <View
-            style={[styles.container]}
+            style={[styles.container,{paddingTop:StatusBar.currentHeight}]}
         >
             <View style={{paddingVertical:8,backgroundColor:colors.mainBlackLightColor}}>
                 <View style={s.searchContainer}>
@@ -411,7 +412,9 @@ function RecentTab({isSearching,suggestions,searchQuery,navigation,handleScroll}
                         <Text style={styles.popularHeaderText}>Top Results</Text>
                         <TouchableOpacity
                             onPress={() => {
-                                handleEnter();
+                                navigation.push("SearchModal", {
+                                    searchQuery: searchQuery,
+                                });
                             }}
                         >
                             <MaterialIcons

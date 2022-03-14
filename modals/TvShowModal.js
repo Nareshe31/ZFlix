@@ -17,6 +17,7 @@ import {
     SafeAreaView,
     TouchableHighlight,
     ToastAndroid,
+    StatusBar
 } from "react-native";
 import { styles, colors } from "../globalStyle";
 import {
@@ -135,10 +136,10 @@ export default function TvShowModal({ navigation, route }) {
             <View style={s.episodePlayContainer}>
                 <TouchableOpacity
                     onPress={() =>
-                        // navigation.push("PlayModal", {
-                        //     url: `${URLs[14]}${route.params.id}/${seasonNumber}/${item.episode_number}`,
-                        // })
-                        WebBrowser.openBrowserAsync(`${URLs[14]}${route.params.id}/${seasonNumber}/${item.episode_number}`)
+                        navigation.push("PlayModal", {
+                            url: `${URLs[14]}${route.params.id}/${seasonNumber}/${item.episode_number}`,
+                        })
+                        // WebBrowser.openBrowserAsync(`${URLs[14]}${route.params.id}/${seasonNumber}/${item.episode_number}`)
                     }
                 >
                     <Ionicons
@@ -177,7 +178,7 @@ export default function TvShowModal({ navigation, route }) {
     const addToWatchlist = async () => {
         try {
             let { data } = await axios.post(
-                "http://important-bow-prawn.glitch.me/add-to-watchlist",
+                URLs[27],
                 {
                     id: user._id,
                     watchlist: {
@@ -199,7 +200,7 @@ export default function TvShowModal({ navigation, route }) {
         try {
             let watchlistId = getMovieId();
             let response = await axios.post(
-                "http://important-bow-prawn.glitch.me/remove-from-watchlist",
+                URLs[34],
                 {
                     id: user._id,
                     watchlistId,
@@ -212,11 +213,11 @@ export default function TvShowModal({ navigation, route }) {
         }
     };
     const isMovieAdded = () => {
-        return user?.watchlist.find((ele) => ele.id == tvShowData.id);
+        return user?.watchlist.find((ele) => ele.data.id == tvShowData.id);
     };
     const getMovieId = () => {
         return user.watchlist.map((ele) =>
-            ele.id == tvShowData.id ? ele._id : null
+            ele.data.id == tvShowData.id ? ele._id : null
         );
     };
     return (
@@ -224,6 +225,7 @@ export default function TvShowModal({ navigation, route }) {
             style={[
                 styles.container,
                 { position: "relative", backgroundColor: colors.mainBlackColor },
+                ,{paddingTop:StatusBar.currentHeight}
             ]}
         >
             {/* <Animated.View

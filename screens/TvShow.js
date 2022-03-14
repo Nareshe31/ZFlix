@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Animated,
   Alert,
+  StatusBar
 } from "react-native";
 import { styles, colors } from "../globalStyle";
 import AppHeader from '../components/molecules/AppHeader';
@@ -89,7 +90,7 @@ export default function TvShowScreen({ navigation }) {
     }
   };
   return (
-    <View style={[styles.container, s.mainBackground]}>
+    <View style={[styles.container, s.mainBackground,{paddingTop:StatusBar.currentHeight}]}>
       <Animated.View
         style={{
           transform: [{ translateY: translateY }],

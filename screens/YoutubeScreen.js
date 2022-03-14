@@ -37,19 +37,18 @@ export default function YoutubeScreen({ navigation, route }) {
     );
   }
   return (
-    <SafeAreaView
+    <View
       style={[styles.container]}
     >
-      <StatusBar />
       <WebView
-        source={{ uri: 'https://www.youtube.com/embed/tgbNymZ7vqY'}}
+        source={{ uri:route.params.url}}
         startInLoadingState={true}
         renderLoading={() => (
           <View
             style={[
               {
                 width: windowWidth,
-                height: windowHeight + 50,
+                height: windowHeight+50,
                 alignItems: "center",
                 justifyContent: "center",
                 position: "absolute",
@@ -62,12 +61,11 @@ export default function YoutubeScreen({ navigation, route }) {
             <ActivityIndicator size={"large"} color={colors.mainBlue} />
           </View>
         )}
-        
         mixedContentMode='never'
         onShouldStartLoadWithRequest={()=>{return false}}
         allowsFullscreenVideo={true}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 

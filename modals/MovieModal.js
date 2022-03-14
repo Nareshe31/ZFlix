@@ -16,6 +16,7 @@ import {
     FlatList,
     TouchableOpacity,
     TouchableHighlight,
+    StatusBar
 } from "react-native";
 import { styles, colors } from "../globalStyle";
 import {
@@ -111,27 +112,33 @@ export default function ModalScreen({ navigation, route }) {
             ToastAndroid.show("Added to watchlist", ToastAndroid.SHORT);
         } catch (error) {
             console.log(error);
+            ToastAndroid.show('Something went wrong',ToastAndroid.SHORT)
+
         }
     };
     const removeFromWatchlist = async () => {
         try {
             let watchlistId = getMovieId();
-            let response = await axios.post(URLs[28], {
+            console.log(user,watchlistId);
+            let response = await axios.post(URLs[34], {
                 id: user._id,
                 watchlistId,
             });
+            console.log(response.data);
             dispatch({ type: "REMOVE_FROM_WATCHLIST", payload: movieData.id });
             ToastAndroid.show("Removed from watchlist", ToastAndroid.SHORT);
         } catch (error) {
             console.log(error);
+            ToastAndroid.show('Something went wrong',ToastAndroid.SHORT)
+
         }
     };
     const isMovieAdded = () => {
-        return user?.watchlist.find((ele) => ele.id == movieData.id);
+        return user?.watchlist.find((ele) => ele.data.id == movieData.id);
     };
     const getMovieId = () => {
-        return user.watchlist.map((ele) =>
-            ele.id == movieData.id ? ele._id : null
+        return user?.watchlist.map((ele) =>
+            ele.data.id == movieData.id ? ele._id : null
         );
     };
 
@@ -142,16 +149,6 @@ export default function ModalScreen({ navigation, route }) {
     });
     const watchMovie = async () => {
         try {
-            let response = await axios.post(URLs[29], {
-                id: user._id,
-                movieData: {
-                    id: movieData.id,
-                    poster_path: movieData.poster_path,
-                    name: movieData.title,
-                    year: movieData.release_date,
-                    type: "movie",
-                },
-            });
             navigation.push("PlayModal", { url: `${URLs[15]}${movieData.imdb_id}` });
             // WebBrowser.openBrowserAsync(`${URLs[15]}${movieData.imdb_id}`)
         } catch (error) {
@@ -159,7 +156,7 @@ export default function ModalScreen({ navigation, route }) {
         }
     };
     return (
-        <View style={[styles.container, { position: "relative" }]}>
+        <View style={[styles.container, { position: "relative" },{paddingTop:StatusBar.currentHeight}]}>
             <View style={[styles.movieModalHeader]}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <MaterialIcons

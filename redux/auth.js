@@ -13,9 +13,9 @@ const authReducer=(state=initialState,action)=>{
         case ADD_TO_WATCHLIST:
             return {...state,watchlist:action.payload}
         case REMOVE_FROM_WATCHLIST:
-            return {...state,watchlist:state.watchlist.filter(item => item.id !== action.payload)}
+            return {...state,watchlist:state.watchlist.filter(item => item.data.id !== action.payload)}
         case REMOVE_MULTIPLE_FROM_WATCHLIST:
-            return {...state,watchlist:state.watchlist.filter(item => action.payload.includes(item.id)?null:item)}
+            return {...state,watchlist:state.watchlist.filter(item => action.payload.includes(item.data.id)?null:item)}
     }
     return state
 }

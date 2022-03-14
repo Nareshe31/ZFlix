@@ -2,7 +2,7 @@ export const API_KEY="dfc43a605d906f9da6982495ad7bb34e"
 
 export const IMAGE_PATH='https://image.tmdb.org/t/p/original'
 export const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-export const Torrent_Search="https://important-bow-prawn.glitch.me/api/v2/torrent/search/" 
+export const Torrent_Search="https://zflix-backend.herokuapp.com/api/v2/torrent/search/" 
 export const URLs=[
     `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`,  //1 
     `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`,  //2
@@ -16,11 +16,11 @@ export const URLs=[
     `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}`,  //10
     `https://api.themoviedb.org/3/tv/top_rated?api_key=${API_KEY}`,  //11
     `https://api.themoviedb.org/3/tv/on_the_air?api_key=${API_KEY}`,  //12
-    'https://important-bow-prawn.glitch.me/api/v2/zflix/update',  //13
+    'https://zflix-backend.herokuapp.com/api/v2/zflix/update',  //13
     `https://api.themoviedb.org/3/`,  //14
-    'https://movie-r-series.herokuapp.com/watchonline/tv/',  //15
-    'https://movie-r-series.herokuapp.com/watchonline/movie/',  //16,
-    'https://important-bow-prawn.glitch.me/api/v2/torrent/search/hitman',  //17
+    'https://zflix-backend.herokuapp.com/watch/tv/',  //15
+    'https://zflix-backend.herokuapp.com/watch/movie/',  //16,
+    'https://zflix-backend.herokuapp.com/api/v2/torrent/search/hitman',  //17
     'https://www.youtube.com/watch?v=',  //18
     'https://img.youtube.com/vi/',   //19
     '/sddefault.jpg',  //20,
@@ -30,11 +30,15 @@ export const URLs=[
     `https://api.themoviedb.org/3/discover/`,   //24
     'https://api.themoviedb.org/3/',  //25,
     '&append_to_response=images,videos,credits,similar,recommendations',  //26
-    'https://important-bow-prawn.glitch.me/add-to-search',  //27
-    'http://important-bow-prawn.glitch.me/add-to-watchlist',  //28
-    'http://important-bow-prawn.glitch.me/remove-multiple-from-watchlist',  //29
-    'http://important-bow-prawn.glitch.me/add-to-recent-movie', //30
+    'https://zflix-backend.herokuapp.com/api/v2/add-to-search',  //27
+    'https://zflix-backend.herokuapp.com/api/v2/add-to-watchlist',  //28
+    'https://zflix-backend.herokuapp.com/api/v2/remove-multiple-from-watchlist',  //29
+    'https://zflix-backend.herokuapp.com/api/v2/add-to-recent-movie', //30
     `https://api.themoviedb.org/3/configuration/languages?api_key=${API_KEY}`,  //31
+    `https://zflix-backend.herokuapp.com/api/v2/login`, //32
+    `https://zflix-backend.herokuapp.com/api/v2/signup`, //33
+    `https://zflix-backend.herokuapp.com/api/v2/user-details/`, //34
+    `https://zflix-backend.herokuapp.com/api/v2/remove-from-watchlist`, //35
 ]
 
 export const getHour=(runtime)=>{
