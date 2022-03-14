@@ -6,7 +6,8 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
-  SafeAreaView 
+  SafeAreaView,
+  TouchableWithoutFeedback
 } from "react-native";
 import { WebView } from "react-native-webview";
 import * as ScreenOrientation from "expo-screen-orientation";
@@ -40,31 +41,33 @@ export default function YoutubeScreen({ navigation, route }) {
     <View
       style={[styles.container]}
     >
-      <WebView
-        source={{ uri:route.params.url}}
-        startInLoadingState={true}
-        renderLoading={() => (
-          <View
-            style={[
-              {
-                width: windowWidth,
-                height: windowHeight+50,
-                alignItems: "center",
-                justifyContent: "center",
-                position: "absolute",
-                top: 0,
-                left: 0,
-                backgroundColor: colors.mainBlackColor,
-              },
-            ]}
-          >
-            <ActivityIndicator size={"large"} color={colors.mainBlue} />
-          </View>
-        )}
-        mixedContentMode='never'
-        onShouldStartLoadWithRequest={()=>{return false}}
-        allowsFullscreenVideo={true}
-      />
+      {/* <TouchableWithoutFeedback onPress={()=>console.log("clicked")}> */}
+        <WebView
+          source={{ uri:route.params.url}}
+          startInLoadingState={true}
+          renderLoading={() => (
+            <View
+              style={[
+                {
+                  width: windowWidth,
+                  height: windowHeight+50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  backgroundColor: colors.mainBlackColor,
+                },
+              ]}
+            >
+              <ActivityIndicator size={"large"} color={colors.mainBlue} />
+            </View>
+          )}
+          mixedContentMode='never'
+          onShouldStartLoadWithRequest={()=>{return false}}
+          allowsFullscreenVideo={true}
+        />
+      {/* </TouchableWithoutFeedback> */}
     </View>
   );
 }

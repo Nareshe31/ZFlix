@@ -124,7 +124,6 @@ export default function ModalScreen({ navigation, route }) {
                 id: user._id,
                 watchlistId,
             });
-            console.log(response.data);
             dispatch({ type: "REMOVE_FROM_WATCHLIST", payload: movieData.id });
             ToastAndroid.show("Removed from watchlist", ToastAndroid.SHORT);
         } catch (error) {

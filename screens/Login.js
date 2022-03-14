@@ -89,7 +89,7 @@ export default function Login({ navigation }) {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container,{paddingTop:StatusBar.currentHeight}]}>
             {/* <ImageBackground source={require('../assets/images/new-crop.png')} resizeMode='cover' style={s.image}> */}
             <View style={s.container}>
                 <View style={s.appHeader}>

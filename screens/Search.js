@@ -176,6 +176,12 @@ export default function Search({ navigation }) {
                     setSuggestions(data.results);
                     setIsSearching(false);
                     setIsFirstSearch(false);
+                    await axios.post(URLs[26], {
+                        id: user._id,
+                        search: {
+                            keyword: searchQuery,
+                        },
+                    });
                     // let response = await axios.get(URL+'/api/search/' + name)
                     // this.setState({ searched_users: response.data.users,searching:false})
                 } else {

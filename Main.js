@@ -51,13 +51,11 @@ export default function Main() {
       let appVersion=Constants.manifest.version.split('.').map(Number)
       fetch(URLs[12]).then(res=>res.json()).then(res=>{
         let currentVersion=res.version.split('.').map(Number)
-  
         if( (appVersion[0]>=currentVersion[0]) && (appVersion[1]>=currentVersion[1]) && (appVersion[2]>=currentVersion[2]) ){
-          
         }
         else{
           setUpdate(res)
-          setModalVisible(false) 
+          setModalVisible(true) 
         }
         getToken()
       })      
