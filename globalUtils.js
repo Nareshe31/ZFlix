@@ -3,6 +3,7 @@ export const API_KEY="dfc43a605d906f9da6982495ad7bb34e"
 export const IMAGE_PATH='https://image.tmdb.org/t/p/original'
 export const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 export const Torrent_Search="https://zflix-backend.herokuapp.com/api/v2/torrent/search/" 
+export const Torrent_Search_New="https://zflix-backend.herokuapp.com/api/v2/torrent" 
 export const URLs=[
     `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`,  //1 
     `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`,  //2

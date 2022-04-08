@@ -350,7 +350,7 @@ export default function TvShowModal({ navigation, route }) {
                             <Ripple
                                 rippleColor={colors.rippleColor}
                                 onPress={() =>
-                                    navigation.push("TorrentModal", {
+                                    navigation.push("YtsTorrentModal", {
                                         query:
                                             tvShowData.name +
                                             " s" +

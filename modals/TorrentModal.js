@@ -57,13 +57,12 @@ export default function TorrentModal({ navigation, route }) {
             let response = await axios.get(
                 `${Torrent_Search}${route.params.query}/${page}`
             );
-            setTorrents((prev) => {
-                return [...prev, ...response.data.result];
-            });
+            setTorrents((prev) =>[...prev, ...response.data.result])
             setPages(response.data.total_pages);
             setIsLoading(false);
             setRefreshing(false);
         } catch (error) {
+            setIsLoading(false);
             // Alert.alert('Oops...','Something went wrong',[{text:"Go back",onPress:()=>navigation.goBack()}])
         }
     };

@@ -397,7 +397,7 @@ function RecentTab({isSearching,suggestions,searchQuery,navigation,handleScroll}
                             </Text>
                             <TouchableOpacity
                                 onPress={() => {
-                                    navigation.push("TorrentModal", {
+                                    navigation.push("YtsTorrentModal", {
                                         query: searchQuery,
                                         type: "movie",
                                     });

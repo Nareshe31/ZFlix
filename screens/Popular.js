@@ -109,7 +109,7 @@ export default function PopularScreen({ navigation }) {
     return (
         <View style={[styles.container,{paddingTop:StatusBar.currentHeight}]}>
             <Animated.View
-                style={{
+                style={{    
                     transform: [{ translateY: translateY }],
                     elevation: 1,
                     zIndex: 1000,

@@ -290,7 +290,7 @@ export default function ModalScreen({ navigation, route }) {
                                 </View>
                                 <TouchableOpacity
                                     onPress={() =>
-                                        navigation.push("TorrentModal", {
+                                        navigation.push("YtsTorrentModal", {
                                             query:
                                                 movieData.title +
                                                 " " +

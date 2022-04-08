@@ -8,6 +8,7 @@ import YoutubeScreen from '../screens/YoutubeScreen';
 import GenreModal from '../modals/GenreModal';
 import SearchResult from '../screens/SearchResult';
 import TorrentModal from '../modals/TorrentModal';
+import TorrentModalNew from '../modals/TorrentModalNew';
 import SeeAllModal from '../modals/SeeAllModal'
 import WatchlistModal from '../modals/WatchlistModal'
 import ProfileModal from '../modals/ProfileModal';
@@ -56,6 +57,7 @@ export default function StackNavigator(){
             <RootStack.Screen name="TvShowModal" component={TvModalScreen} />
             <RootStack.Screen name="SearchModal" component={SearchResult} />
             <RootStack.Screen name="TorrentModal" component={TorrentModal} />
+            <RootStack.Screen name="YtsTorrentModal" component={TorrentModalNew} />
             <RootStack.Screen name="SeeAllModal" component={SeeAllModal} />
             <RootStack.Screen name="PersonModal" component={PersonScreen} />
             <RootStack.Screen name="ProfileModal" component={ProfileModal} />
