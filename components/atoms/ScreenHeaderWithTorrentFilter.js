@@ -73,6 +73,7 @@ const s = StyleSheet.create({
     screenHeader: {
         flexDirection: "row",
         width: "100%",
+        alignItems:"center"
     },
     movieModalHeader: {
         backgroundColor: colors.transparentColor,

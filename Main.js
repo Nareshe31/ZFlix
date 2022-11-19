@@ -50,6 +50,7 @@ export default function Main() {
     useEffect(() => {
       let appVersion=Constants.manifest.version.split('.').map(Number)
       fetch(URLs[12]).then(res=>res.json()).then(res=>{
+        dispatch({type:"ADD_APP_INFO",payload:res})
         let currentVersion=res.version.split('.').map(Number)
         if( (appVersion[0]>=currentVersion[0]) && (appVersion[1]>=currentVersion[1]) && (appVersion[2]>=currentVersion[2]) ){
         }
@@ -91,9 +92,11 @@ export default function Main() {
             <StatusBar backgroundColor={colors.transparentColor} translucent />
             <View style={[styles.pageLoader,{backgroundColor:colors.mainBlackColor}]}>
                 <Image source={require('./assets/custom-splash.png')} resizeMode='contain' style={s.loadingLogo}  />
-                <Text style={s.loadingText}>{words[loadingWord]}</Text>
-                <Text style={s.versionText}>v{Constants.manifest.version}</Text>
-                <LottieView source={require('./assets/lotties/loading-bubble.json')} style={s.loadingGif} autoPlay loop />
+                  <View style={s.loadingBottomContainer}>
+                    <Text style={s.loadingText}>{words[loadingWord]}</Text>
+                    <Text style={s.versionText}>v{Constants.manifest.version}</Text>
+                  </View>
+                  <LottieView source={require('./assets/lotties/loading-bubble.json')} style={s.loadingGif} autoPlay loop />
             </View>
           </View>
         )
@@ -122,7 +125,7 @@ export default function Main() {
               </View>
             </View>
           </Modal>
-          {user?
+          {user?.user?
             <LoggedUserStackNavigator  />
             :
             <GuestStackNavigator  />
@@ -193,17 +196,23 @@ export default function Main() {
       fontFamily:'Nunito-SemiBold',
       fontSize:18,
       color:colors.lightWhite,
-      position:'absolute',
-      bottom:50,
-      zIndex:10
+      // position:'absolute',
+      // bottom:50,
+      zIndex:10,
+      marginTop:0,
+      // backgroundColor:"yellow",
+      textAlign:"center"
     },
     versionText:{
       fontFamily:'Nunito-Regular',
       fontSize:14,
       color:colors.lighterWhite,
-      position:'absolute',
-      bottom:30,
-      zIndex:10
+      // position:'absolute',
+      // bottom:30,
+      zIndex:10,
+      // backgroundColor:"yellow",
+      textAlign:"center",
+      marginTop:6
     },
     loadingLogo:{
       width:'100%',
@@ -212,8 +221,14 @@ export default function Main() {
     },
     loadingGif:{
       position:'absolute',
-      top:windowHeight/2-50,
+      bottom:14,
       width:220,
+      // backgroundColor:"purple"
+    },
+    loadingBottomContainer:{
+      position:'absolute',
+      bottom:30,
+      zIndex:10
     }
   })
 

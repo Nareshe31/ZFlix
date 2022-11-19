@@ -23,7 +23,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function WatchlistModal({ navigation, route }) {
-    const user = useSelector((state) => state);
+    const {user} = useSelector((state) => state);
     const [isSelected, setIsSelected] = useState(false);
     const [selected, setSelected] = useState([]);
     const [selectedTId, setSelectedTId] = useState([]);

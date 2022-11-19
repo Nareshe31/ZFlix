@@ -31,7 +31,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function ProfileModal({ navigation }) {
-    const user = useSelector((state) => state);
+    const {user,app_info} = useSelector((state) => state);
     const dispatch = useDispatch();
 
     const logout = () => {
@@ -43,9 +43,9 @@ export default function ProfileModal({ navigation }) {
     const onShare = async () => {
         try {
           const result = await Share.share({
-              title:"ZFlix App",
-            message:'Download ZFlix App to watch movies and tv shows for free. Click this link to download app https://zflix-backend.herokuapp.com/api/v2/zflix/latest-version/',
-              url:"https://zflix-backend.herokuapp.com/api/v2/zflix/latest-version/"
+              title:app_info.share_option.title,
+              message:app_info.share_option.message,
+              url:app_info.share_option.url
           });
           if (result.action === Share.sharedAction) {
             if (result.activityType) {

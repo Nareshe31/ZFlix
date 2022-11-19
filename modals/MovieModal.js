@@ -55,7 +55,7 @@ export default function ModalScreen({ navigation, route }) {
     const [visible, setIsVisible] = useState(false);
     const [images, setImages] = useState([]);
     const [imageIndex, setImageIndex] = useState(0);
-    const user = useSelector((state) => state);
+    const {user,app_info} = useSelector((state) => state);
     const dispatch = useDispatch();
 
     let { title, release_date } = route.params;
@@ -106,7 +106,9 @@ export default function ModalScreen({ navigation, route }) {
                     name: movieData.title,
                     year: movieData.release_date,
                     type: "movie",
+                    overview:movieData.overview
                 },
+                data:movieData
             });
             dispatch({ type: "ADD_TO_WATCHLIST", payload: data.user.watchlist });
             ToastAndroid.show("Added to watchlist", ToastAndroid.SHORT);
@@ -148,8 +150,11 @@ export default function ModalScreen({ navigation, route }) {
     });
     const watchMovie = async () => {
         try {
-            navigation.push("PlayModal", { url: `${URLs[15]}${movieData.imdb_id}` });
-            // WebBrowser.openBrowserAsync(`${URLs[15]}${movieData.imdb_id}`)
+            if (app_info?.stream_base==="app") {
+                navigation.push("PlayModal", { url: `${URLs[15]}${movieData.imdb_id}` });
+            } else {
+                WebBrowser.openBrowserAsync(`${URLs[15]}${movieData.imdb_id}`)
+            }
         } catch (error) {
             console.log(error);
         }

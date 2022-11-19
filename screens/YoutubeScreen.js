@@ -63,9 +63,11 @@ export default function YoutubeScreen({ navigation, route }) {
               <ActivityIndicator size={"large"} color={colors.mainBlue} />
             </View>
           )}
-          mixedContentMode='never'
+          // mixedContentMode='never'
+          originWhitelist={["*"]}
           onShouldStartLoadWithRequest={()=>{return false}}
           allowsFullscreenVideo={true}
+          allowsInlineMediaPlayback={true}
         />
       {/* </TouchableWithoutFeedback> */}
     </View>

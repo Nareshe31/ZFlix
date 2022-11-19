@@ -34,7 +34,7 @@ export default function SearchResult({ navigation, route }) {
         onEndReachedCalledDuringMomentum,
         setOnEndReachedCalledDuringMomentum,
     ] = useState(false);
-    const user = useSelector((state) => state);
+    const {user} = useSelector((state) => state);
 
     useEffect(() => {
         search(1);

@@ -19,7 +19,7 @@ import {
 import { useDispatch } from "react-redux";
 import * as SecureStore from "expo-secure-store";
 import { colors, styles } from "../globalStyle";
-import { abs } from "react-native-reanimated";
+// import { abs } from "react-native-reanimated";
 import { URLs } from "../globalUtils";
 
 const focusColor = "hsla(0,0%,60%,0.65)";

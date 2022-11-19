@@ -47,7 +47,7 @@ export default function Search({ navigation }) {
     const [currentTab, setCurrentTab] = useState(0);
     const [currentGenre, setCurrentGenre] = useState(0);
     const [allLangauages, setAllLangauages] = useState([])
-    const user = useSelector((state) => state);
+    const {user} = useSelector((state) => state);
 
     var d = new Date( "01 " + "January 1940");
     let first = d.getFullYear();

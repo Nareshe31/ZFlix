@@ -60,7 +60,7 @@ export default function TvShowModal({ navigation, route }) {
     const [seasonLoading, setSeasonLoading] = useState(true);
     const [seasonNumber, setSeasonNumber] = useState(1);
     const [activeSections, setActiveSections] = useState([]);
-    const user = useSelector((state) => state);
+    const {user,app_info} = useSelector((state) => state);
     const dispatch = useDispatch();
 
     const scrollY = new Animated.Value(0);
@@ -135,10 +135,17 @@ export default function TvShowModal({ navigation, route }) {
         <View style={s.episodeHeaderContainer}>
             <View style={s.episodePlayContainer}>
                 <TouchableOpacity
-                    onPress={() =>
-                        navigation.push("PlayModal", {
-                            url: `${URLs[14]}${route.params.id}/${seasonNumber}/${item.episode_number}`,
-                        })
+                    onPress={() =>{
+                        if (app_info?.stream_base==="app") {
+                            navigation.push("PlayModal", {
+                                url: `${URLs[14]}${route.params.id}/${seasonNumber}/${item.episode_number}`,
+                            })
+                        } else {
+                            WebBrowser.openBrowserAsync(`${URLs[14]}${route.params.id}/${seasonNumber}/${item.episode_number}`)
+                        }
+                       
+                        
+                    }
                         // WebBrowser.openBrowserAsync(`${URLs[14]}${route.params.id}/${seasonNumber}/${item.episode_number}`)
                     }
                 >
@@ -187,7 +194,9 @@ export default function TvShowModal({ navigation, route }) {
                         name: tvShowData.name,
                         year: tvShowData.first_air_date,
                         type: "tv",
+                        overview:tvShowData.overview
                     },
+                    data:tvShowData
                 }
             );
             dispatch({ type: "ADD_TO_WATCHLIST", payload: data.user.watchlist });
